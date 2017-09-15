@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'btrade_db',
         'USER': 'remote_user',
-        'PASSWORD': '3goa&dB3r4^RFi9,PLL4',
+        'PASSWORD': 'py8rb&Hudk?m934yDA^4',
         'HOST': '159.203.173.31',
         'PORT': '5432',
     }
