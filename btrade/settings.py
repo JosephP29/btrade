@@ -78,10 +78,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'btrade_db',
-        'USER': 'user1',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
+        'USER': 'remote_user',
+        'PASSWORD': '3goa&dB3r4^RFi9,PLL4',
+        'HOST': '159.203.173.31',
+        'PORT': '5432',
     }
 }
 
@@ -124,4 +124,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/account/' 
+LOGIN_REDIRECT_URL = '/account/'
