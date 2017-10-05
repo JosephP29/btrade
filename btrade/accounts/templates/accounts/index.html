@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="index.css">
+		{% block head %}
+      	<title>Home Page!</title>
+  		{% endblock %}
+	</head>
+{% block body %}
+	<img src="Logo.png" alt="bTrade Logo">
+	<div class="test">
+		<div>
+			<div>
+				<button class="button" onclick="location.href='reg_form.html'">Sign Up!</button>
+			</div>
+		</div>
+	</div>
+	<p class="loginRedirect">
+		Already have an account? <a href="~/accounts/login">Login</a>
+	</p>	
+</html>
+{% endblock%}
