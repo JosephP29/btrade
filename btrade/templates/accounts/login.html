@@ -1,12 +1,62 @@
-{% extends 'base.html' %}
+<html>
+<style>
+	input[type=text], select {
+    	width: 100%;
+    	padding: 12px 20px;
+    	margin: 8px 0;
+    	display: inline-block;
+    	border: 1px solid #ccc;
+    	border-radius: 4px;
+    	box-sizing: border-box;
+	}
 
-{% block body %}
-  <div class="container">
-    <h1>Login</h1>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Login</button>
-    </form>
-  </div>
-{% endblock %}
+	input[type=password], select {
+    	width: 100%;
+    	padding: 12px 20px;
+    	margin: 8px 0;
+    	display: inline-block;
+    	border: 1px solid #ccc;
+    	border-radius: 4px;
+    	box-sizing: border-box;
+	}
+
+	input[type=submit] {
+    	width: 100%;
+    	background-color: orange;
+    	color: white;
+    	padding: 14px 20px;
+    	margin: 8px 0;
+    	border: none;
+    	border-radius: 4px;
+    	cursor: pointer;
+	}
+
+	input[type=submit]:hover {
+    	background-color: blue;
+	}
+
+	div {
+    	border-radius: 5px;
+    	background-color: #f2f2f2;
+    	padding: 20px;
+	}
+
+</style>
+	<body>
+
+		<img src="/static/Logo.png" alt="BTrade Logo should be here" width="400" height="200">
+		<div>
+  			<form>
+    			<label for="username">Username</label>
+    			<input type="text" id="username" placeholder="Username..">
+
+    			<label>Password</label>
+    			<input type="password" id="password" placeholder="Enter password..">
+				Don't have an account? <a href="/account/signUp">Create an account</a> 
+  
+	    		<input type="submit" value="Submit" >
+  			</form>
+		</div>
+
+	</body>
+</html>
