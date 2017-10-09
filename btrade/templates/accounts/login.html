@@ -20,7 +20,7 @@
     	box-sizing: border-box;
 	}
 
-	input[type=submit] {
+	button[type=submit] {
     	width: 100%;
     	background-color: orange;
     	color: white;
@@ -31,7 +31,7 @@
     	cursor: pointer;
 	}
 
-	input[type=submit]:hover {
+	button[type=submit]:hover {
     	background-color: blue;
 	}
 
@@ -46,16 +46,11 @@
 
 		<img src="/static/Logo.png" alt="BTrade Logo should be here" width="400" height="200">
 		<div>
-  			<form>
-    			<label for="username">Username</label>
-    			<input type="text" id="username" placeholder="Username..">
-
-    			<label>Password</label>
-    			<input type="password" id="password" placeholder="Enter password..">
-				Don't have an account? <a href="/account/signUp">Create an account</a> 
-  
-	    		<input type="submit" value="Submit" >
-  			</form>
+			<form method="post">
+    		{% csrf_token %}
+     		{{ form.as_p }}
+     		<button type="submit">Submit</button>
+   		</form>
 		</div>
 
 	</body>
