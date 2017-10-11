@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <meta charset="utf-8">
+  <title>Stocks</title>
+  <style>
+    table {
+      border-collapse: separate;
+      border-spacing: 50px 0;
+    }
+    td {
+      padding: 10px 0;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h1>Stocks</h1>
+  <table>
+    <tr>
+      <th>Stock Name:</th>
+      <th>Stock Supply:</th>
+      <th>Stock Price:</th>
+      <th>Last Update:</th>
+    </tr>
+    {% for stock in stocks %}
+      <tr>
+        <td><a href="buystock" title="Purchase stock here">{{ stock.curr_type }}</a></td>
+        <td>{{ stock.supply }}</td>
+        <td>{{ stock.price }} currency</td>
+        <td>{{ stock.date_entered }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  <h6>All data is made up, highly inaccurate and manually entered.</h6>
+</div>
+{% endblock%}
+<!DOCTYPE html>

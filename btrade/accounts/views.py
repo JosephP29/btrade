@@ -57,3 +57,10 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
         args = {'form': form}
         return render(request, 'accounts/change_password.html', args)
+
+# not currently using, will be used in future
+def custom_login(request):
+    if request.user.is_authenticated():
+        return redirect('/account/')
+    else:
+        return render(request, 'main/index.html')
