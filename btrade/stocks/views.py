@@ -6,5 +6,7 @@ def stocks(request):
     stocks = Stock.objects.all()
     return render(request, 'stocks/stocks.html', {'stocks': stocks})
 
-def buystock(request):
-    return render(request, 'stocks/buystock.html')
+def buystock(request, pk):
+	s = {'stock': Stock.objects.get(pk=pk)}
+	#stockid = request.GET['stockid']
+	return render(request, 'stocks/buystock.html', s)

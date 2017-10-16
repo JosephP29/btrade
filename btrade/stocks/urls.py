@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.stocks),
-    url(r'^buystock$', views.buystock)
+    url(r'^buystock/(?P<pk>\w+)/$', views.buystock)
 ]

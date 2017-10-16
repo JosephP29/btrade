@@ -26,7 +26,7 @@
     </tr>
     {% for stock in stocks %}
       <tr>
-        <td><a href="buystock" title="Purchase stock here">{{ stock.curr_type }}</a></td>
+        <td><a href="buystock/{{ stock.pk }}"  title="Purchase stock here">{{ stock.curr_type }}</a></td>
         <td>{{ stock.supply }}</td>
         <td>{{ stock.price }} currency</td>
         <td>{{ stock.date_entered }}</td>
