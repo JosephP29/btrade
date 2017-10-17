@@ -13,5 +13,25 @@
   <p> Email: {{ user.email }} </p>
   <p> Currency: {{ user.userprofile.currency }}</p>
 </div>
+<div class="container">
+  <h1>Your Portfolio</h1>
+  <table>
+    <tr>
+      <th>Stock Name: </th>
+      <th>Price Bought At: </th>
+      <th>Date Bought: </th>
+      <th>Units: </th>
+    </tr>
+    {% for stock in stocks %}
+      <tr>
+        <td>{{ stock.stock_curr_type }}</td>
+        <td>{{ stock.price_bought_at }} US Dollars</td>
+        <td>{{ stock.date_bought }}</td>
+        <td>{{ stock.units }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  <h6>All data is made up, highly inaccurate and manually entered.</h6>
+</div>
 
 {% endblock %}

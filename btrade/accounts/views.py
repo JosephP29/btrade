@@ -26,7 +26,7 @@ def register(request):
 
 @login_required
 def view_profile(request):
-    args = {'user': request.user}
+    args = {'user': request.user, 'stocks': request.user.user_stock_set.all()}
     return render(request, 'accounts/profile.html', args)
 
 @login_required

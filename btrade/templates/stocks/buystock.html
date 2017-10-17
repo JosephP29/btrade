@@ -2,14 +2,14 @@
 
 {% block body %}
 <div class="container">
-  <h1>Stocks</h1>
+  <h1>Stock Details</h1>
   <table>
     <tr>
       <tr><th>Stock Name: {{ stock.curr_type }}</th></tr>
       <tr><th>Stock Supply: {{ stock.supply }}</th></tr>
       <tr><th>Stock Price: {{ stock.price }} US Dollars</th></tr>
       <tr><th>Last Update: {{ stock.date_entered }}</th></tr>
-      <tr><button type="Buy Stock">Buy Stock</button></tr>
+      <tr><button type="buystock" onclick="location.href='/stocks/confirmbuy/{{ stock.pk }}'">Buy Stock</button></tr>
     </tr>
   </table>
   <h6>All data is made up, highly inaccurate and manually entered.</h6>
