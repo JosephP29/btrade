@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from stocks.models import Stock, User_Stock
 from django.contrib.auth.models import User
+from datetime import datetime
 
 # Create your views here.
 def stocks(request):
@@ -21,3 +22,15 @@ def confirmbuy(request, pk):
 		u.save()
 	return render(request, 'stocks/confirmbuy.html')
 	#insert buying stock failed
+
+def confirmsell(request, pk): 
+	s = User_Stock.objects.get(pk=pk)
+	s.sold = True
+	s.date_sold = datetime.now()
+	s.price_sold_at = s.price_bought_at  #change this crap later
+	s.save()
+	u = request.user.userprofile
+	u.currency += s.price_bought_at
+	u.save()
+	return render(request, 'stocks/confirmsell.html')
+	#insert buying stock failed	
