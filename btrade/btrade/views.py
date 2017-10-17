@@ -5,3 +5,9 @@ def login_redirect(request):
 
 def index(request):
     return render(request, 'main/index.html')
+
+def profile(request):
+    return render(request, 'accounts/profile.html')
+
+def logout(request):
+    return render(request, 'accounts/logout.html')

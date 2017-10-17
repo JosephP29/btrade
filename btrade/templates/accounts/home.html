@@ -1,10 +1,55 @@
-{% extends 'base.html' %}
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+
+}
+
+td, th {
+    border: 1px solid blue; 
+    border-radius: 8px;   
+    box-shadow: 10px 10px 5px grey;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+img {
+	height: 10%;
+	width: 10%;
+}
+
+</style>
+</head>
 
 {% block head %}
-  <title>User Dashboard</title>
+	<p> <img src="/static/Logo.png" alt="BTrade Logo should be here" align ="left"> <h1><center>Welcome Back, {{ user }}!</h1> 
+    <a href="/logout"><h3 align="right">Logout</h3></a></p>
 {% endblock %}
 
 {% block body %}
-  <center><h1>User Dashboard</h1>
-  <a href="/stocks/"><h2>View Stocks Here</h2></a>
+  	<table>
+  	<tr>
+    	<th><a href="/profile/"><h2> {{user}}'s Profile</h2></a></th>
+    	<th><a href="/stocks/"><h2>View Stocks Here</h2></a></th>
+    	<th>Country</th>
+    	<th><a href="/leaderboard/"><h2>Global Leaderboard</h2></a></th>
+  	</tr>
+  	<tr>
+    	<td><h2>Stocks Invested In</h2></td>
+    	<td><h2>Stocks Invested In</h2></td>
+    	<td><h2>Stocks Invested In</h2></td>
+    	<td><h2>Trending Stocks</h2></td>
+  	</tr>
+  	<tr>
+    	<td><h2>Saved Stocks</h2></td>
+    	<td><h2>Saved Stocks</h2></td>
+    	<td><h2>Saved Stocks</h2></td>
+    	<td><h2>Settings</h2></td>
+  	</tr>
+	</table>
 {% endblock %}

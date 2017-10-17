@@ -21,6 +21,8 @@ urlpatterns = [
     url(r'^$', views.index),
     url(r'^admin/', admin.site.urls),
     url(r'^account/', include('accounts.urls')),
+    url(r'^profile/', views.profile),
+    url(r'^logout/', views.logout),
     url(r'^leaderboard/', include('leaderboard.urls')),
     url(r'^stocks/', include('stocks.urls')),
 ]
