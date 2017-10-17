@@ -8,10 +8,10 @@ def stocks(request):
     stocks = Stock.objects.all()
     return render(request, 'stocks/stocks.html', {'stocks': stocks})
 
-def buystock(request, pk):
+def stockdetail(request, pk):
 	s = {'stock': Stock.objects.get(pk=pk)}
 	#stockid = request.GET['stockid']
-	return render(request, 'stocks/buystock.html', s)
+	return render(request, 'stocks/stockdetail.html', s)
 
 def confirmbuy(request, pk): 
 	s = Stock.objects.get(pk=pk)
