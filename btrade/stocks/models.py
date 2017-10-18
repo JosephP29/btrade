@@ -17,7 +17,7 @@ class Stock(models.Model):
 
 
 class User_Stock(models.Model):
-	id = models.AutoField(primary_key=True)
+	#id = models.AutoField(primary_key=True)
 	owner = models.ForeignKey(User, on_delete=models.CASCADE)
 	units = models.PositiveIntegerField()
 	price_bought_at = models.PositiveIntegerField()
