@@ -23,6 +23,9 @@ urlpatterns = [
     url(r'^account/', include('accounts.urls')),
     url(r'^profile/', views.profile),
     url(r'^logout/', views.logout),
+    url(r'^account/profile/edit/', views.edit),
+    url(r'^account/info/', views.info),
+    url(r'^account/profile/portfolio/', views.portfolio),
     url(r'^leaderboard/', include('leaderboard.urls')),
     url(r'^stocks/', include('stocks.urls')),
 ]

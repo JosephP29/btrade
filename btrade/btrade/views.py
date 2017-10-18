@@ -12,3 +12,12 @@ def profile(request):
 def logout(request):
     return render(request, 'accounts/logout.html')
 
+def info(request):
+    return render(request, 'accounts/info.html')
+
+def portfolio(request):
+    return render(request, 'accounts/portfolio.html')
+
+def edit(request):
+    return render(request, 'accounts/edit_profile.html')
+

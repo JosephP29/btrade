@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<head>
   <style>
         button {
         position: absolute;
@@ -12,7 +11,7 @@
         border-radius: 6px;
         border: 2px solid gray; 
         font-size: 30px;
-        margin-left: -68px;
+        text-align: center;
         }
         .button:hover {
           background-color: orange;
@@ -24,45 +23,14 @@
           box-shadow: 0 5px #666;
           transform: translateY(4px);
         }
-      table {
-        font-family: arial, sans-serif;
-        height: 50%;
-        width: 50%;
-      }
-
-      td, th {
-        text-align: center;  
-      }
-
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
-      .wrapper {
-        text-align: center;
-        /* margin-left: 250px; */
-        top: 25%;
-      }
-      .wrapper1 {
-        text-align: right;
-        margin-right: 350px;
-        top: 25%;
-      }
+        .wrapper {
+          text-align: center;
+        }
   </style>
-  <title>Profile</title>
-</head>
+  <title>User Portfolio</title>
 {% endblock %}
-
-{% block body %}
-<div class="wrapper">
-  <button class="button" onclick="location.href='/account/info'">User Info</button>
-</div>
-
 <!--
-<div class="wrapper1">
-  <button class="button" name ="Portfolio" onclick="location.href='/account/profile/portfolio'">{{ user}}'s Portfolio</button>
-</div>
--->
-
+{% block body %}
 <div class="container">
   <h1>Your Portfolio</h1>
   <table>
@@ -84,3 +52,4 @@
   <h6>All data is made up, highly inaccurate and manually entered.</h6>
 </div>
 {% endblock %}
+-->
