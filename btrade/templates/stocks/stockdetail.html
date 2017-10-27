@@ -15,8 +15,8 @@
       <tr><th>Last Update: {{ stock.date_entered }}</th></tr>
     </tr>
   </table>
-  <button type="buystock" onclick="location.href='/stocks/confirmbuy/{{ stock.pk }}'">Buy Stock</button>
-  <button type="sellstock" onclick="location.href='/stocks/confirmsell/{{ stock.pk }}'">Sell Stock</button>
+  <button type="buystock" onclick="location.href='/stocks/confirmbuy/{{ stock.pk }}/'">Buy Stock</button>
+  <button type="sellstock" onclick="location.href='/stocks/confirmsell/{{ stock.pk }}/'">Sell Stock</button>
   <h6>All data is made up, highly inaccurate and manually entered.</h6>
 </div>
 {% endblock%}
