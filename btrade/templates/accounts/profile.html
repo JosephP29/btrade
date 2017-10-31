@@ -10,13 +10,13 @@
         color: white;
         bottom: 205px;
         border-radius: 6px;
-        border: 2px solid gray; 
+        border: 2px solid gray;
         font-size: 30px;
         margin-left: -68px;
         }
         .button:hover {
           background-color: orange;
-          color: white; 
+          color: white;
           box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
         }
         .button:active {
@@ -31,7 +31,7 @@
       }
 
       td, th {
-        text-align: center;  
+        text-align: center;
       }
 
       tr:nth-child(even) {
@@ -53,7 +53,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="wrapper">
+<div class="wrapper1">
   <button class="button" onclick="location.href='/account/info'">User Info</button>
 </div>
 
@@ -67,10 +67,10 @@
   <h1>Your Portfolio</h1>
   <table>
     <tr>
-      <th>Stock Name: </th>
-      <th>Price Bought At: </th>
-      <th>Date Bought: </th>
-      <th>Units: </th>
+      <th>Stock Name</th>
+      <th>Price Bought At</th>
+      <th>Date Bought</th>
+      <th>Units</th>
     </tr>
     {% for stock in stocks %}
       <tr>
@@ -82,5 +82,49 @@
     {% endfor %}
   </table>
   <h6>All data is made up, highly inaccurate and manually entered.</h6>
+</div>
+
+<div class="container">
+  <h1>Your Purchases</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Stock Name</th>
+      <th>Price Bought At</th>
+      <th>Date Bought</th>
+      <th>Units</th>
+    </tr>
+    {% for buy in buys %}
+      <tr>
+        <td>{{ buy.owner }}</td>
+        <td>{{ buy.curr_type }}</td>
+        <td>{{ buy.price_bought_at }} US Dollars</td>
+        <td>{{ buy.date_bought }}</td>
+        <td>{{ buy.units }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+
+<div class="container">
+  <h1>Your Sales</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Stock Name</th>
+      <th>Price Bought At</th>
+      <th>Date Bought</th>
+      <th>Units</th>
+    </tr>
+    {% for sale in sales %}
+      <tr>
+        <td>{{ sale.owner }}</td>
+        <td>{{ sale.curr_type }}</td>
+        <td>{{ sale.price_sold_at }} US Dollars</td>
+        <td>{{ sale.date_bought }}</td>
+        <td>{{ sale.units }}</td>
+      </tr>
+    {% endfor %}
+  </table>
 </div>
 {% endblock %}

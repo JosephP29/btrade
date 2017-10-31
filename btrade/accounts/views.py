@@ -8,6 +8,8 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 
+from stocks.models import BuyReceipt, SellReceipt
+
 # Create your views here.
 @login_required
 def home(request):
@@ -26,7 +28,10 @@ def register(request):
 
 @login_required
 def view_profile(request):
-    args = {'user': request.user, 'stocks': request.user.user_stock_set.all()}
+    args = {'user': request.user, 'stocks': request.user.user_stock_set.all(),
+            'buys': BuyReceipt.objects.filter(owner=request.user),
+            'sales': SellReceipt.objects.filter(owner=request.user),
+        }
     return render(request, 'accounts/profile.html', args)
 
 @login_required
