@@ -19,5 +19,7 @@
   <button type="sellstock" onclick="location.href='/stocks/confirmsell/{{ stock.pk }}/'">Sell Stock</button>
   <h6>All data is made up, highly inaccurate and manually entered.</h6>
 </div>
-{% endblock%}
-<!DOCTYPE html>
+<div class="container">
+  <a href='/stocks/buystock/{{ stock.pk }}'>Buy A Stock</button>
+</div>
+{% endblock %}

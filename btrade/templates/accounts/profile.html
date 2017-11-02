@@ -4,15 +4,15 @@
 <head>
   <style>
         button {
-        position: absolute;
-        background-color: blue;
-        border: none;
-        color: white;
-        bottom: 205px;
-        border-radius: 6px;
-        border: 2px solid gray;
-        font-size: 30px;
-        margin-left: -68px;
+          position: absolute;
+          background-color: blue;
+          border: none;
+          color: white;
+          bottom: 205px;
+          border-radius: 6px;
+          border: 2px solid gray;
+          font-size: 30px;
+          margin-left: -68px;
         }
         .button:hover {
           background-color: orange;
@@ -28,6 +28,12 @@
         font-family: arial, sans-serif;
         height: 50%;
         width: 50%;
+      }
+
+      .table1 {
+        font-family: arial, sans-serif;
+        height: 30%;
+        width: 30%;
       }
 
       td, th {
@@ -65,18 +71,19 @@
 
 <div class="container">
   <h1>Your Portfolio</h1>
-  <table>
-    <tr>
-      <th>Stock Name</th>
-      <th>Price Bought At</th>
-      <th>Date Bought</th>
-      <th>Units</th>
-    </tr>
+  <h2>Currency: {{ user.userprofile.currency }}</h2>
+  <table class="table1">
+      <tr>
+        <th>Stock Name</th>
+        <!--th>Price Bought At</th>
+        <th>Date Bought</th-->
+        <th>Units</th>
+      </tr>
     {% for stock in stocks %}
       <tr>
         <td>{{ stock.stock_curr_type }}</td>
-        <td>{{ stock.price_bought_at }} US Dollars</td>
-        <td>{{ stock.date_bought }}</td>
+        <!--td>{{ stock.price_bought_at }} US Dollars</td>
+        <td>{{ stock.date_bought }}</td-->
         <td>{{ stock.units }}</td>
       </tr>
     {% endfor %}

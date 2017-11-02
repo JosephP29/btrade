@@ -28,7 +28,8 @@ def register(request):
 
 @login_required
 def view_profile(request):
-    args = {'user': request.user, 'stocks': request.user.user_stock_set.all(),
+    args = {'user': request.user,
+            'stocks': request.user.user_stock_set.all(),
             'buys': BuyReceipt.objects.filter(owner=request.user),
             'sales': SellReceipt.objects.filter(owner=request.user),
         }
