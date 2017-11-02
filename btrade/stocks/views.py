@@ -45,15 +45,43 @@ def buystock(request, pk):
         args = {'form': buy_form, 'stock': s}
         return render(request, 'stocks/buystock.html', args)
 
-def sellstock(request):
+def sellstock(request, pk):
+    s = Stock.objects.get(pk=pk)
+    u = request.user.userprofile
     if request.method == 'POST':
         sell_form = SellStockForm(request.POST)
         if sell_form.is_valid():
-            sell_form.save()
-            return redirect('/stocks/sellstock.html')
+            sell_form = sell_form.save(commit=False)
+            sell_form.owner = request.user
+            sell_form.curr_type = s.curr_type
+            sell_form.price_sold_at = s.price
+
+            try:
+                user_s = User_Stock.objects.get(owner=request.user, stock_curr_type=s.curr_type)
+                print(user_s)
+                print(user_s.units)
+                print(sell_form.units)
+                if (user_s.units >= sell_form.units):
+                    print("HELLO WORLD")
+                    user_s.units -= sell_form.units
+                    u.currency += s.price * sell_form.units
+                    user_s.save()
+                    u.save()
+                    sell_form.save()
+                    return redirect('/account/profile')
+            except User_Stock.DoesNotExist:
+                print("*****NO STOCKS*****")
+                sell_form = SellStockForm()
+                args = {'form': buy_form, 'stock': s}
+                return render(request, 'stocks/sellstock.html', args)
+        else:
+            print("*****ERROR*****")
+            sell_form = SellStockForm()
+            args = {'form': buy_form, 'stock': s}
+            return render(request, 'stocks/sellstock.html', args)
     else:
         sell_form = SellStockForm()
-        args = {'form': sell_form}
+        args = {'form': sell_form, 'stock': s}
         return render(request, 'stocks/sellstock.html', args)
 
 def stockdetail(request, pk):

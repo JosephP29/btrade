@@ -19,9 +19,9 @@ class User_Stock(models.Model):
     #price_bought_at = models.PositiveIntegerField()
     stock_curr_type = models.CharField(max_length=10)
     date_bought = models.DateTimeField(auto_now=True)
-    date_sold = models.DateTimeField(null=True, blank=True)
-    sold = models.BooleanField(default=False)
-    price_sold_at = models.PositiveIntegerField(default=0)
+    #date_sold = models.DateTimeField(null=True, blank=True)
+    #sold = models.BooleanField(default=False)
+    #price_sold_at = models.PositiveIntegerField(default=0)
 
     # Gives clear name in admin page
     def __str__(self):

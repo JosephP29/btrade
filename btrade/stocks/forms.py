@@ -37,8 +37,11 @@ class SellStockForm(forms.ModelForm):
             'curr_type',
             )
 
+        exclude = ('owner', 'curr_type', 'price_sold_at')
+
     def save(self, commit=True):
-        sell_receipt = super(BuyStockForm, self).save(commit=False)
+        sell_receipt = super(SellStockForm, self).save(commit=False)
+        sell_receipt.units = self.cleaned_data['units']
 
         if commit:
             sell_receipt.save()
