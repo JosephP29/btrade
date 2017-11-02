@@ -58,26 +58,35 @@ def sellstock(request, pk):
 
             try:
                 user_s = User_Stock.objects.get(owner=request.user, stock_curr_type=s.curr_type)
-                print(user_s)
-                print(user_s.units)
-                print(sell_form.units)
                 if (user_s.units >= sell_form.units):
-                    print("HELLO WORLD")
                     user_s.units -= sell_form.units
+                    print(user_s.units)
+                    if (user_s.units == 0):
+                        print("*****DELETE*****")
+                        user_s.delete()
+                        u.currency += s.price * sell_form.units
+                        u.save()
+                        sell_form.save()
                     u.currency += s.price * sell_form.units
                     user_s.save()
                     u.save()
                     sell_form.save()
                     return redirect('/account/profile')
+                else:
+                    print("*****SELLING MORE THAN YOU OWN*****")
+                    sell_form = SellStockForm()
+                    args = {'form': sell_form, 'stock': s}
+                    return render(request, 'stocks/sellstock.html', args)
+
             except User_Stock.DoesNotExist:
-                print("*****NO STOCKS*****")
+                print("*****NO USER STOCK MODEL*****")
                 sell_form = SellStockForm()
                 args = {'form': buy_form, 'stock': s}
                 return render(request, 'stocks/sellstock.html', args)
         else:
-            print("*****ERROR*****")
+            print("*****FORM NOT VALID*****")
             sell_form = SellStockForm()
-            args = {'form': buy_form, 'stock': s}
+            args = {'form': sell_form, 'stock': s}
             return render(request, 'stocks/sellstock.html', args)
     else:
         sell_form = SellStockForm()
