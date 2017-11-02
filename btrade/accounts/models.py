@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     currency = models.IntegerField(default=0)
+    earned_currency = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username
