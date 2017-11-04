@@ -2,21 +2,38 @@
 
 {% block head %}
   <title>Leaderboard Home</title>
+  <style>
+    table{counter-reset:section;}
+    .count:before {
+      counter-increment:section;
+      content:counter(section);
+    }
+    tr {
+    border: 2px solid blue; 
+    border-radius: 8px;   
+    box-shadow: 10px 10px 5px grey;
+    }
+    tr:nth-child(even) {
+        background-color: #FF9D11;
+        color: white;
+    }
   </style>
 {% endblock %}
 
 {% block body %}
   <div class="container">
-    <h1>Leaderboard</h1>
+    <center><img src="/static/trophy.png" alt="A trophy should be here" height="50" width="50"><h1>Leaderboard</h1></center>
     <table class='table table-responsive table-striped'>
       <tr>
+        <th>Rank</th>
         <th>Name</th>
-        <th>Score</th>
+        <th>Currency</th>
       </tr>
       {% for user in users %}
       <tr>
+        <td class="count"></td>
         <td>{{ user.username }}</td>
-        <td>{{ user.userprofile.earned_currency }}</p></td>
+        <td>{{ user.userprofile.earned_currency }}</td>
       </tr>
       {% endfor %}
     </table>

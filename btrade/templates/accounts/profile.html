@@ -96,7 +96,6 @@
   <h1>Your Purchases</h1>
   <table>
     <tr>
-      <th>Name</th>
       <th>Stock Name</th>
       <th>Price Bought At</th>
       <th>Date Bought</th>
@@ -104,7 +103,6 @@
     </tr>
     {% for buy in buys %}
       <tr>
-        <td>{{ buy.owner }}</td>
         <td>{{ buy.curr_type }}</td>
         <td>{{ buy.price_bought_at }} US Dollars</td>
         <td>{{ buy.date_bought }}</td>
