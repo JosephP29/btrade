@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from stocks.models import Stock, User_Stock, BuyReceipt, SellReceipt
+from stocks.models import Stock, User_Stock, BuyReceipt, SellReceipt, HistoryStock
 from django.contrib.auth.models import User
 from datetime import datetime
 from stocks.forms import BuyStockForm, SellStockForm
@@ -92,8 +92,9 @@ def sellstock(request, pk):
 
 def stockdetail(request, pk):
 	s = {'stock': Stock.objects.get(pk=pk)}
+	l1 = HistoryStock.objects,get(curr_type=s.curr_type).values('price','date_entered')
 	#stockid = request.GET['stockid']
-	return render(request, 'stocks/stockdetail.html', s)
+	return render(request, 'stocks/stockdetail.html', s, l1)
 
 # NOTE: Pretty much moved into buystock function
 def confirmbuy(request, pk):

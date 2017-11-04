@@ -51,3 +51,13 @@ class SellReceipt(models.Model):
     def __str__(self):
         string = str(self.owner) + " " + self.curr_type
         return string
+
+
+class HistoryStock(models.Model):
+    price = models.PositiveIntegerField()
+    curr_type = models.CharField(max_length=10, unique=True)
+    date_entered = models.DateTimeField()
+
+    # Gives clear name in admin page
+    def __str__(self):
+        return self.curr_type
