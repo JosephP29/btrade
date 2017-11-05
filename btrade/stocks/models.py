@@ -55,7 +55,7 @@ class SellReceipt(models.Model):
 
 class HistoryStock(models.Model):
     price = models.PositiveIntegerField()
-    curr_type = models.CharField(max_length=10, unique=True)
+    curr_type = models.CharField(max_length=10)
     date_entered = models.DateTimeField()
 
     # Gives clear name in admin page

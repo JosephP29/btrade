@@ -91,10 +91,21 @@ def sellstock(request, pk):
         return render(request, 'stocks/sellstock.html', args)
 
 def stockdetail(request, pk):
-	s = {'stock': Stock.objects.get(pk=pk)}
-	l1 = HistoryStock.objects,get(curr_type=s.curr_type).values('price','date_entered')
+	s1 = Stock.objects.get(pk=pk)
+	l1 = HistoryStock.objects.filter(curr_type=s1.curr_type).order_by('date_entered').values_list('price', flat=True)
+	list1 = list(l1)
+	l2 = HistoryStock.objects.filter(curr_type=s1.curr_type).order_by('date_entered').values_list('date_entered', flat=True)
+
+	dates = []
+	for date in l2:
+		dates.append(date.strftime("%b %d, %Y %I:%M %p"))
+	
+	list1.append(s1.price)
+	dates.append(s1.date_entered.strftime("%b %d, %Y %I:%M %p"))
+
+	s = {'stock': Stock.objects.get(pk=pk), 'prices': list1, 'dates': dates}
 	#stockid = request.GET['stockid']
-	return render(request, 'stocks/stockdetail.html', s, l1)
+	return render(request, 'stocks/stockdetail.html', s)
 
 # NOTE: Pretty much moved into buystock function
 def confirmbuy(request, pk):
