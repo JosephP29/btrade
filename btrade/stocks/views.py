@@ -90,8 +90,8 @@ def sellstock(request, pk):
         args = {'form': sell_form, 'stock': s}
         return render(request, 'stocks/sellstock.html', args)
 
-def stockdetail(request, pk):
-	s1 = Stock.objects.get(pk=pk)
+def stockdetail(request, curr_type):
+	s1 = Stock.objects.get(curr_type=curr_type)
 	l1 = HistoryStock.objects.filter(curr_type=s1.curr_type).order_by('date_entered').values_list('price', flat=True)
 	list1 = list(l1)
 	l2 = HistoryStock.objects.filter(curr_type=s1.curr_type).order_by('date_entered').values_list('date_entered', flat=True)
@@ -103,7 +103,7 @@ def stockdetail(request, pk):
 	list1.append(s1.price)
 	dates.append(s1.date_entered.strftime("%b %d, %Y %I:%M %p"))
 
-	s = {'stock': Stock.objects.get(pk=pk), 'prices': list1, 'dates': dates}
+	s = {'stock': Stock.objects.get(curr_type=curr_type), 'prices': list1, 'dates': dates}
 	#stockid = request.GET['stockid']
 	return render(request, 'stocks/stockdetail.html', s)
 

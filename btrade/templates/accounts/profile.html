@@ -82,7 +82,7 @@
       </tr>
     {% for stock in stocks %}
       <tr>
-        <td>{{ stock.stock_curr_type }}</td>
+        <td><a href="../../stocks/stockdetail/{{ stock.stock_curr_type }}/"  title="Purchase stock here">{{ stock.stock_curr_type }}</a></td>
         <!--td>{{ stock.price_bought_at }} US Dollars</td>
         <td>{{ stock.date_bought }}</td-->
         <td>{{ stock.units }}</td>
@@ -104,7 +104,7 @@
     </tr>
     {% for buy in buys %}
       <tr>
-        <td>{{ buy.curr_type }}</td>
+        <td><a href="../../stocks/stockdetail/{{ buy.curr_type }}/"  title="Purchase stock here">{{ buy.curr_type }}</a></td>
         <td>{{ buy.price_bought_at }} US Dollars</td>
         <td>{{ buy.date_bought }}</td>
         <td>{{ buy.units }}</td>
@@ -117,7 +117,6 @@
   <h1>Your Sales</h1>
   <table>
     <tr>
-      <th>Name</th>
       <th>Stock Name</th>
       <th>Price Bought At</th>
       <th>Date Bought</th>
@@ -125,8 +124,7 @@
     </tr>
     {% for sale in sales %}
       <tr>
-        <td>{{ sale.owner }}</td>
-        <td>{{ sale.curr_type }}</td>
+        <td><a href="../../stocks/stockdetail/{{ sale.curr_type }}/"  title="Purchase stock here">{{ sale.curr_type }}</a></td>
         <td>{{ sale.price_sold_at }} US Dollars</td>
         <td>{{ sale.date_bought }}</td>
         <td>{{ sale.units }}</td>
