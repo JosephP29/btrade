@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^logout/', views.logout),
     url(r'^account/profile/edit/', views.edit),
     url(r'^account/info/', views.info),
+    url(r'^admin/', views.admin),
     url(r'^account/profile/portfolio/', views.portfolio),
     url(r'^leaderboard/', include('leaderboard.urls')),
     url(r'^stocks/', include('stocks.urls')),

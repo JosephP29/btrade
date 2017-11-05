@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<html>
+    <head>
+        <style> 
+            input[type=text] {
+                width: 130px;
+                box-sizing: border-box;
+                border: 2px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+                background-color: white;
+                background-image: url('searchicon.png');
+                background-position: 10px 10px; 
+                background-repeat: no-repeat;
+                padding: 12px 20px 12px 40px;
+                -webkit-transition: width 0.4s ease-in-out;
+                transition: width 0.4s ease-in-out;
+            }
+
+            input[type=text]:focus {
+                width: 80%;
+            }
+            button {
+                height: 30px;
+                width: 40px;
+                background-color: blue;
+                border: none;
+                color: white;
+                bottom: 205px;
+                border-radius: 6px;
+                border: 2px solid gray;
+                font-size: 15px;
+            }
+            .button:hover {
+                background-color: orange;
+                color: white;
+                box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+            }
+            .button:active {
+                background-color: #3e8e41;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+
+        </style>
+    </head>
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="container">
+    <form>
+        <input type="text" name="search" placeholder="Search..">
+        <input type="submit" value="Submit">
+    </form>
+    <br><br>
+    <p>Results:</p>
+    <table class='table table-responsive table-striped'>
+      <tr>
+        <th>User</th>
+        <th>Action</th>
+        <th>Submit</th>
+      </tr>
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>
+            <select>
+            <option value="editUser">Edit User</option>
+            <option value="viewUser">View User</option>
+            <option value="removeUser">Remove User</option> 
+            </select>
+        </td>
+        <td><button class="button">Go</button></td>
+      </tr>
+    </table>
+    This is table is currently hard coded and has no real functionality...
+</div>
+</body>
+</html>
+{% endblock %}

@@ -21,3 +21,6 @@ def portfolio(request):
 def edit(request):
     return render(request, 'accounts/edit_profile.html')
 
+def admin(request):
+    return render(request, 'admin/admin_search.html')
+
