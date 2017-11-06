@@ -26,7 +26,17 @@
 <div class="container">
 
   <div ng-app="app" ng-controller="LineCtrl">
-  <canvas id="price" class="chart chart-line" chart-data="price_data" chart-labels="price_labels" chart-legend="true" chart-series="series" chart-options="options" chart-colors="colors"></canvas>
+  <canvas id="price" 
+          height="20"
+          width="80"
+          class="chart chart-line" 
+          chart-data="price_data" 
+          chart-labels="price_labels" 
+          chart-legend="true" 
+          chart-series="series" 
+          chart-options="options" 
+          chart-colors="colors">          
+  </canvas>
   </div> 
 
   <script>
@@ -44,7 +54,7 @@
       $scope.series = [
           'Price'
       ];
-      $scope.colors = ['#0000ff'];
+      $scope.colors = ['#6495ed'];
       $scope.options = {
           animation: false,
           responsive: true,
@@ -58,7 +68,7 @@
                   radius: 0
               },
               line: {
-                  fill: false
+                  fill: true
               }
           },
           scales: {
@@ -100,7 +110,7 @@
       };
   });
   </script>
-
+  <h2><center>Bitcoin is so hot right now</center></h2>
 
   <h1>Stocks</h1>
   <table>
