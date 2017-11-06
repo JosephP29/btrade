@@ -13,7 +13,12 @@ from stocks.models import BuyReceipt, SellReceipt
 # Create your views here.
 @login_required
 def home(request):
-    return render(request, 'accounts/home.html')
+    qs = request.user.user_stock_set.all()
+    s1 = qs[0]
+    s2 = qs[1]
+    s3 = qs[2]
+    args = {'stock1': s1, 'stock2': s2, 'stock3': s3}
+    return render(request, 'accounts/home.html', args)
 
 def register(request):
     if request.method =='POST':
