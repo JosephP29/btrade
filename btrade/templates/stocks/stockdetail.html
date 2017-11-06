@@ -13,44 +13,80 @@
 <p><center><img src="/static/Logo.png" alt="BTrade Logo should be here" height="25%" width="25%"></center></p>
 <div class="container">
   <h1>Stock Name: {{ stock.curr_type }}</h1>
-  <canvas id="myChart" width="400" height="400"></canvas>
+  <div ng-app="app" ng-controller="LineCtrl">
+  <canvas id="price" class="chart chart-line" chart-data="price_data" chart-labels="price_labels" chart-legend="true" chart-series="series" chart-options="options" chart-colors="colors"></canvas>
+  </div> 
+
   <script>
-  var ctx = document.getElementById("myChart").getContext('2d');
-  var myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-          labels: {{ dates|safe }},
-          datasets: [{
-              label: 'Prices Over Time',
-              data: {{ prices|safe }},
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)',
-                  'rgba(75, 192, 192, 0.2)',
-                  'rgba(153, 102, 255, 0.2)',
-                  'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255,99,132,1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
+    angular.module("app", ["chart.js"]).controller("LineCtrl", function($scope, $http, $filter, API) {
+      'use strict';
+      $scope.price_data = [];
+      $scope.price_labels = [];
+      var url = 'https://www.coincap.io/history/' + '{{ stock.curr_type }}';
+      API.getData(url).then(function(values) {
+          angular.forEach(values.price, function(value, key) {
+              $scope.price_data.push(value[1]);
+              $scope.price_labels.push($filter('date')(value[0], 'medium'));
+          });
+      });
+
+      $scope.series = [
+          'Price'
+      ];
+      $scope.colors = ['#0000ff'];
+      $scope.options = {
+          animation: false,
+          responsive: true,
+          tooltipEvents: [
+              'mousemove',
+              'touchstart',
+              'touchmove'
+          ],
+          elements: {
+              point: {
+                  radius: 0
+              },
+              line: {
+                  fill: false
+              }
+          },
           scales: {
               yAxes: [{
-                  ticks: {
-                      beginAtZero:true
-                  }
+                  display: true
+              }],
+              xAxes: [{
+                  display: false
               }]
           }
-      }
+      };
+  }).factory('API', function($http) {
+      'use strict';
+      var coins = [];
+      return {
+          getData: function(selection, $url, $log) {
+              var _url = selection;
+              if (typeof $url !== 'undefined') {
+                  _url += $url;
+              }
+              return $http({
+                  method: 'GET',
+                  url: _url
+              }).then(function(response) {
+                  coins = response.data;
+                  return coins;
+              }, function error(response) {
+                  $log.log(response);
+                  return false;
+              });
+          }
+      };
+  }).filter('numberWithCommas', function() {
+      'use strict';
+      return function(x) {
+          var parts = x.toString().split(".");
+          parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          return parts.join(".");
+      };
   });
   </script>
   <table>
