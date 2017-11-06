@@ -44,7 +44,7 @@
       'use strict';
       $scope.price_data = [];
       $scope.price_labels = [];
-      API.getData('https://www.coincap.io/history/BTC').then(function(values) {
+      API.getData('https://www.coincap.io/history/7day/BTC').then(function(values) {
           angular.forEach(values.price, function(value, key) {
               $scope.price_data.push(value[1]);
               $scope.price_labels.push($filter('date')(value[0], 'medium'));
@@ -113,21 +113,29 @@
   <h2><center>Bitcoin is so hot right now</center></h2>
 
   <h1>Stocks</h1>
-  <table>
-    <tr>
-      <th>Stock Name</th>
-      <th>Stock Supply</th>
-      <th>Stock Price</th>
-      <th>Last Update</th>
-    </tr>
+
+     <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Stock Name</th>
+        <th>Stock Supply</th>
+        <th>Stock Price</th>
+        <th>Last Update</th>
+      </tr>
+    </thead>
+
+    <tbody>
     {% for stock in stocks %}
+      
       <tr>
         <td><a href="stockdetail/{{ stock.curr_type }}/"  title="Purchase stock here">{{ stock.curr_type }}</a></td>
         <td>{{ stock.supply }}</td>
         <td>{{ stock.price }} currency</td>
         <td>{{ stock.date_entered }}</td>
       </tr>
+      
     {% endfor %}
+    </tbody>
   </table>
   <h6>All data is made up, highly inaccurate and manually entered.</h6>
 </div>
