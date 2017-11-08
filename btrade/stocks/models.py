@@ -22,6 +22,7 @@ class User_Stock(models.Model):
     #date_sold = models.DateTimeField(null=True, blank=True)
     #sold = models.BooleanField(default=False)
     #price_sold_at = models.PositiveIntegerField(default=0)
+    saved = models.BooleanField(default=False)
 
     # Gives clear name in admin page
     def __str__(self):

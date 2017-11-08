@@ -14,10 +14,24 @@ from stocks.models import BuyReceipt, SellReceipt
 @login_required
 def home(request):
     qs = request.user.user_stock_set.all()
+    savedStocks = request.user.user_stock_set.filter(saved=True)
     s1 = qs[0]
     s2 = qs[1]
     s3 = qs[2]
-    args = {'stock1': s1, 'stock2': s2, 'stock3': s3}
+    if (savedStocks.count() == 1):
+        saved1 = savedStocks[0]
+        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'saved1': saved1}
+    elif (savedStocks.count() == 2):
+        saved1 = savedStocks[0]
+        saved2 = savedStocks[1]
+        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'saved1': saved1, 'saved2': saved2}
+    elif (savedStocks.count() == 3):
+        saved1 = savedStocks[0]
+        saved2 = savedStocks[1]
+        saved3 = savedStocks[2]
+        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'saved1': saved1, 'saved2': saved2, 'saved3': saved3}
+    else:
+        args = {'stock1': s1, 'stock2': s2, 'stock3': s3}
     return render(request, 'accounts/home.html', args)
 
 def register(request):
