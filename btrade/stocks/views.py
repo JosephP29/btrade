@@ -66,12 +66,13 @@ def sellstock(request, pk):
                 user_s = User_Stock.objects.get(owner=request.user, stock_curr_type=s.curr_type)
                 if (user_s.units >= sell_form.units):
                     user_s.units -= sell_form.units
-                    print(user_s.units)
-                    if (user_s.units == 0):
-                        print("*****DELETE User_Stock*****")
                     u.currency += s.price * sell_form.units
                     u.earned_currency += s.price * sell_form.units
-                    user_s.save()
+
+                    if (user_s.units == 0):
+                        user_s.delete()
+                    else:
+                        user_s.save()
                     u.save()
                     sell_form.save()
                     return redirect('/account/profile')
