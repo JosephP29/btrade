@@ -7,4 +7,5 @@ urlpatterns = [
 	url(r'^buystock/(?P<pk>\w+)/$', views.buystock),
 	url(r'^sellstock/(?P<pk>\w+)/$', views.sellstock),
 	url(r'^savestock/(?P<pk>\w+)/$', views.savestock),
+	url(r'^unsavestock/(?P<pk>\w+)/$', views.unsavestock),
 ]

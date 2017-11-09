@@ -9,13 +9,15 @@
     }
   </style>
 </head>
+
 {% block body %}
 <p><center><img src="/static/Logo.png" alt="BTrade Logo should be here" height="25%" width="25%"></center></p>
+
 <div class="container">
   <h1>Stock Name: {{ stock.curr_type }}</h1>
   <div ng-app="app" ng-controller="LineCtrl">
   <canvas id="price" class="chart chart-line" chart-data="price_data" chart-labels="price_labels" chart-legend="true" chart-series="series" chart-options="options" chart-colors="colors"></canvas>
-  </div>
+</div>
 
   <script>
     angular.module("app", ["chart.js"]).controller("LineCtrl", function($scope, $http, $filter, API) {
@@ -98,12 +100,10 @@
   <button type="buystock" onclick="location.href='/stocks/buystock/{{ stock.pk }}/'">Buy Stock</button>
   <button type="sellstock" onclick="location.href='/stocks/sellstock/{{ stock.pk }}/'">Sell Stock</button>
 
-  {% if ustock.saved == False %}
+  {% if savedstock == None %}
     <button type="savestock" onclick="location.href='/stocks/savestock/{{ stock.pk }}'">Watch Stock</button>
-  {% endif %}
-
-  {% if ustock.saved == True %}
-    <button type="savestock" onclick="location.href='/stocks/savestock/{{ stock.pk }}'">Stop Watching Stock</button>
+  {% else %}
+    <button type="savestock" onclick="location.href='/stocks/unsavestock/{{ stock.pk }}'">Stop Watching Stock</button>
   {% endif%}
   <h6>All data is made up, highly inaccurate and manually entered.</h6>
 </div>

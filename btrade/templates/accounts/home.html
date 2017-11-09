@@ -1,32 +1,29 @@
-<head>
-<style>
-table {
-    font-family: arial, sans-serif;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-
-}
-
-td, th {
-    border: 1px solid blue;
-    border-radius: 8px;
-    box-shadow: 10px 10px 5px grey;
-}
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-img {
-	height: 10%;
-	width: 10%;
-}
-
-</style>
-</head>
-
 {% block head %}
-	<p> <img src="/static/Logo.png" alt="BTrade Logo should be here" align ="left"> <h1><center>Welcome Back, {{ user.first_name }}!</h1>
+  <style>
+    table {
+        font-family: arial, sans-serif;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+
+    }
+
+    td, th {
+        border: 1px solid blue;
+        border-radius: 8px;
+        box-shadow: 10px 10px 5px grey;
+    }
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+
+    img {
+      height: 10%;
+      width: 10%;
+    }
+  </style>
+	<p> <img src="/static/Logo.png" alt="BTrade Logo should be here" align ="left">
+    <h1><center>Welcome Back, {{ user.first_name }}!</h1>
     <a href="/logout"><h3 align="right">Logout</h3></a></p>
 {% endblock %}
 
@@ -49,10 +46,11 @@ img {
         {% if saved1 == null %}
           <h2>No Stocks Saved</h2>
         {% endif %}
-        <a href="/stocks/stockdetail/{{ saved1.stock_curr_type }}">
-          <h2>{{ saved1.stock_curr_type }}</h2>
+        <a href="/stocks/stockdetail/{{ saved1.curr_type }}">
+          <h2>{{ saved1.curr_type }}</h2>
         <a/>
       </td>
+
     	<td>
         {% if saved2 == null %}
           <h2>No Stocks Saved</h2>
@@ -61,6 +59,7 @@ img {
           <h2>{{ saved2.stock_curr_type }}</h2>
         <a/>
       </td>
+
     	<td>
         {% if saved3 == null %}
           <h2>No Stocks Saved</h2>
@@ -69,6 +68,7 @@ img {
           <h2>{{ saved3.stock_curr_type }}</h2>
         <a/>
       </td>
+      
     	<th><a href="/account/info/"><h2>Settings</h2></a></th>
   	</tr>
 	</table>

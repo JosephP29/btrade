@@ -22,7 +22,6 @@ class User_Stock(models.Model):
     #date_sold = models.DateTimeField(null=True, blank=True)
     #sold = models.BooleanField(default=False)
     #price_sold_at = models.PositiveIntegerField(default=0)
-    saved = models.BooleanField(default=False)
 
     # Gives clear name in admin page
     def __str__(self):
@@ -62,3 +61,12 @@ class HistoryStock(models.Model):
     # Gives clear name in admin page
     def __str__(self):
         return self.curr_type
+
+class SavedStock(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    curr_type = models.CharField(max_length=10)
+
+    # Gives clear name in admin page
+    def __str__(self):
+        string = str(self.owner) + " " + self.curr_type
+        return string

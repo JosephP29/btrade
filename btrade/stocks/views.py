@@ -1,5 +1,12 @@
 from django.shortcuts import render, redirect
-from stocks.models import Stock, User_Stock, BuyReceipt, SellReceipt, HistoryStock
+from stocks.models import (
+    Stock,
+    User_Stock,
+    BuyReceipt,
+    SellReceipt,
+    HistoryStock,
+    SavedStock
+)
 from django.contrib.auth.models import User
 from datetime import datetime
 from stocks.forms import BuyStockForm, SellStockForm
@@ -10,7 +17,6 @@ def stocks(request):
     stocks = Stock.objects.all()
     return render(request, 'stocks/stocks.html', {'stocks': stocks})
 
-# NOTE: LOTS OF TEST CASES HERE
 def buystock(request, pk):
     s = Stock.objects.get(pk=pk)
     u = request.user.userprofile
@@ -92,7 +98,6 @@ def sellstock(request, pk):
 
 def stockdetail(request, curr_type):
     s1 = Stock.objects.get(curr_type=curr_type)
-    user_stock = User_Stock.objects.get(owner=request.user, stock_curr_type=curr_type)
 
     l1 = HistoryStock.objects.filter(curr_type=s1.curr_type).order_by('date_entered').values_list('price', flat=True)
     list1 = list(l1)
@@ -105,13 +110,24 @@ def stockdetail(request, curr_type):
     list1.append(s1.price)
     dates.append(s1.date_entered.strftime("%b %d, %Y %I:%M %p"))
 
-    s = {'stock': Stock.objects.get(curr_type=curr_type), 'prices': list1, 'dates': dates, 'ustock': user_stock }
-	#stockid = request.GET['stockid']
+    try:
+        saved_stock = SavedStock.objects.get(owner=request.user, curr_type=curr_type)
+        s = {'stock': Stock.objects.get(curr_type=curr_type), 'prices': list1, 'dates': dates, 'savedstock': saved_stock }
+    except SavedStock.DoesNotExist:
+        s = {'stock': Stock.objects.get(curr_type=curr_type), 'prices': list1, 'dates': dates}
+
+    #stockid = request.GET['stockid']
     return render(request, 'stocks/stockdetail.html', s)
 
 def savestock(request, pk):
+    user = request.user
     stock = Stock.objects.get(pk=pk)
-    user_stock = User_Stock.objects.get(owner=request.user, stock_curr_type=stock.curr_type)
-    user_stock.saved = not user_stock.saved
-    user_stock.save()
+    save_stock = SavedStock.objects.create(owner=request.user, curr_type=stock.curr_type)
+    save_stock.save()
+    return redirect('/account/')
+
+def unsavestock(request, pk):
+    user = request.user
+    stock = Stock.objects.get(pk=pk)
+    save_stock = SavedStock.objects.filter(owner=user, curr_type=stock.curr_type).delete()
     return redirect('/account/')
