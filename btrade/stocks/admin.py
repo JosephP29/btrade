@@ -6,7 +6,8 @@ from stocks.models import (
     SellReceipt,
     HistoryStock,
     SavedStock,
-)                
+    current_price_table,
+)
 
 # Register your models here.
 admin.site.register(Stock)
@@ -20,3 +21,5 @@ admin.site.register(SellReceipt)
 admin.site.register(HistoryStock)
 
 admin.site.register(SavedStock)
+
+admin.site.register(current_price_table)

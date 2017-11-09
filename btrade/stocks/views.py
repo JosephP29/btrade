@@ -5,7 +5,8 @@ from stocks.models import (
     BuyReceipt,
     SellReceipt,
     HistoryStock,
-    SavedStock
+    SavedStock,
+    current_price_table,
 )
 from django.contrib.auth.models import User
 from datetime import datetime
@@ -15,7 +16,8 @@ from django import forms
 # Create your views here.
 def stocks(request):
     stocks = Stock.objects.all()
-    return render(request, 'stocks/stocks.html', {'stocks': stocks})
+    price_table = current_price_table.objects.all()
+    return render(request, 'stocks/stocks.html', {'price_table': price_table})
 
 def buystock(request, pk):
     s = Stock.objects.get(pk=pk)

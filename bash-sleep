@@ -1,6 +1,13 @@
 #!/bin/sh
 
 while true; do
-	python3 btrade-api.py
-	sleep 1
+	python3 fetchapi.py
+	COUNTER=60
+	while [ $COUNTER -gt 0 ]; do
+		echo "Waiting $COUNTER seconds"
+		let COUNTER=COUNTER-1
+		sleep 1
+		tput cuu1
+		tput el
+	done
 done

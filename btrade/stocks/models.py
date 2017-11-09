@@ -13,6 +13,19 @@ class Stock(models.Model):
     def __str__(self):
         return self.curr_type
 
+
+class current_price_table(models.Model):
+    time = models.DateTimeField('%Y-%m-%d %H:%M:%S')
+    print(time)
+    coin_type = models.CharField(max_length=10, unique=True)
+    price = models.FloatField()
+    volume = models.FloatField()
+    mktcap = models.FloatField()
+
+    # Gives clear name in admin page
+    def __str__(self):
+        return self.curr_type
+
 class User_Stock(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     units = models.PositiveIntegerField()

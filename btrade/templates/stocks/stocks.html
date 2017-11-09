@@ -114,27 +114,32 @@
 
   <h1>Stocks</h1>
 
-     <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Stock Name</th>
-        <th>Stock Price</th>
-        <th>Last Update</th>
-      </tr>
-    </thead>
+  <table class="table table-hover">
+  <thead>
+   <tr>
+     <th>Coin Name</th>
+     <th>Price</th>
+     <th>24 Hour Volume</th>
+     <th>Market Cap</th>
+     <th>Last Update</th>
+   </tr>
+  </thead>
 
-    <tbody>
-    {% for stock in stocks %}
+  <tbody>
+  {% for coin in price_table %}
 
-      <tr>
-        <td><a href="stockdetail/{{ stock.curr_type }}/"  title="Purchase stock here">{{ stock.curr_type }}</a></td>
-        <td>{{ stock.price }} currency</td>
-        <td>{{ stock.date_entered }}</td>
-      </tr>
+   <tr>
+     <td><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }} here">{{ coin.coin_type }}</a></td>
+     <td>${{ coin.price }}</td>
+     <td>${{ coin.volume }}</td>
+     <td>${{ coin.mktcap }}</td>
+     <td>{{ coin.time }}</td>
+   </tr>
 
-    {% endfor %}
-    </tbody>
+  {% endfor %}
+  </tbody>
   </table>
+
   <h6>All data is made up, highly inaccurate and manually entered.</h6>
 </div>
 {% endblock%}
