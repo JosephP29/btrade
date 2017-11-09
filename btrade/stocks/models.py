@@ -16,7 +16,6 @@ class Stock(models.Model):
 
 class current_price_table(models.Model):
     time = models.DateTimeField('%Y-%m-%d %H:%M:%S')
-    print(time)
     coin_type = models.CharField(max_length=10, unique=True)
     price = models.FloatField()
     volume = models.FloatField()
