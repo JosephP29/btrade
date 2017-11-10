@@ -4,7 +4,7 @@
 
 <div class="container">
   <h1>Sell Stock Form</h1>
-  <h4><b>Price per {{ stock.curr_type }}: {{stock.price}}</h4>
+  <h4><b>Price per {{ coin_type }}: ${{coin.price}}</h4>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

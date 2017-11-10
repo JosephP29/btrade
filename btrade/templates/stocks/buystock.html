@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 
 {% block body %}
+
 <div class="container">
   <h1>Purchase Stock Form</h1>
-  <h4><b>Price per {{ stock.curr_type }}: {{stock.price}}</h4>
+  <h4><b>Price per {{ coin_type }}: ${{ coin.price }}</h4>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
   <br>
     <!-- FIXME: Total cost should be displayed dynamically. I think we have to use javascript -->
-    <h5><b>Total Cost: </b></h5>
+    <h5><b>Total Cost: <p id="calculateTotal"></p>
+      <script>
+        document.getElementById("calculateTotal").innerHTML = {{ form.units }} ;
+      </script>
+    </b></h5>
   </br>
     <!-- BUG: Can send multiple buys if you click while the site loads -->
     <button type="submit" name="submit" value="submit" id="preventDouble" class="btn btn-warning btn-block">Submit</button>

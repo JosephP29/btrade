@@ -10,10 +10,10 @@ class BuyStockForm(forms.ModelForm):
             'owner',
             'units',
             'price_bought_at',
-            'curr_type',
+            'coin_type',
             )
 
-        exclude = ('owner', 'curr_type', 'price_bought_at')
+        exclude = ('owner', 'coin_type', 'price_bought_at')
 
     def save(self, commit=True):
         buy_receipt = super(BuyStockForm, self).save(commit=False)
@@ -34,10 +34,10 @@ class SellStockForm(forms.ModelForm):
             'owner',
             'units',
             'price_sold_at',
-            'curr_type',
+            'coin_type',
             )
 
-        exclude = ('owner', 'curr_type', 'price_sold_at')
+        exclude = ('owner', 'coin_type', 'price_sold_at')
 
     def save(self, commit=True):
         sell_receipt = super(SellStockForm, self).save(commit=False)

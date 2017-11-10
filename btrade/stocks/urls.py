@@ -3,9 +3,9 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', views.stocks),
-	url(r'^stockdetail/(?P<curr_type>\w+)/$', views.stockdetail),
-	url(r'^buystock/(?P<pk>\w+)/$', views.buystock),
-	url(r'^sellstock/(?P<pk>\w+)/$', views.sellstock),
-	url(r'^savestock/(?P<pk>\w+)/$', views.savestock),
-	url(r'^unsavestock/(?P<pk>\w+)/$', views.unsavestock),
+	url(r'^stockdetail/(?P<coin_type>\w+)/$', views.stockdetail),
+	url(r'^buystock/(?P<coin_type>\w+)/$', views.buystock),
+	url(r'^sellstock/(?P<coin_type>\w+)/$', views.sellstock),
+	url(r'^savestock/(?P<coin_type>\w+)/$', views.savestock),
+	url(r'^unsavestock/(?P<coin_type>\w+)/$', views.unsavestock),
 ]

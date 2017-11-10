@@ -28,10 +28,10 @@ def connect():
 			conn.close()
 			print('Database connection closed.')
 
-def insert_coin_price_hist(coin_type, price, volume, mktcap):
-    print("Inserting entry into coin_price_table_hist")
-    #sql = """INSERT INTO coin_price_table('2017-11-08 20:00:00', 'coin_type', price, volume, mktcap)
-    #         VALUES(%s) RETURNING coin_id"""
+def insert_coin_price_hist(table_name, coin_type, price, volume, mktcap):
+    print("Inserting", coin_type, "into", table_name)
+    sql = """INSERT INTO """ + table_name + """(time, coin_type, price, volume, mktcap)
+                VALUES(%s, %s, %s, %s, %s)"""
     conn = None
     try:
         # read database configuration
@@ -42,8 +42,7 @@ def insert_coin_price_hist(coin_type, price, volume, mktcap):
         cur = conn.cursor()
         timestmp = strftime("%Y-%m-%d %H:%M:%S")
         # execute the INSERT statement
-        cur.execute('INSERT INTO stocks_current_price_table(time, coin_type, price, volume, mktcap) VALUES (%s, %s, %s, %s, %s)', (timestmp, coin_type, price, volume, mktcap))
-        #cur.execute(sql, (coin_type, price, volume, mktcap))
+        cur.execute(sql, (timestmp, coin_type, price, volume, mktcap))
         # commit the changes to the database
         conn.commit()
         # close communication with the database
@@ -54,9 +53,9 @@ def insert_coin_price_hist(coin_type, price, volume, mktcap):
         if conn is not None:
             conn.close()
 
-def update_current_prices(coin_type, price, volume, mktcap):
-    print("Updating coin in stocks_current_price_table")
-    sql = """ UPDATE stocks_current_price_table
+def update_current_prices(table_name, coin_type, price, volume, mktcap):
+    print("Updating", coin_type, "in", table_name)
+    sql = """ UPDATE """ + table_name + """
                 SET time= %s, coin_type= %s, price= %s, volume= %s, mktcap= %s
                 WHERE coin_type = %s"""
     conn = None
@@ -70,7 +69,6 @@ def update_current_prices(coin_type, price, volume, mktcap):
         timestmp = strftime("%Y-%m-%d %H:%M:%S")
         # execute the INSERT statement
         cur.execute(sql, (timestmp, coin_type, price, volume, mktcap, coin_type))
-        #cur.execute(sql, (coin_type, price, volume, mktcap))
         # commit the changes to the database
         conn.commit()
         # close communication with the database
@@ -111,8 +109,12 @@ for coin in parsed['RAW']:
 	print("\tLOW24HOUR: ", low24hour)
 	print("\tSUPPLY: ", supply)
 
-	#insert_coin_price_hist(coin, price, volume, mktcap)
-	update_current_prices(coin, price, volume, mktcap)
+	insert_table = 'stocks_history'
+	update_table = 'stocks_current_price_table'
+
+	insert_coin_price_hist(insert_table, coin, price, volume, mktcap)
+	#insert_coin_price_hist(update_table, coin, price, volume, mktcap)
+	update_current_prices(update_table, coin, price, volume, mktcap)
 
 	## More fields are available from parsed, however these are the
 	## only values that should be necessary for us
