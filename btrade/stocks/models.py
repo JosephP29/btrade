@@ -49,7 +49,7 @@ class User_Stock(models.Model):
 
     # Gives clear name in admin page
     def __str__(self):
-        string = str(self.owner) + " " + self.stock_curr_type
+        string = str(self.owner) + " " + self.coin_type
         return string
 
 class BuyReceipt(models.Model):
