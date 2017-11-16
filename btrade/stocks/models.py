@@ -39,10 +39,11 @@ class history(models.Model):
 
 class User_Stock(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    units = models.PositiveIntegerField()
+    units = models.FloatField()
     #price_bought_at = models.PositiveIntegerField()
     coin_type = models.CharField(max_length=10)
     date_bought = models.DateTimeField(auto_now=True)
+    netgain = models.FloatField(default=0.00)
     #date_sold = models.DateTimeField(null=True, blank=True)
     #sold = models.BooleanField(default=False)
     #price_sold_at = models.PositiveIntegerField(default=0)
@@ -55,7 +56,7 @@ class User_Stock(models.Model):
 class BuyReceipt(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     units = models.FloatField()
-    price_bought_at = models.PositiveIntegerField()
+    price_bought_at = models.FloatField()
     coin_type = models.CharField(max_length=10)
     date_bought = models.DateTimeField(auto_now=True)
 
@@ -67,7 +68,7 @@ class BuyReceipt(models.Model):
 class SellReceipt(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     units = models.FloatField()
-    price_sold_at = models.PositiveIntegerField()
+    price_sold_at = models.FloatField()
     coin_type = models.CharField(max_length=10)
     date_bought = models.DateTimeField(auto_now=True)
 

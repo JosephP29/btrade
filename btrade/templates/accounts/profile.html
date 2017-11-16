@@ -78,14 +78,16 @@
         <th>Stock Name</th>
         <!--th>Price Bought At</th>
         <th>Date Bought</th-->
-        <th>Price</th>
+        <th>Current Market Price?</th>
         <th>Units</th>
+        <th>Net Gain</th>
       </tr>
     {% for coin in coin_list %}
       <tr>
         <td><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase stock here">{{ coin.coin_type }}</a></td>
-        <td>$ </td>
+        <td>$</td>
         <td>{{ coin.units }}</td>
+        <td>{{ coin.netgain }}</td>
       </tr>
     {% endfor %}
   </table>

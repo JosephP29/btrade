@@ -38,9 +38,10 @@ def buystock(request, coin_type):
                     user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
                     user_s.units += buy_form.units
                     u.currency -= coin.price * buy_form.units
+                    user_s.netgain -= (coin.price * buy_form.units)
                     user_s.save()
                 except User_Stock.DoesNotExist:
-                    User_Stock.objects.create(owner=request.user, units=buy_form.units, coin_type=coin_type)
+                    User_Stock.objects.create(owner=request.user, units=buy_form.units, coin_type=coin_type, netgain=(coin.price*buy_form.units*-1))
                     u.currency -= coin.price * buy_form.units
 
                 u.save()
@@ -72,6 +73,7 @@ def sellstock(request, coin_type):
                 user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
                 if (user_s.units >= sell_form.units):
                     user_s.units -= sell_form.units
+                    user_s.netgain += (coin.price * sell_form.units)
                     u.currency += coin.price * sell_form.units
                     u.earned_currency += coin.price * sell_form.units
 
