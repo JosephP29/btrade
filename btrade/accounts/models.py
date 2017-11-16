@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 # Create your models here.
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    currency = models.IntegerField(default=0)
+    currency = models.FloatField()
     earned_currency = models.IntegerField(default=0)
 
     def __str__(self):

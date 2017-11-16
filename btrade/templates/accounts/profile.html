@@ -76,16 +76,18 @@
   <table class="table1">
       <tr>
         <th>Stock Name</th>
-        <!--th>Price Bought At</th>
-        <th>Date Bought</th-->
-        <th>Current Market Price?</th>
+        <th>Current Market Price</th>
         <th>Units</th>
         <th>Net Gain</th>
       </tr>
     {% for coin in coin_list %}
       <tr>
         <td><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase stock here">{{ coin.coin_type }}</a></td>
-        <td>$</td>
+        {% for current_price in current_prices %}
+          {% if current_price.coin_type == coin.coin_type %}
+            <td>{{ current_price.price }}</td>
+          {% endif %}
+        {% endfor %}
         <td>{{ coin.units }}</td>
         <td>{{ coin.netgain }}</td>
       </tr>
