@@ -4,7 +4,6 @@
 <head>
   <style>
         button {
-          position: absolute;
           background-color: blue;
           border: none;
           color: white;
@@ -73,7 +72,7 @@
   <h1>Your Portfolio</h1>
   <h2>Account Balance: ${{ user.userprofile.currency }}</h2>
   <h2>Score: {{ user.userprofile.earned_currency }}</h2>
-  <table class="table1">
+  <table class="table table-responsive table-striped">
       <tr>
         <th>Stock Name</th>
         <th>Current Market Price</th>
@@ -99,12 +98,13 @@
 <div class="container">
   <h1>Your Purchases</h1>
   <!--<a href="/admin/admin_search"><h2>Admin Profile</h2></a>-->
-  <table>
+  <table class="table table-responsive table-striped">
     <tr>
       <th>Stock Name</th>
       <th>Price Bought At</th>
       <th>Date Bought</th>
       <th>Units</th>
+      <th>Total Cost</th>
     </tr>
     {% for buy in buys %}
       <tr>
@@ -112,6 +112,7 @@
         <td>{{ buy.price_bought_at }} US Dollars</td>
         <td>{{ buy.date_bought }}</td>
         <td>{{ buy.units }}</td>
+        <td>{{ buy.buy_total }}</td>
       </tr>
     {% endfor %}
   </table>
@@ -119,12 +120,13 @@
 
 <div class="container">
   <h1>Your Sales</h1>
-  <table>
+  <table class="table table-responsive table-striped">
     <tr>
       <th>Stock Name</th>
       <th>Price Bought At</th>
       <th>Date Bought</th>
       <th>Units</th>
+      <th>Total</th>
     </tr>
     {% for sale in sales %}
       <tr>
@@ -132,6 +134,7 @@
         <td>{{ sale.price_sold_at }} US Dollars</td>
         <td>{{ sale.date_bought }}</td>
         <td>{{ sale.units }}</td>
+        <td>{{ sale.sell_total }}</td>
       </tr>
     {% endfor %}
   </table>

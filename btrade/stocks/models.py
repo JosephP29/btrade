@@ -57,6 +57,7 @@ class BuyReceipt(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     units = models.FloatField()
     price_bought_at = models.FloatField()
+    buy_total = models.FloatField(null=True)
     coin_type = models.CharField(max_length=10)
     date_bought = models.DateTimeField(auto_now=True)
 
@@ -69,6 +70,7 @@ class SellReceipt(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     units = models.FloatField()
     price_sold_at = models.FloatField()
+    sell_total = models.FloatField(null=True)
     coin_type = models.CharField(max_length=10)
     date_bought = models.DateTimeField(auto_now=True)
 

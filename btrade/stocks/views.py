@@ -32,6 +32,7 @@ def buystock(request, coin_type):
             buy_form.owner = request.user
             buy_form.coin_type = coin.coin_type
             buy_form.price_bought_at = coin.price
+            buy_form.buy_total = coin.price * buy_form.units
 
             if (u.currency >= buy_form.units * coin.price):
                 try:
@@ -68,6 +69,7 @@ def sellstock(request, coin_type):
             sell_form.owner = request.user
             sell_form.coin_type = coin.coin_type
             sell_form.price_sold_at = coin.price
+            sell_form.sell_total = coin.price * sell_form.units
 
             try:
                 user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
