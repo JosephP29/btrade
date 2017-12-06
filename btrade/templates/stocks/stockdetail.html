@@ -45,6 +45,7 @@
 
   {% if savedstock == None %}
     <button type="savestock" onclick="location.href='/stocks/savestock/{{ coin_type }}'">Watch Stock</button>
+    {{ savedstock }}
   {% else %}
     <button type="savestock" onclick="location.href='/stocks/unsavestock/{{ coin_type }}'">Stop Watching Stock</button>
   {% endif%}

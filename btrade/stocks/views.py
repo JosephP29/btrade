@@ -109,19 +109,29 @@ def sellstock(request, coin_type):
 
 def stockdetail(request, coin_type):
     #s1 = history.objects.get(coin_type=coin_type)
-    sorted_history_table = history.objects.filter(coin_type=coin_type).order_by('-time')[:10]
-    return render(request, 'stocks/stockdetail.html', {'history_table': sorted_history_table, 'coin_type': coin_type})
-
-
-def savestock(request, pk):
     user = request.user
-    stock = Stock.objects.get(pk=pk)
+    sorted_history_table = history.objects.filter(coin_type=coin_type).order_by('-time')[:10]
+    try:
+        saved = SavedStock.objects.get(owner=user, coin_type=coin_type)
+        args = { 'history_table': sorted_history_table,
+                 'coin_type': coin_type,
+                 'savedstock': saved, }
+    except:
+        args = { 'history_table': sorted_history_table, 'coin_type': coin_type, }
+
+    return render(request, 'stocks/stockdetail.html', args)
+
+
+
+def savestock(request, coin_type):
+    user = request.user
+    stock = Stock.objects.get(coin_type=coin_type)
     save_stock = SavedStock.objects.create(owner=request.user, coin_type=stock.coin_type)
     save_stock.save()
     return redirect('/account/')
 
-def unsavestock(request, pk):
+def unsavestock(request, coin_type):
     user = request.user
-    stock = Stock.objects.get(pk=pk)
+    stock = Stock.objects.get(coin_type=coin_type)
     save_stock = SavedStock.objects.filter(owner=user, coin_type=stock.coin_type).delete()
     return redirect('/account/')
