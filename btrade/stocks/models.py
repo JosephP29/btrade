@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Stock(models.Model):
-    price = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=13, decimal_places=2)
     coin_type = models.CharField(max_length=10, unique=True)
     date_entered = models.DateTimeField()
 
@@ -17,9 +17,9 @@ class Stock(models.Model):
 class current_price_table(models.Model):
     time = models.DateTimeField('%Y-%m-%d %H:%M:%S')
     coin_type = models.CharField(max_length=10, unique=True)
-    price = models.FloatField()
-    volume = models.FloatField()
-    mktcap = models.FloatField()
+    price = models.DecimalField(max_digits=13, decimal_places=2)
+    volume = models.DecimalField(max_digits=20, decimal_places=2)
+    mktcap = models.DecimalField(max_digits=20, decimal_places=2)
 
     # Gives clear name in admin page
     def __str__(self):
@@ -29,9 +29,9 @@ class current_price_table(models.Model):
 class history(models.Model):
     time = models.DateTimeField('%Y-%m-%d %H:%M:%S')
     coin_type = models.CharField(max_length=10)
-    price = models.FloatField()
-    volume = models.FloatField()
-    mktcap = models.FloatField()
+    price = models.DecimalField(max_digits=13, decimal_places=2)
+    volume = models.DecimalField(max_digits=20, decimal_places=2)
+    mktcap = models.DecimalField(max_digits=20, decimal_places=2)
 
     # Gives clear name in admin page
     def __str__(self):
@@ -39,14 +39,10 @@ class history(models.Model):
 
 class User_Stock(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    units = models.FloatField()
-    #price_bought_at = models.PositiveIntegerField()
+    units = models.DecimalField(max_digits=18, decimal_places=8)
     coin_type = models.CharField(max_length=10)
     date_bought = models.DateTimeField(auto_now=True)
-    netgain = models.FloatField(default=0.00)
-    #date_sold = models.DateTimeField(null=True, blank=True)
-    #sold = models.BooleanField(default=False)
-    #price_sold_at = models.PositiveIntegerField(default=0)
+    netgain = models.DecimalField(default=0.00, max_digits=10, decimal_places=3)
 
     # Gives clear name in admin page
     def __str__(self):
@@ -55,9 +51,9 @@ class User_Stock(models.Model):
 
 class BuyReceipt(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    units = models.FloatField()
-    price_bought_at = models.FloatField()
-    buy_total = models.FloatField(null=True)
+    units = units = models.DecimalField(max_digits=18, decimal_places=8)
+    price_bought_at = models.DecimalField(max_digits=13, decimal_places=2)
+    buy_total = models.DecimalField(max_digits=13, decimal_places=2, null=True)
     coin_type = models.CharField(max_length=10)
     date_bought = models.DateTimeField(auto_now=True)
 
@@ -68,9 +64,9 @@ class BuyReceipt(models.Model):
 
 class SellReceipt(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    units = models.FloatField()
-    price_sold_at = models.FloatField()
-    sell_total = models.FloatField(null=True)
+    units = models.DecimalField(max_digits=18, decimal_places=8)
+    price_sold_at = models.DecimalField(max_digits=13, decimal_places=2)
+    sell_total = models.DecimalField(max_digits=13, decimal_places=2, null=True)
     coin_type = models.CharField(max_length=10)
     date_bought = models.DateTimeField(auto_now=True)
 
@@ -81,7 +77,7 @@ class SellReceipt(models.Model):
 
 
 class HistoryStock(models.Model):
-    price = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=13, decimal_places=2)
     coin_type = models.CharField(max_length=10)
     date_entered = models.DateTimeField()
 

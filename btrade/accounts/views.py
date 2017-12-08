@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-
 from stocks.models import BuyReceipt, SellReceipt, SavedStock, current_price_table
 
 # Create your views here.
@@ -15,9 +14,9 @@ from stocks.models import BuyReceipt, SellReceipt, SavedStock, current_price_tab
 def home(request):
     qs = request.user.user_stock_set.all()
     saved_stocks = SavedStock.objects.filter(owner=request.user)
-    s1 = qs[0]
-    s2 = qs[1]
-    s3 = qs[2]
+    s1 = None#qs[0]
+    s2 = None#qs[1]
+    s3 = None#qs[2]
 
     if (saved_stocks.count() == 1):
         saved1 = saved_stocks[0]

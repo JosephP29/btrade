@@ -62,12 +62,6 @@
   <button class="button" onclick="location.href='/account/info'">User Info</button>
 </div>
 
-<!--
-<div class="wrapper1">
-  <button class="button" name ="Portfolio" onclick="location.href='/account/profile/portfolio'">{{ user}}'s Portfolio</button>
-</div>
--->
-
 <div class="container">
   <h1>Your Portfolio</h1>
   <h2>Account Balance: ${{ user.userprofile.currency }}</h2>
@@ -84,7 +78,7 @@
         <td><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase stock here">{{ coin.coin_type }}</a></td>
         {% for current_price in current_prices %}
           {% if current_price.coin_type == coin.coin_type %}
-            <td>{{ current_price.price }}</td>
+            <td>${{ current_price.price }}</td>
           {% endif %}
         {% endfor %}
         <td>{{ coin.units }}</td>
@@ -109,10 +103,10 @@
     {% for buy in buys %}
       <tr>
         <td><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase stock here">{{ buy.coin_type }}</a></td>
-        <td>{{ buy.price_bought_at }} US Dollars</td>
+        <td>${{ buy.price_bought_at }}</td>
         <td>{{ buy.date_bought }}</td>
         <td>{{ buy.units }}</td>
-        <td>{{ buy.buy_total }}</td>
+        <td>${{ buy.buy_total }}</td>
       </tr>
     {% endfor %}
   </table>
@@ -126,15 +120,15 @@
       <th>Price Bought At</th>
       <th>Date Bought</th>
       <th>Units</th>
-      <th>Total</th>
+      <th>Total Cost</th>
     </tr>
     {% for sale in sales %}
       <tr>
         <td><a href="../../stocks/stockdetail/{{ sale.coin_type }}/"  title="Purchase stock here">{{ sale.coin_type }}</a></td>
-        <td>{{ sale.price_sold_at }} US Dollars</td>
+        <td>${{ sale.price_sold_at }}</td>
         <td>{{ sale.date_bought }}</td>
         <td>{{ sale.units }}</td>
-        <td>{{ sale.sell_total }}</td>
+        <td>${{ sale.sell_total }}</td>
       </tr>
     {% endfor %}
   </table>

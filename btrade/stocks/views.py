@@ -21,9 +21,7 @@ def stocks(request):
     return render(request, 'stocks/stocks.html', {'price_table': sorted_price_table})
 
 def buystock(request, coin_type):
-    #s = Stock.objects.get(pk=pk)
     coin = current_price_table.objects.get(coin_type=coin_type)
-    #coin_price = current_price_table.objects.filter(coin_type=coin_type).price
     u = request.user.userprofile
     if request.method == 'POST':
         buy_form = BuyStockForm(request.POST)
@@ -59,7 +57,6 @@ def buystock(request, coin_type):
         return render(request, 'stocks/buystock.html', args)
 
 def sellstock(request, coin_type):
-    #s = Stock.objects.get(pk=pk)
     coin = current_price_table.objects.get(coin_type=coin_type)
     u = request.user.userprofile
     if request.method == 'POST':
