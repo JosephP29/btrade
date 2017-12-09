@@ -122,7 +122,7 @@ def stockdetail(request, coin_type):
 
 def savestock(request, coin_type):
     user = request.user
-    stock = Stock.objects.get(coin_type=coin_type)
+    stock = current_price_table.objects.get(coin_type=coin_type)
     save_stock = SavedStock.objects.create(owner=request.user, coin_type=stock.coin_type)
     save_stock.save()
     return redirect('/account/')
