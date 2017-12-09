@@ -20,6 +20,7 @@ class current_price_table(models.Model):
     price = models.DecimalField(max_digits=13, decimal_places=2)
     volume = models.DecimalField(max_digits=20, decimal_places=2)
     mktcap = models.DecimalField(max_digits=20, decimal_places=2)
+    change24hour = models.DecimalField(max_digits=20, decimal_places=2)
 
 
     # Gives clear name in admin page
@@ -33,6 +34,7 @@ class history(models.Model):
     price = models.DecimalField(max_digits=13, decimal_places=2)
     volume = models.DecimalField(max_digits=20, decimal_places=2)
     mktcap = models.DecimalField(max_digits=20, decimal_places=2)
+    change24hour = models.DecimalField(max_digits=20, decimal_places=2)
 
     # Gives clear name in admin page
     def __str__(self):

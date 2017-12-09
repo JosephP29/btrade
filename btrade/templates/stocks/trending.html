@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+<head>
+  <title>Trending Coins</title>
+  <style>
+    .btn_div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+  </style>
+</head>
+
+{% block body %}
+<p><center><img src="/static/Logo.png" alt="BTrade Logo should be here" height="25%" width="25%"></center></p>
+
+<div class="container">
+  <table class="table table-hover">
+  <thead>
+   <tr>
+     <th>Coin</th>
+     <th>Price</th>
+     <th>Change in 24 Hours</th>
+     <th>24 Hour Volume</th>
+     <th>Market Cap</th>
+     <th>Time</th>
+   </tr>
+  </thead>
+
+  <tbody>
+  {% for entry in trending_table %}
+
+   <tr>
+     <td>{{ entry.coin_type}}</td>
+     <td>${{ entry.price|intcomma }}</td>
+     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>${{ entry.volume|intcomma }}</td>
+     <td>${{ entry.mktcap|intcomma }}</td>
+     <td>{{ entry.time|naturaltime}}</td>
+   </tr>
+
+  {% endfor %}
+  </tbody>
+  </table>
+</div>
+{% endblock %}

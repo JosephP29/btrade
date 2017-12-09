@@ -57,10 +57,7 @@ def view_profile(request):
     for current_price in current_prices:
         for buy in buys:
             if current_price.coin_type == buy.coin_type:
-                #print(type(buy.price_bought_at))
-                # WTF, current_prices.price should be DECIMAL!
                 current = current_price.price
-                current = Decimal(current)
                 bought_at = buy.price_bought_at
                 difference = current - bought_at
                 total = difference * buy.units

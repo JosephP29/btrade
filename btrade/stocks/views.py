@@ -16,9 +16,13 @@ from django import forms
 
 # Create your views here.
 def stocks(request):
-    stocks = Stock.objects.all()
     sorted_price_table = current_price_table.objects.all().order_by('-mktcap')
     return render(request, 'stocks/stocks.html', {'price_table': sorted_price_table})
+
+def trending(request):
+    sorted_price_table = current_price_table.objects.all().order_by('-change24hour')
+    return render(request, 'stocks/trending.html', {'trending_table': sorted_price_table})
+
 
 def buystock(request, coin_type):
     coin = current_price_table.objects.get(coin_type=coin_type)
