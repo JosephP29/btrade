@@ -47,11 +47,25 @@ def register(request):
 
 @login_required
 def view_profile(request):
+    coin_list = request.user.user_stock_set.all()
+    current_prices = current_price_table.objects.all()
+    buys = BuyReceipt.objects.filter(owner=request.user)
+    price_differences = {}
+    roi = {}
+
+    for current_price in current_prices:
+        for buy in buys:
+            if current_price.coin_type == buy.coin_type:
+                difference = current_price.price - buy.price_bought_at
+                total = difference * buy.units
+                roi[buy.coin_type] = str(round(total, 2))
+
     args = {'user': request.user,
             'coin_list': request.user.user_stock_set.all(),
             'current_prices': current_price_table.objects.all(),
             'buys': BuyReceipt.objects.filter(owner=request.user),
             'sales': SellReceipt.objects.filter(owner=request.user),
+            'roi': roi,
         }
     return render(request, 'accounts/profile.html', args)
 

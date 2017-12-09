@@ -82,15 +82,14 @@
           {% endif %}
         {% endfor %}
         <td>{{ coin.units }}</td>
-        {% if coin.netgain > 0 %}
-          <td>+{{ coin.netgain }}</td>
-        {% else %}
-          <td>{{ coin.netgain }}</td>
-        {% endif %}
+        {% for key, value in roi.items %}
+          {% if coin.coin_type == key %}
+            <td>{{ value }}</td>
+          {% endif %}
+        {% endfor %}
       </tr>
     {% endfor %}
   </table>
-  <h6>All data is made up, highly inaccurate and manually entered.</h6>
 </div>
 
 <div class="container">
