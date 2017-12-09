@@ -32,7 +32,7 @@
   {% for entry in trending_table %}
 
    <tr>
-     <td>{{ entry.coin_type}}</td>
+     <td><a href="../../stocks/stockdetail/{{ entry.coin_type }}/" title="Purchase {{entry.coin_type}}">{{ entry.coin_type }}</a></td>
      <td>${{ entry.price|intcomma }}</td>
      <td>${{ entry.change24hour|intcomma }}</td>
      <td>${{ entry.volume|intcomma }}</td>
