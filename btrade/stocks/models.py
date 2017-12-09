@@ -51,7 +51,7 @@ class User_Stock(models.Model):
 
 class BuyReceipt(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    units = units = models.DecimalField(max_digits=18, decimal_places=8)
+    units = units = models.DecimalField(max_digits=18, decimal_places=8, default=0)
     price_bought_at = models.DecimalField(max_digits=13, decimal_places=2)
     buy_total = models.DecimalField(max_digits=13, decimal_places=2, null=True)
     coin_type = models.CharField(max_length=10)
