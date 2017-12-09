@@ -58,14 +58,18 @@
 {% endblock %}
 
 {% block body %}
-<div class="wrapper1">
-  <button class="button" onclick="location.href='/account/info'">User Info</button>
-</div>
+
 
 <div class="container">
+  <h2>Welcome to your profile, {{ user.first_name }}</h2>
+  <h3>Account Balance: <b><i>${{ user.userprofile.currency }}</i></b>
+  <br>Score: <b><i>{{ user.userprofile.earned_currency }}</b></i></h3>
+
+  <div align="right">
+    <button class="button" onclick="location.href='/account/info'">Update User Info</button>
+  </div>
+
   <h1>Your Portfolio</h1>
-  <h2>Account Balance: ${{ user.userprofile.currency }}</h2>
-  <h2>Score: {{ user.userprofile.earned_currency }}</h2>
   <table class="table table-responsive table-striped">
       <tr>
         <th>Stock Name</th>
@@ -84,7 +88,7 @@
         <td>{{ coin.units }}</td>
         {% for key, value in roi.items %}
           {% if coin.coin_type == key %}
-            <td>{{ value }}</td>
+            <td>${{ value }}</td>
           {% endif %}
         {% endfor %}
       </tr>
