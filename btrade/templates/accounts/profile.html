@@ -71,7 +71,7 @@
         <th>Stock Name</th>
         <th>Current Market Price</th>
         <th>Units</th>
-        <th>Net Gain</th>
+        <th>Return On Investment</th>
       </tr>
     {% for coin in coin_list %}
       <tr>
@@ -82,7 +82,11 @@
           {% endif %}
         {% endfor %}
         <td>{{ coin.units }}</td>
-        <td>{{ coin.netgain }}</td>
+        {% if coin.netgain > 0 %}
+          <td>+{{ coin.netgain }}</td>
+        {% else %}
+          <td>{{ coin.netgain }}</td>
+        {% endif %}
       </tr>
     {% endfor %}
   </table>
@@ -117,7 +121,7 @@
   <table class="table table-responsive table-striped">
     <tr>
       <th>Stock Name</th>
-      <th>Price Bought At</th>
+      <th>Price Sold At</th>
       <th>Date Bought</th>
       <th>Units</th>
       <th>Total Cost</th>

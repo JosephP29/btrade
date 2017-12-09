@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
-
+    currency = 4325
     class Meta:
         model = User
         fields = (

@@ -5,16 +5,23 @@
 <div class="container">
   <h1>Purchase Stock Form</h1>
   <h4><b>Price per {{ coin_type }}: ${{ coin.price }}</h4>
-  <form method="post">
+  <form method="post" name="myForm" id="myForm">
     {% csrf_token %}
     {{ form.as_p }}
-  <br>
-    <!-- FIXME: Total cost should be displayed dynamically. I think we have to use javascript -->
-    <h5><b>Total Cost: <p id="calculateTotal"></p>
-      <script>
-        document.getElementById("calculateTotal").innerHTML = {{ form.units }} ;
-      </script>
-    </b></h5>
+    <h4>Total Cost: <t id="result">0</h4>
+    </br>
+    <script type="text/javascript">
+      document.getElementById("id_units").onchange = function()
+           {
+             var units = document.getElementById('id_units').value;
+             var cost = {{coin.price}};
+             var result = document.getElementById('result').innerHTML;
+             var myResult = units * cost;
+             var myResultFixed = myResult.toFixed(2);
+             document.getElementById('result').innerHTML = myResultFixed;
+           };
+
+    </script>
   </br>
     <!-- BUG: Can send multiple buys if you click while the site loads -->
     <button type="submit" name="submit" value="submit" id="preventDouble" class="btn btn-warning btn-block">Submit</button>

@@ -8,9 +8,20 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-  </br>
-  <!-- FIXME: Display total cost dynamically -->
-    <p>Total Profit: </p>
+    <h4>Sale Total: <t id="result" />0</h4>
+    </br>
+    <script type="text/javascript">
+      document.getElementById("id_units").onchange = function()
+           {
+             var units = document.getElementById('id_units').value;
+             var cost = {{coin.price}};
+             var result = document.getElementById('result').innerHTML;
+             var myResult = units * cost;
+             var myResultFixed = myResult.toFixed(2);
+             document.getElementById('result').innerHTML = myResultFixed;
+           };
+
+    </script>
     <br>
     <!-- BUG:  -->
     <button type="submit" class="btn btn-warning btn-block">Submit</button>
