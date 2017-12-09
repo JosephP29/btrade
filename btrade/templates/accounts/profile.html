@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block head %}
 <head>
@@ -62,8 +63,8 @@
 
 <div class="container">
   <h2>Welcome to your profile, {{ user.first_name }}</h2>
-  <h3>Account Balance: <b><i>${{ user.userprofile.currency }}</i></b>
-  <br>Score: <b><i>{{ user.userprofile.earned_currency }}</b></i></h3>
+  <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b>
+  <br>Score: <b><i>{{ user.userprofile.earned_currency|intcomma }}</b></i></h3>
 
   <div align="right">
     <button class="button" onclick="location.href='/account/info'">Update User Info</button>
@@ -72,7 +73,7 @@
   <h1>Your Portfolio</h1>
   <table class="table table-responsive table-striped">
       <tr>
-        <th>Stock Name</th>
+        <th>Coin Name</th>
         <th>Current Market Price</th>
         <th>Units</th>
         <th>Return On Investment</th>
@@ -82,13 +83,13 @@
         <td><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase stock here">{{ coin.coin_type }}</a></td>
         {% for current_price in current_prices %}
           {% if current_price.coin_type == coin.coin_type %}
-            <td>${{ current_price.price }}</td>
+            <td>${{ current_price.price|intcomma }}</td>
           {% endif %}
         {% endfor %}
-        <td>{{ coin.units }}</td>
+        <td>{{ coin.units|intcomma }}</td>
         {% for key, value in roi.items %}
           {% if coin.coin_type == key %}
-            <td>${{ value }}</td>
+            <td>${{ value|intcomma }}</td>
           {% endif %}
         {% endfor %}
       </tr>
@@ -101,8 +102,8 @@
   <!--<a href="/admin/admin_search"><h2>Admin Profile</h2></a>-->
   <table class="table table-responsive table-striped">
     <tr>
-      <th>Stock Name</th>
-      <th>Price Bought At</th>
+      <th>Coin Name</th>
+      <th>Price/Coin</th>
       <th>Date Bought</th>
       <th>Units</th>
       <th>Total Cost</th>
@@ -110,10 +111,10 @@
     {% for buy in buys %}
       <tr>
         <td><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase stock here">{{ buy.coin_type }}</a></td>
-        <td>${{ buy.price_bought_at }}</td>
-        <td>{{ buy.date_bought }}</td>
-        <td>{{ buy.units }}</td>
-        <td>${{ buy.buy_total }}</td>
+        <td>${{ buy.price_bought_at|intcomma }}</td>
+        <td>{{ buy.date_bought|naturaltime }}</td>
+        <td>{{ buy.units|intcomma }}</td>
+        <td>${{ buy.buy_total|intcomma }}</td>
       </tr>
     {% endfor %}
   </table>
@@ -123,8 +124,8 @@
   <h1>Your Sales</h1>
   <table class="table table-responsive table-striped">
     <tr>
-      <th>Stock Name</th>
-      <th>Price Sold At</th>
+      <th>Coin Name</th>
+      <th>Price/Coin</th>
       <th>Date Bought</th>
       <th>Units</th>
       <th>Total Cost</th>
@@ -132,10 +133,10 @@
     {% for sale in sales %}
       <tr>
         <td><a href="../../stocks/stockdetail/{{ sale.coin_type }}/"  title="Purchase stock here">{{ sale.coin_type }}</a></td>
-        <td>${{ sale.price_sold_at }}</td>
-        <td>{{ sale.date_bought }}</td>
-        <td>{{ sale.units }}</td>
-        <td>${{ sale.sell_total }}</td>
+        <td>${{ sale.price_sold_at|intcomma }}</td>
+        <td>{{ sale.date_bought|naturaltime }}</td>
+        <td>{{ sale.units|intcomma }}</td>
+        <td>${{ sale.sell_total|intcomma }}</td>
       </tr>
     {% endfor %}
   </table>

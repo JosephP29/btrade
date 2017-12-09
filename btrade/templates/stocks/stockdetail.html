@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load humanize %}
+
 <head>
   <title>Stock Details</title>
   <style>
@@ -29,10 +31,10 @@
   {% for entry in history_table %}
 
    <tr>
-     <td>${{ entry.price }}</td>
-     <td>${{ entry.volume }}</td>
-     <td>${{ entry.mktcap }}</td>
-     <td>{{ entry.time }}</td>
+     <td>${{ entry.price|intcomma }}</td>
+     <td>${{ entry.volume|intcomma }}</td>
+     <td>${{ entry.mktcap|intcomma }}</td>
+     <td>{{ entry.time|naturaltime}}</td>
    </tr>
 
   {% endfor %}
