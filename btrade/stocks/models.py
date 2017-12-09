@@ -64,7 +64,8 @@ class BuyReceipt(models.Model):
 
 class SellReceipt(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    units = models.DecimalField(max_digits=18, decimal_places=8)
+    units = models.DecimalField(max_digits=18, decimal_places=8, default=0)
+    #units = models.FloatField(default=0)
     price_sold_at = models.DecimalField(max_digits=13, decimal_places=2)
     sell_total = models.DecimalField(max_digits=13, decimal_places=2, null=True)
     coin_type = models.CharField(max_length=10)

@@ -36,7 +36,6 @@ class SellStockForm(forms.ModelForm):
             'price_sold_at',
             'coin_type',
             )
-
         exclude = ('owner', 'coin_type', 'price_sold_at')
 
     def save(self, commit=True):
