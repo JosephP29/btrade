@@ -133,6 +133,6 @@ def savestock(request, coin_type):
 
 def unsavestock(request, coin_type):
     user = request.user
-    stock = Stock.objects.get(coin_type=coin_type)
-    save_stock = SavedStock.objects.filter(owner=user, coin_type=stock.coin_type).delete()
+    coin = current_price_table.objects.get(coin_type=coin_type)
+    save_stock = SavedStock.objects.filter(owner=user, coin_type=coin.coin_type).delete()
     return redirect('/account/')
