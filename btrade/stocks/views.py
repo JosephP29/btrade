@@ -17,7 +17,9 @@ from django import forms
 # Create your views here.
 def stocks(request):
     sorted_price_table = current_price_table.objects.all().order_by('-mktcap')
-    return render(request, 'stocks/stocks.html', {'price_table': sorted_price_table})
+    hot_price_table = current_price_table.objects.all().order_by('-change24hour')
+    args = { 'price_table': sorted_price_table, 'hot_table': hot_price_table, }
+    return render(request, 'stocks/stocks.html', args)
 
 def trending(request):
     sorted_price_table = current_price_table.objects.all().order_by('-change24hour')

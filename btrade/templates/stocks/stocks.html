@@ -118,6 +118,7 @@
   <table class="table table-hover">
   <thead>
    <tr>
+     <th></th>
      <th>Coin Name</th>
      <th>Price</th>
      <th>24 Hour Volume</th>
@@ -128,15 +129,20 @@
 
   <tbody>
   {% for coin in price_table %}
-
-   <tr>
+  <tr>
+  {% if coin.coin_type == hot_table.0.coin_type %}
+     <td><img src="/static/litFam.png" alt="Hot" style="width:20px; height:auto;"></td>
+  {% elif coin.coin_type == hot_table.19.coin_type %}
+     <td><img src="/static/chocolate.png" alt="Not" style="width:20px; height:auto;"></td>
+  {% else %}
+     <th></th>
+  {% endif %}           
      <td><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }} here">{{ coin.coin_type }}</a></td>
      <td>${{ coin.price|intcomma }}</td>
      <td>${{ coin.volume|intcomma }}</td>
      <td>${{ coin.mktcap|intcomma }}</td>
      <td>{{ coin.time|naturaltime }}</td>
    </tr>
-
   {% endfor %}
   </tbody>
   </table>

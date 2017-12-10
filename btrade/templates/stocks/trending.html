@@ -34,7 +34,11 @@
    <tr>
      <td><a href="../../stocks/stockdetail/{{ entry.coin_type }}/" title="Purchase {{entry.coin_type}}">{{ entry.coin_type }}</a></td>
      <td>${{ entry.price|intcomma }}</td>
-     <td>${{ entry.change24hour|intcomma }}</td>
+     {% if entry.change24hour > 0 %}
+     <td style="color:#00FF00">${{ entry.change24hour|intcomma }}</td>
+     {% else %}
+     <td style="color:#FF0000">${{ entry.change24hour|intcomma }}</td>
+     {% endif %}
      <td>${{ entry.volume|intcomma }}</td>
      <td>${{ entry.mktcap|intcomma }}</td>
      <td>{{ entry.time|naturaltime}}</td>
