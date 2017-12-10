@@ -106,9 +106,13 @@ def sellstock(request, coin_type):
             args = {'form': sell_form, 'coin': coin}
             return render(request, 'stocks/sellstock.html', args)
     else:
-        user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
-        sell_form = SellStockForm()
-        args = {'form': sell_form, 'coin_type': coin_type, 'coin': coin, 'units': user_s.units}
+        try:
+            sell_form = SellStockForm()
+            user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
+            args = {'form': sell_form, 'coin_type': coin_type, 'coin': coin, 'units': user_s.units}
+        except User_Stock.DoesNotExist:
+            sell_form = SellStockForm()
+            args = {'form': sell_form, 'coin_type': coin_type, 'coin': coin, 'units': 0}
         return render(request, 'stocks/sellstock.html', args)
 
 def stockdetail(request, coin_type):
