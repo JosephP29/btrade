@@ -45,7 +45,7 @@
       'use strict';
       $scope.price_data = [];
       $scope.price_labels = [];
-      API.getData('https://www.coincap.io/history/7day/BTC').then(function(values) {
+      API.getData('https://www.coincap.io/history/1day/BTC').then(function(values) {
           angular.forEach(values.price, function(value, key) {
               $scope.price_data.push(value[1]);
               $scope.price_labels.push($filter('date')(value[0], 'medium'));
@@ -133,9 +133,11 @@
   {% if coin.coin_type == hot_table.0.coin_type %}
      <td><img src="/static/litFam.png" alt="Hot" style="width:20px; height:auto;"></td>
   {% elif coin.coin_type == hot_table.19.coin_type %}
-     <td><img src="/static/chocolate.png" alt="Not" style="width:20px; height:auto;"></td>
+     <td><img src="/static/chocolate.png" alt="Not" style="width:19px; height:auto;"></td>
+  {% elif coin.change24hour > 0 %}
+     <td><img src="/static/up.png" alt="Rising" style="width:13px; height:auto;"></td>
   {% else %}
-     <th></th>
+     <td><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>       
   {% endif %}           
      <td><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }} here">{{ coin.coin_type }}</a></td>
      <td>${{ coin.price|intcomma }}</td>
@@ -147,7 +149,7 @@
   </tbody>
   </table>
 
-  <h6>All data is made up, highly inaccurate and manually entered.</h6>
+  <h6>All data is no longer made up, mostly accurate and automatically entered.</h6>
 </div>
 {% endblock%}
 <!DOCTYPE html>
