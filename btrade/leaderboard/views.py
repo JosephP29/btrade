@@ -22,7 +22,6 @@ def home(request):
             total_coin_value = current_price * units
             total_holdings[user] += total_coin_value
         account_balance = user.userprofile.currency
-        print(user, account_balance, total_holdings[user])
         total_holdings[user] += account_balance
         total_holdings[user] = '%.2f' % total_holdings[user]
         user.currency =  total_holdings[user]

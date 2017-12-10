@@ -70,9 +70,6 @@ def view_profile(request):
                 total = difference * units
                 roi[entry.coin_type] = '%.2f' % total
 
-
-    for key, value in roi.items():
-        print(key, value)
     account_balance = request.user.userprofile.currency
     total_holdings += account_balance
     total_holdings = '%.2f' % total_holdings
