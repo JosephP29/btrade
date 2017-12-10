@@ -20,9 +20,9 @@ def main():
     #print(json.dumps(parsed, indent=3, sort_keys=False))
     insert_table = 'stocks_history'
     update_table = 'stocks_current_price_table'
-    if (len(sys.argv) == 2):
-        if sys.argv[1] == 'updatetables':
-            truncate_current_table(update_table)
+    #if (len(sys.argv) == 2):
+    #    if sys.argv[1] == 'updatetables':
+    #        truncate_current_table(update_table)
 
     for coin in sorted(parsed['RAW']):
         price = parsed['RAW'][coin]['USD']['PRICE']
@@ -34,7 +34,11 @@ def main():
         supply = parsed['RAW'][coin]['USD']['SUPPLY']
         ## More fields are available from parsed, however these are the
         ## only values that should be necessary for us
-
+        volume = '%.2f' % volume
+        mktcap = '%.2f' % mktcap
+        change24hour = '%.5f' % change24hour
+        ## volume, mktcap, and change24hour do not need greater precision,
+        ## the %.#f alteration truncates to so many decimal places
         print(coin, "\tPRICE: ", price)
         print("\tVOLUME: ", volume)
         print("\tMKTCAP: ", mktcap)
@@ -44,12 +48,12 @@ def main():
         print("\tSUPPLY: ", supply)
 
         if (len(sys.argv) != 2):
-            insert_coin_price_hist(insert_table, coin, price, volume, mktcap)
-            update_current_prices(update_table, coin, price, volume, mktcap)
+            insert_coin_price_hist(insert_table, coin, price, volume, mktcap, change24hour)
+            update_current_prices(update_table, coin, price, volume, mktcap, change24hour)
         if (len(sys.argv) == 2):
             if sys.argv[1] == 'updatetables':
                 print("INSERTING INTO FRESH TABLE")
-                insert_coin_price_hist(update_table, coin, price, volume, mktcap)
+                insert_coin_price_hist(update_table, coin, price, volume, mktcap, change24hour)
 
 
         ## More fields are available from parsed, however these are the

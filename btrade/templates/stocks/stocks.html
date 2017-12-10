@@ -121,6 +121,7 @@
      <th></th>
      <th>Coin Name</th>
      <th>Price</th>
+     <th>Change in 24 Hours</th>
      <th>24 Hour Volume</th>
      <th>Market Cap</th>
      <th>Last Update</th>
@@ -137,10 +138,11 @@
   {% elif coin.change24hour > 0 %}
      <td><img src="/static/up.png" alt="Rising" style="width:13px; height:auto;"></td>
   {% else %}
-     <td><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>       
-  {% endif %}           
+     <td><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>
+  {% endif %}
      <td><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }} here">{{ coin.coin_type }}</a></td>
      <td>${{ coin.price|intcomma }}</td>
+     <td>${{ coin.change24hour|intcomma }}</td>
      <td>${{ coin.volume|intcomma }}</td>
      <td>${{ coin.mktcap|intcomma }}</td>
      <td>{{ coin.time|naturaltime }}</td>
@@ -148,8 +150,6 @@
   {% endfor %}
   </tbody>
   </table>
-
-  <h6>All data is no longer made up, mostly accurate and automatically entered.</h6>
 </div>
 {% endblock%}
 <!DOCTYPE html>

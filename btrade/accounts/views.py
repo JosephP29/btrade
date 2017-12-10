@@ -55,6 +55,19 @@ def view_profile(request):
     roi = {}
     costs = {}
 
+    # for current_price in current_prices:
+    #     for buy in buys:
+    #         if current_price.coin_type == buy.coin_type:
+    #             current = current_price.price
+    #             bought_at = buy.price_bought_at
+    #             difference = current - bought_at
+    #             total = difference * buy.units
+    #             current_value = current * buy.units
+    #             # following line limits total to two decimal-places
+    #             roi[buy.coin_type] = '%.2f' % total
+    #             #costs[buy.coin_type] = math.ceil(current_value*100)/100
+    #             costs[buy.coin_type] = '%.2f' % current_value
+
     for current_price in current_prices:
         for buy in buys:
             if current_price.coin_type == buy.coin_type:
@@ -64,18 +77,17 @@ def view_profile(request):
                 total = difference * buy.units
                 current_value = current * buy.units
                 # following line limits total to two decimal-places
-                roi[buy.coin_type] = '%.2f' % total
+                roi[buy] = '%.2f' % total
                 #costs[buy.coin_type] = math.ceil(current_value*100)/100
                 costs[buy.coin_type] = '%.2f' % current_value
-
 
 
 
     args = {'user': request.user,
             'coin_list': request.user.user_stock_set.all(),
             'current_prices': current_price_table.objects.all(),
-            'buys': BuyReceipt.objects.filter(owner=request.user),
-            'sales': SellReceipt.objects.filter(owner=request.user),
+            'buys': BuyReceipt.objects.filter(owner=request.user).order_by('-date_bought'),
+            'sales': SellReceipt.objects.filter(owner=request.user).order_by('-date_bought'),
             'roi': roi,
             'costs': costs,
         }

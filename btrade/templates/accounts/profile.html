@@ -110,21 +110,20 @@
 <div class="container">
   <div align="right"><button onclick="on()" class="button2">?</button></div>
   <div align="left"><h2>Welcome to your profile, {{ user.first_name }}</h2></div>
-  <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b> 
+  <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b>
   <br>Score: <b><i>{{ user.userprofile.earned_currency|intcomma }}</b></i></h3>
 
   <div align="right">
     <button class="button" onclick="location.href='/account/info'">Update User Info</button>
   </div>
 
-  <h1>Your Portfolio</h1> <div id="text" onclick="off()">&darr; Currencies that you own</div>
+  <h1>Current Holdings</h1> <div id="text" onclick="off()">&darr; Coins currently owned </div>
   <table class="table table-responsive table-striped">
       <tr>
         <th>Coin Name</th>
         <th>Current Price/Unit</th>
         <th>Units</th>
         <th>Current Value</th>
-        <th>Return On Investment</th>
       </tr>
     {% for coin in coin_list %}
       <tr>
@@ -140,8 +139,38 @@
             <td>${{ value|intcomma }}</td>
           {% endif %}
         {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+
+<div class="container">
+  <h1>Previous Purchases</h1> <div id="text2" onclick="off()">&darr; Previous purchases of coins</div>
+  <!--<a href="/admin/admin_search"><h2>Admin Profile</h2></a>-->
+  <table class="table table-responsive table-striped">
+    <tr>
+      <th>Date</th>
+      <th>Coin Name</th>
+      <th>Price/Unit</th>
+      <th>Units</th>
+      <th>Purchase Total</th>
+      <th>Current Price/Unit</th>
+      <th>Return on Investment</th>
+    </tr>
+    {% for buy in buys %}
+      <tr>
+        <td>{{ buy.date_bought|naturaltime }}</td>
+        <td><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase stock here">{{ buy.coin_type }}</a></td>
+        <td>${{ buy.price_bought_at|intcomma }}</td>
+        <td>{{ buy.units|intcomma }}</td>
+        <td>${{ buy.buy_total|intcomma }}</td>
+        {% for current_price in current_prices %}
+          {% if current_price.coin_type == buy.coin_type %}
+            <td>${{ current_price.price|intcomma }}</td>
+          {% endif %}
+        {% endfor %}
         {% for key, value in roi.items %}
-          {% if coin.coin_type == key %}
+          {% if buy == key %}
               <td>${{ value|intcomma }}</td>
           {% endif %}
         {% endfor %}
@@ -151,43 +180,20 @@
 </div>
 
 <div class="container">
-  <h1>Your Purchases</h1> <div id="text2" onclick="off()">&darr; Previous purchases of past currencies</div>
-  <!--<a href="/admin/admin_search"><h2>Admin Profile</h2></a>-->
+  <h1>Previous Sales</h1> <div id="text3" onclick="off()">&darr; Previous sales of coins</div>
   <table class="table table-responsive table-striped">
     <tr>
+      <th>Date</th>
       <th>Coin Name</th>
       <th>Price/Unit</th>
-      <th>Date Bought</th>
       <th>Units</th>
-      <th>Total Cost</th>
-    </tr>
-    {% for buy in buys %}
-      <tr>
-        <td><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase stock here">{{ buy.coin_type }}</a></td>
-        <td>${{ buy.price_bought_at|intcomma }}</td>
-        <td>{{ buy.date_bought|naturaltime }}</td>
-        <td>{{ buy.units|intcomma }}</td>
-        <td>${{ buy.buy_total|intcomma }}</td>
-      </tr>
-    {% endfor %}
-  </table>
-</div>
-
-<div class="container">
-  <h1>Your Sales</h1> <div id="text3" onclick="off()">&darr; Previous sales of currencies owned</div>
-  <table class="table table-responsive table-striped">
-    <tr>
-      <th>Coin Name</th>
-      <th>Price/Unit</th>
-      <th>Date Bought</th>
-      <th>Units</th>
-      <th>Total Cost</th>
+      <th>Sale Total</th>
     </tr>
     {% for sale in sales %}
       <tr>
+        <td>{{ sale.date_bought|naturaltime }}</td>
         <td><a href="../../stocks/stockdetail/{{ sale.coin_type }}/"  title="Purchase stock here">{{ sale.coin_type }}</a></td>
         <td>${{ sale.price_sold_at|intcomma }}</td>
-        <td>{{ sale.date_bought|naturaltime }}</td>
         <td>{{ sale.units|intcomma }}</td>
         <td>${{ sale.sell_total|intcomma }}</td>
       </tr>

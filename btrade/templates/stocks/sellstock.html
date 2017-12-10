@@ -5,6 +5,8 @@
 <div class="container">
   <h1>Sell Stock Form</h1>
   <h4><b>Price per {{ coin_type }}: ${{coin.price}}</h4>
+  <h4><b>Current {{ coin_type }} holdings:  {{units}}</h4>
+  <br>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
@@ -22,7 +24,6 @@
            };
 
     </script>
-    <br>
     <!-- BUG:  -->
     <button type="submit" class="btn btn-warning btn-block">Submit</button>
   </form>
