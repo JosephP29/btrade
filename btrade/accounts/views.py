@@ -49,47 +49,41 @@ def register(request):
 
 @login_required
 def view_profile(request):
-    coin_list = request.user.user_stock_set.all()
-    current_prices = current_price_table.objects.all()
+    user_coin_list = request.user.user_stock_set.all()
+    price_table = current_price_table.objects.all()
     buys = BuyReceipt.objects.filter(owner=request.user)
     roi = {}
-    costs = {}
-
-    # for current_price in current_prices:
-    #     for buy in buys:
-    #         if current_price.coin_type == buy.coin_type:
-    #             current = current_price.price
-    #             bought_at = buy.price_bought_at
-    #             difference = current - bought_at
-    #             total = difference * buy.units
-    #             current_value = current * buy.units
-    #             # following line limits total to two decimal-places
-    #             roi[buy.coin_type] = '%.2f' % total
-    #             #costs[buy.coin_type] = math.ceil(current_value*100)/100
-    #             costs[buy.coin_type] = '%.2f' % current_value
-
-    for current_price in current_prices:
+    current_values = {}
+    total_holdings = 0
+    for entry in price_table:
+        for coin in user_coin_list:
+            if entry.coin_type == coin.coin_type:
+                current_price = entry.price
+                units = coin.units
+                total_coin_value = current_price * units
+                current_values[coin.coin_type] = '%.2f' % total_coin_value
+                total_holdings += total_coin_value
         for buy in buys:
-            if current_price.coin_type == buy.coin_type:
-                current = current_price.price
-                bought_at = buy.price_bought_at
-                difference = current - bought_at
-                total = difference * buy.units
-                current_value = current * buy.units
-                # following line limits total to two decimal-places
-                roi[buy] = '%.2f' % total
-                #costs[buy.coin_type] = math.ceil(current_value*100)/100
-                costs[buy.coin_type] = '%.2f' % current_value
+            if entry.coin_type == buy.coin_type:
+                difference = entry.price - buy.price_bought_at
+                units= buy.units
+                total = difference * units
+                roi[entry.coin_type] = '%.2f' % total
 
 
-
+    for key, value in roi.items():
+        print(key, value)
+    account_balance = request.user.userprofile.currency
+    total_holdings += account_balance
+    total_holdings = '%.2f' % total_holdings
     args = {'user': request.user,
             'coin_list': request.user.user_stock_set.all(),
             'current_prices': current_price_table.objects.all(),
             'buys': BuyReceipt.objects.filter(owner=request.user).order_by('-date_bought'),
             'sales': SellReceipt.objects.filter(owner=request.user).order_by('-date_bought'),
             'roi': roi,
-            'costs': costs,
+            'costs': current_values,
+            'total_holdings': total_holdings,
         }
     return render(request, 'accounts/profile.html', args)
 

@@ -108,35 +108,34 @@
 <div id="overlay" onclick="off()"> </div>
 
 <div class="container">
-  <div align="right"><button onclick="on()" class="button2">?</button></div>
-  <div align="left"><h2>Welcome to your profile, {{ user.first_name }}</h2></div>
+  <div style="float:right;"><button onclick="on()" class="button2">?</button></div>
+  <h2>Welcome to your account, {{ user.first_name }}</h2>
   <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b>
-  <br>Score: <b><i>{{ user.userprofile.earned_currency|intcomma }}</b></i></h3>
-
-  <div align="right">
-    <button class="button" onclick="location.href='/account/info'">Update User Info</button>
-  </div>
-
+  <br>Estimated Value: <b><i>${{total_holdings|intcomma}}</i></b>
+  <!-- <br>Score: <b><i>{{ user.userprofile.earned_currency|intcomma }}</b></i></h3> -->
+  <div align="right"><button class="button" onclick="location.href='/account/info'">Update User Info</button></div>
   <h1>Current Holdings</h1> <div id="text" onclick="off()">&darr; Coins currently owned </div>
   <table class="table table-responsive table-striped">
       <tr>
-        <th>Coin Name</th>
-        <th>Current Price/Unit</th>
+        <th>Coin</th>
         <th>Units</th>
+        <th>Current Price/Unit</th>
+        <th>Change/24 Hours</th>
         <th>Current Value</th>
       </tr>
     {% for coin in coin_list %}
       <tr>
-        <td><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase stock here">{{ coin.coin_type }}</a></td>
+        <td><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ coin.coin_type }}</a></td>
+        <td>{{ coin.units|intcomma }}</td>
         {% for current_price in current_prices %}
           {% if current_price.coin_type == coin.coin_type %}
             <td>${{ current_price.price|intcomma }}</td>
+            <td>{{ current_price.change24hour|intcomma }}</td>
           {% endif %}
         {% endfor %}
-        <td>{{ coin.units|intcomma }}</td>
         {% for key, value in costs.items %}
-          {% if coin.coin_type == key %}
-            <td>${{ value|intcomma }}</td>
+          {% if key == coin.coin_type %}
+            <td>{{ value|intcomma }}</td>
           {% endif %}
         {% endfor %}
       </tr>
@@ -150,7 +149,7 @@
   <table class="table table-responsive table-striped">
     <tr>
       <th>Date</th>
-      <th>Coin Name</th>
+      <th>Coin</th>
       <th>Price/Unit</th>
       <th>Units</th>
       <th>Purchase Total</th>
@@ -160,7 +159,7 @@
     {% for buy in buys %}
       <tr>
         <td>{{ buy.date_bought|naturaltime }}</td>
-        <td><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase stock here">{{ buy.coin_type }}</a></td>
+        <td><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ buy.coin_type }}</a></td>
         <td>${{ buy.price_bought_at|intcomma }}</td>
         <td>{{ buy.units|intcomma }}</td>
         <td>${{ buy.buy_total|intcomma }}</td>
@@ -170,7 +169,7 @@
           {% endif %}
         {% endfor %}
         {% for key, value in roi.items %}
-          {% if buy == key %}
+          {% if buy.coin_type == key %}
               <td>${{ value|intcomma }}</td>
           {% endif %}
         {% endfor %}
@@ -184,7 +183,7 @@
   <table class="table table-responsive table-striped">
     <tr>
       <th>Date</th>
-      <th>Coin Name</th>
+      <th>Coin</th>
       <th>Price/Unit</th>
       <th>Units</th>
       <th>Sale Total</th>
@@ -192,7 +191,7 @@
     {% for sale in sales %}
       <tr>
         <td>{{ sale.date_bought|naturaltime }}</td>
-        <td><a href="../../stocks/stockdetail/{{ sale.coin_type }}/"  title="Purchase stock here">{{ sale.coin_type }}</a></td>
+        <td><a href="../../stocks/stockdetail/{{ sale.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ sale.coin_type }}</a></td>
         <td>${{ sale.price_sold_at|intcomma }}</td>
         <td>{{ sale.units|intcomma }}</td>
         <td>${{ sale.sell_total|intcomma }}</td>

@@ -30,8 +30,8 @@
 {% block body %}
   <table>
   	<tr>
-    	<th><a href="/account/profile/"><h2> {{user.first_name}}'s Profile</h2></a></th>
-    	<th><a href="/stocks/"><h2>View Stocks Here</h2></a></th>
+    	<th><a href="/account/profile/"><h2> {{user.first_name}}'s Account</h2></a></th>
+    	<th><a href="/stocks/"><h2>View Coins Here</h2></a></th>
     	<th><h2>Interactive Tutorial</h2></th>
     	<th><a href="/leaderboard/"><h2>Global Leaderboard</h2></a></th>
   	</tr>
@@ -39,12 +39,12 @@
     	<th><a href="/stocks/stockdetail/{{ stock1.stock_curr_type }}"><h2> {{ stock1.stock_curr_type }}</h2></a></th>
     	<td><a href="/stocks/stockdetail/{{ stock2.stock_curr_type }}"><h2> {{ stock2.stock_curr_type }}</h2></a></td>
     	<td><a href="/stocks/stockdetail/{{ stock3.stock_curr_type }}"><h2> {{ stock3.stock_curr_type }}</h2></a></td>
-    	<td><a href="/stocks/trending"><h2>Trending Stocks</h2></a></td>
+    	<td><a href="/stocks/trending"><h2>Trending Coins</h2></a></td>
   	</tr>
   	<tr>
     	<td>
         {% if saved1 == null %}
-          <h2>No Stocks Saved</h2>
+          <h2>No Coin Saved</h2>
         {% endif %}
         <a href="/stocks/stockdetail/{{ saved1.coin_type }}">
           <h2>{{ saved1.coin_type }}</h2>
@@ -53,7 +53,7 @@
 
     	<td>
         {% if saved2 == null %}
-          <h2>No Stocks Saved</h2>
+          <h2>No Coin Saved</h2>
         {% endif %}
         <a href="/stocks/stockdetail/{{ saved2.coin_type }}">
           <h2>{{ saved2.coin_type }}</h2>
@@ -62,7 +62,7 @@
 
     	<td>
         {% if saved3 == null %}
-          <h2>No Stocks Saved</h2>
+          <h2>No Coin Saved</h2>
         {%endif%}
         <a href="/stocks/stockdetail/{{ saved3.coin_type }}">
           <h2>{{ saved3.coin_type }}</h2>

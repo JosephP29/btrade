@@ -25,106 +25,17 @@
 {% block body %}
 <p><center><img src="/static/Logo.png" alt="BTrade Logo should be here" height="25%" width="25%"></center></p>
 <div class="container">
-
-  <div ng-app="app" ng-controller="LineCtrl">
-  <canvas id="price"
-          height="20"
-          width="80"
-          class="chart chart-line"
-          chart-data="price_data"
-          chart-labels="price_labels"
-          chart-legend="true"
-          chart-series="series"
-          chart-options="options"
-          chart-colors="colors">
-  </canvas>
-  </div>
-
-  <script>
-    angular.module("app", ["chart.js"]).controller("LineCtrl", function($scope, $http, $filter, API) {
-      'use strict';
-      $scope.price_data = [];
-      $scope.price_labels = [];
-      API.getData('https://www.coincap.io/history/1day/BTC').then(function(values) {
-          angular.forEach(values.price, function(value, key) {
-              $scope.price_data.push(value[1]);
-              $scope.price_labels.push($filter('date')(value[0], 'medium'));
-          });
-      });
-
-      $scope.series = [
-          'Price'
-      ];
-      $scope.colors = ['#6495ed'];
-      $scope.options = {
-          animation: false,
-          responsive: true,
-          tooltipEvents: [
-              'mousemove',
-              'touchstart',
-              'touchmove'
-          ],
-          elements: {
-              point: {
-                  radius: 0
-              },
-              line: {
-                  fill: true
-              }
-          },
-          scales: {
-              yAxes: [{
-                  display: true
-              }],
-              xAxes: [{
-                  display: false
-              }]
-          }
-      };
-  }).factory('API', function($http) {
-      'use strict';
-      var coins = [];
-      return {
-          getData: function(selection, $url, $log) {
-              var _url = selection;
-              if (typeof $url !== 'undefined') {
-                  _url += $url;
-              }
-              return $http({
-                  method: 'GET',
-                  url: _url
-              }).then(function(response) {
-                  coins = response.data;
-                  return coins;
-              }, function error(response) {
-                  $log.log(response);
-                  return false;
-              });
-          }
-      };
-  }).filter('numberWithCommas', function() {
-      'use strict';
-      return function(x) {
-          var parts = x.toString().split(".");
-          parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          return parts.join(".");
-      };
-  });
-  </script>
-  <h2><center>Bitcoin is so hot right now</center></h2>
-
-  <h1>Stocks</h1>
-
+  <h1>Coins</h1>
   <table class="table table-hover">
   <thead>
    <tr>
      <th></th>
-     <th>Coin Name</th>
+     <th>Coin</th>
      <th>Price</th>
-     <th>Change in 24 Hours</th>
-     <th>24 Hour Volume</th>
+     <th>Change/24 Hours</th>
+     <th>Volume/24 Hours</th>
      <th>Market Cap</th>
-     <th>Last Update</th>
+     <!--<th>Last Update</th>-->
    </tr>
   </thead>
 
@@ -140,12 +51,12 @@
   {% else %}
      <td><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>
   {% endif %}
-     <td><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }} here">{{ coin.coin_type }}</a></td>
+     <td><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ coin.coin_type }}</a></td>
      <td>${{ coin.price|intcomma }}</td>
      <td>${{ coin.change24hour|intcomma }}</td>
      <td>${{ coin.volume|intcomma }}</td>
      <td>${{ coin.mktcap|intcomma }}</td>
-     <td>{{ coin.time|naturaltime }}</td>
+     <!--<td>{{ coin.time|naturaltime }}</td>-->
    </tr>
   {% endfor %}
   </tbody>

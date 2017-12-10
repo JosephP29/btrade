@@ -36,6 +36,9 @@
 {% block body %}
 <div class="container">
   <center><h1>User Information</h1></center>
+  <p style="text-align:left;">Username: {{ user }}
+    <span style="float:right;"><a href="/account/change-password/">Change Password</a></span>
+  </p>
   <p> Username: {{ user }} </p>
   <p> First Name: {{ user.first_name }} </p>
   <p> Last Name: {{ user.last_name }} </p>

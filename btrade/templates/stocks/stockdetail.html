@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load humanize %}
 
-<head>
-  <title>Stock Details</title>
+{% block head %}
+  <meta charset="utf-8">
+  <title>Coin Details</title>
   <style>
     .btn_div {
         border-radius: 5px;
@@ -10,14 +11,93 @@
         padding: 20px;
     }
   </style>
-</head>
+{% endblock %}
+
 
 {% block body %}
 <p><center><img src="/static/Logo.png" alt="BTrade Logo should be here" height="25%" width="25%"></center></p>
 
 <div class="container">
-  <h1>Stock Name: {{ coin_type }}</h1>
+  <h1>Coin: {{ coin_type }}</h1>
   <table class="table table-hover">
+  <thead>
+   <tr>
+     <th>Price</th>
+     <th>Change/24 Hours</th>
+     <th>Volume/24 Hours</th>
+     <th>Market Cap</th>
+     <th>Time</th>
+   </tr>
+  </thead>
+  <tbody>
+   <tr>
+     {% for entry in current_price %}
+     <td>${{ entry.price|intcomma }}</td>
+     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>${{ entry.volume|intcomma }}</td>
+     <td>${{ entry.mktcap|intcomma }}</td>
+     <td>{{ entry.time|naturaltime}}</td>
+     {% endfor %}
+   </tr>
+   <tr>
+     {% for entry in price_15_minutes %}
+     <td>${{ entry.price|intcomma }}</td>
+     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>${{ entry.volume|intcomma }}</td>
+     <td>${{ entry.mktcap|intcomma }}</td>
+     <td>{{ entry.time|naturaltime}}</td>
+     {% endfor %}
+   </tr>
+   <tr>
+     {% for entry in price_30_minutes %}
+     <td>${{ entry.price|intcomma }}</td>
+     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>${{ entry.volume|intcomma }}</td>
+     <td>${{ entry.mktcap|intcomma }}</td>
+     <td>{{ entry.time|naturaltime}}</td>
+     {% endfor %}
+   </tr>
+   <tr>
+     {% for entry in price_60_minutes %}
+     <td>${{ entry.price|intcomma }}</td>
+     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>${{ entry.volume|intcomma }}</td>
+     <td>${{ entry.mktcap|intcomma }}</td>
+     <td>{{ entry.time|naturaltime}}</td>
+     {% endfor %}
+   </tr>
+   <tr>
+     {% for entry in price_6_hours %}
+     <td>${{ entry.price|intcomma }}</td>
+     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>${{ entry.volume|intcomma }}</td>
+     <td>${{ entry.mktcap|intcomma }}</td>
+     <td>{{ entry.time|naturaltime}}</td>
+     {% endfor %}
+   </tr>
+   <tr>
+     {% for entry in price_12_hours %}
+     <td>${{ entry.price|intcomma }}</td>
+     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>${{ entry.volume|intcomma }}</td>
+     <td>${{ entry.mktcap|intcomma }}</td>
+     <td>{{ entry.time|naturaltime}}</td>
+     {% endfor %}
+   </tr>
+   <tr>
+     {% for entry in price_24_hours %}
+     <td>${{ entry.price|intcomma }}</td>
+     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>${{ entry.volume|intcomma }}</td>
+     <td>${{ entry.mktcap|intcomma }}</td>
+     <td>{{ entry.time|naturaltime}}</td>
+     {% endfor %}
+   </tr>
+  </tbody>
+  </table>
+
+
+  <!-- <table class="table table-hover">
   <thead>
    <tr>
      <th>Price</th>
@@ -39,7 +119,7 @@
 
   {% endfor %}
   </tbody>
-  </table>
+  </table> -->
 
 
   <button type="buystock" onclick="location.href='/stocks/buystock/{{ coin_type }}/'">Buy Stock</button>

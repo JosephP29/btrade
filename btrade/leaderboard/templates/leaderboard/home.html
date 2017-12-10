@@ -22,21 +22,25 @@
 {% endblock %}
 
 {% block body %}
-  <div class="container">
-    <center><img src="/static/trophy.png" alt="A trophy should be here" height="50" width="50"><h1>Leaderboard</h1></center>
-    <table class='table table-responsive table-striped'>
-      <tr>
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Score</th>
-      </tr>
-      {% for user in users %}
-      <tr>
-        <td class="count"></td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.userprofile.earned_currency|intcomma }}</td>
-      </tr>
+<div class="container">
+  <center><img src="/static/trophy.png" alt="A trophy should be here" height="50" width="50"><h1>Leaderboard</h1></center>
+  <table class='table table-responsive table-striped'>
+    <tr>
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Account Value</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+      <td class="count"></td>
+      <td>{{ user.username }}</td>
+      {% for key, value in total_holdings.items %}
+        {% if key == user %}
+          <td>${{ value|intcomma   }}</td>
+        {% endif %}
       {% endfor %}
-    </table>
-  </div>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
 {% endblock %}

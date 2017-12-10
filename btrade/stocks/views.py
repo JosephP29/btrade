@@ -115,19 +115,55 @@ def sellstock(request, coin_type):
             args = {'form': sell_form, 'coin_type': coin_type, 'coin': coin, 'units': 0}
         return render(request, 'stocks/sellstock.html', args)
 
+
 def stockdetail(request, coin_type):
     #s1 = history.objects.get(coin_type=coin_type)
     user = request.user
-    sorted_history_table = history.objects.filter(coin_type=coin_type).order_by('-time')[:10]
+    current_price = history.objects.filter(coin_type=coin_type).order_by('-time')[:1]
+    price_15_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[14:15]
+    price_30_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[29:30]
+    price_60_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[60:61]
+    price_6_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[360:361]
+    price_12_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[720:721]
+    price_24_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[1439:1440]
+
     try:
         saved = SavedStock.objects.get(owner=user, coin_type=coin_type)
-        args = { 'history_table': sorted_history_table,
+        args = { 'current_price': current_price,
+                 'price_15_minutes': price_15_minutes,
+                 'price_30_minutes': price_30_minutes,
+                 'price_60_minutes': price_60_minutes,
+                 'price_6_hours': price_6_hours,
+                 'price_12_hours': price_12_hours,
+                 'price_24_hours': price_24_hours,
                  'coin_type': coin_type,
                  'savedstock': saved, }
     except:
-        args = { 'history_table': sorted_history_table, 'coin_type': coin_type, }
+        args = { 'current_price': current_price,
+                 'price_15_minutes': price_15_minutes,
+                 'price_30_minutes': price_30_minutes,
+                 'price_60_minutes': price_60_minutes,
+                 'price_6_hours': price_6_hours,
+                 'price_12_hours': price_12_hours,
+                 'price_24_hours': price_24_hours,
+                 'coin_type': coin_type, }
 
     return render(request, 'stocks/stockdetail.html', args)
+
+# def stockdetail(request, coin_type):
+#     #s1 = history.objects.get(coin_type=coin_type)
+#     user = request.user
+#     sorted_history_table = history.objects.filter(coin_type=coin_type).order_by('-time')[:10]
+#
+#     try:
+#         saved = SavedStock.objects.get(owner=user, coin_type=coin_type)
+#         args = { 'history_table': sorted_history_table,
+#                  'coin_type': coin_type,
+#                  'savedstock': saved, }
+#     except:
+#         args = { 'history_table': sorted_history_table, 'coin_type': coin_type, }
+#
+#     return render(request, 'stocks/stockdetail.html', args)
 
 
 
