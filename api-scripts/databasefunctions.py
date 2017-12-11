@@ -25,10 +25,10 @@ def connect():
             conn.close()
             print('Database connection closed.')
 
-def insert_coin_price_hist(table_name, coin_type, price, volume, mktcap):
+def insert_coin_price_hist(table_name, coin_type, price, volume, mktcap, change24hour):
     print("Inserting", coin_type, "into", table_name)
-    sql = """INSERT INTO """ + table_name + """(time, coin_type, price, volume, mktcap)
-                VALUES(%s, %s, %s, %s, %s)"""
+    sql = """INSERT INTO """ + table_name + """(time, coin_type, price, volume, mktcap, change24hour)
+                VALUES(%s, %s, %s, %s, %s, %s)"""
     conn = None
     try:
         # read database configuration
@@ -39,7 +39,7 @@ def insert_coin_price_hist(table_name, coin_type, price, volume, mktcap):
         cur = conn.cursor()
         timestmp = strftime("%Y-%m-%d %H:%M:%S")
         # execute the INSERT statement
-        cur.execute(sql, (timestmp, coin_type, price, volume, mktcap))
+        cur.execute(sql, (timestmp, coin_type, price, volume, mktcap, change24hour))
         # commit the changes to the database
         conn.commit()
         # close communication with the database
@@ -50,10 +50,10 @@ def insert_coin_price_hist(table_name, coin_type, price, volume, mktcap):
         if conn is not None:
             conn.close()
 
-def update_current_prices(table_name, coin_type, price, volume, mktcap):
+def update_current_prices(table_name, coin_type, price, volume, mktcap, change24hour):
     print("Updating", coin_type, "in", table_name)
     sql = """ UPDATE """ + table_name + """
-                SET time= %s, coin_type= %s, price= %s, volume= %s, mktcap= %s
+                SET time= %s, coin_type= %s, price= %s, volume= %s, mktcap= %s, change24hour= %s
                 WHERE coin_type = %s"""
     conn = None
     try:
@@ -65,7 +65,7 @@ def update_current_prices(table_name, coin_type, price, volume, mktcap):
         cur = conn.cursor()
         timestmp = strftime("%Y-%m-%d %H:%M:%S")
         # execute the INSERT statement
-        cur.execute(sql, (timestmp, coin_type, price, volume, mktcap, coin_type))
+        cur.execute(sql, (timestmp, coin_type, price, volume, mktcap, change24hour, coin_type))
         # commit the changes to the database
         conn.commit()
         # close communication with the database
