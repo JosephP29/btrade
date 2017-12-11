@@ -23,7 +23,9 @@ def stocks(request):
 
 def trending(request):
     sorted_price_table = current_price_table.objects.all().order_by('-change24hour')
-    return render(request, 'stocks/trending.html', {'trending_table': sorted_price_table})
+    hot_price_table = current_price_table.objects.all().order_by('-change24hour')
+    args = { 'trending_table': sorted_price_table, 'hot_table': hot_price_table, }
+    return render(request, 'stocks/trending.html', args)
 
 
 def buystock(request, coin_type):

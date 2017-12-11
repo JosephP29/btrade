@@ -4,11 +4,11 @@
 <head>
   <title>Trending Coins</title>
   <style>
-    .btn_div {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-    }
+  .btn_div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
   </style>
 </head>
 
@@ -17,35 +17,45 @@
 
 <div class="container">
   <table class="table table-hover">
-  <thead>
-   <tr>
-     <th>Coin</th>
-     <th>Price</th>
-     <th>Change in 24 Hours</th>
-     <th>24 Hour Volume</th>
-     <th>Market Cap</th>
-     <th>Time</th>
-   </tr>
-  </thead>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Coin</th>
+        <th>Price</th>
+        <th>Change/24 Hours</th>
+        <th>Volume/24 Hours</th>
+        <th>Market Cap</th>
+        <th>Time</th>
+      </tr>
+    </thead>
 
-  <tbody>
-  {% for entry in trending_table %}
+    <tbody>
+      {% for entry in trending_table %}
 
-   <tr>
-     <td><a href="../../stocks/stockdetail/{{ entry.coin_type }}/" title="Purchase {{entry.coin_type}}">{{ entry.coin_type }}</a></td>
-     <td>${{ entry.price|intcomma }}</td>
-     {% if entry.change24hour > 0 %}
-     <td style="color:#00FF00">${{ entry.change24hour|floatformat:4 }}</td>
-     {% else %}
-     <td style="color:#FF0000">${{ entry.change24hour|floatformat:4 }}</td>
-     {% endif %}
-     <td>${{ entry.volume|intcomma }}</td>
-     <td>${{ entry.mktcap|intcomma }}</td>
-     <td>{{ entry.time|naturaltime}}</td>
-   </tr>
+      <tr>
+        {% if entry.coin_type == hot_table.0.coin_type %}
+        <td><img src="/static/litFam.png" alt="Hot" style="width:20px; height:auto;"></td>
+        {% elif entry.coin_type == hot_table.40.coin_type %}
+        <td><img src="/static/chocolate.png" alt="Not" style="width:19px; height:auto;"></td>
+        {% elif entry.change24hour > 0 %}
+        <td><img src="/static/up.png" alt="Rising" style="width:13px; height:auto;"></td>
+        {% else %}
+        <td><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>
+        {% endif %}
+        <td><a href="../../stocks/stockdetail/{{ entry.coin_type }}/" title="Purchase {{entry.coin_type}}">{{ entry.coin_type }}</a></td>
+        <td>${{ entry.price|intcomma }}</td>
+        {% if entry.change24hour > 0 %}
+        <td style="color:#00b100">{{ entry.change24hour|floatformat:4 }}%</td>
+        {% else %}
+        <td style="color:#FF0000">{{ entry.change24hour|floatformat:4 }}%</td>
+        {% endif %}
+        <td>${{ entry.volume|intcomma }}</td>
+        <td>${{ entry.mktcap|intcomma }}</td>
+        <td>{{ entry.time|naturaltime}}</td>
+      </tr>
 
-  {% endfor %}
-  </tbody>
+      {% endfor %}
+    </tbody>
   </table>
 </div>
 {% endblock %}

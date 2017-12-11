@@ -1,7 +1,40 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-chart.js/1.1.1/angular-chart.min.js"></script>
+    <style>
+      .navbar-inverse {
+        background-color: gray;
+      }
+      .nav.navbar-nav.navbar-right li a{
+        color: blue;
+      }
+    </style>
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body>
+    <div class="container">
+    <center>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <a class="navbar-left" href="/"><img src="/static/Logo.png" height="10%" width="10%" align="left"></a>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/account/login/">Login</a></li>
+              <li><a href="/account/register/"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            </ul>
+        </div>
+      </nav>
+      <div class="container">
+        <h1>You have logged out!</h1>
+      </div>
+    </div>
 
-{% block body %}
-<div class="container">
-  <h1>You have logged out!</h1>
-</div>
-{% endblock %}
+  </body>
+</html>

@@ -18,17 +18,20 @@ def main():
     parsed = json.loads(r.decode('utf-8'))
     ## Commment out the line below to disable JSON pretty-printing
     #print(json.dumps(parsed, indent=3, sort_keys=False))
+
+    #ADA,BCC,BCH,BTC,BTG,DASH,EMC2,EOS,ETC,ETH,LTC,MCO,MIOTA,NXT,OMG,PPT,QTUM,STEEM,STRAT,XEM,XLM,XMR,XRP,ZEC
+
     insert_table = 'stocks_history'
     update_table = 'stocks_current_price_table'
-    #if (len(sys.argv) == 2):
-    #    if sys.argv[1] == 'updatetables':
-    #        truncate_current_table(update_table)
+    if (len(sys.argv) == 2):
+        if sys.argv[1] == 'updatetables':
+            truncate_current_table(update_table)
 
     for coin in sorted(parsed['RAW']):
         price = parsed['RAW'][coin]['USD']['PRICE']
-        volume = parsed['RAW'][coin]['USD']['VOLUME24HOURTO']
+        volume = parsed['RAW'][coin]['USD']['TOTALVOLUME24HTO']
         mktcap = parsed['RAW'][coin]['USD']['MKTCAP']
-        change24hour = parsed['RAW'][coin]['USD']['CHANGE24HOUR']
+        change24hour = parsed['RAW'][coin]['USD']['CHANGEPCT24HOUR']
         high24hour = parsed['RAW'][coin]['USD']['HIGH24HOUR']
         low24hour = parsed['RAW'][coin]['USD']['LOW24HOUR']
         supply = parsed['RAW'][coin]['USD']['SUPPLY']

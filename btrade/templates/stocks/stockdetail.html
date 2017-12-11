@@ -34,7 +34,7 @@
    <tr>
      {% for entry in current_price %}
      <td>${{ entry.price|intcomma }}</td>
-     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>{{ entry.change24hour|intcomma }}%</td>
      <td>${{ entry.volume|intcomma }}</td>
      <td>${{ entry.mktcap|intcomma }}</td>
      <td>{{ entry.time|naturaltime}}</td>
@@ -43,7 +43,7 @@
    <tr>
      {% for entry in price_15_minutes %}
      <td>${{ entry.price|intcomma }}</td>
-     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>{{ entry.change24hour|intcomma }}%</td>
      <td>${{ entry.volume|intcomma }}</td>
      <td>${{ entry.mktcap|intcomma }}</td>
      <td>{{ entry.time|naturaltime}}</td>
@@ -52,7 +52,7 @@
    <tr>
      {% for entry in price_30_minutes %}
      <td>${{ entry.price|intcomma }}</td>
-     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>{{ entry.change24hour|intcomma }}%</td>
      <td>${{ entry.volume|intcomma }}</td>
      <td>${{ entry.mktcap|intcomma }}</td>
      <td>{{ entry.time|naturaltime}}</td>
@@ -61,7 +61,7 @@
    <tr>
      {% for entry in price_60_minutes %}
      <td>${{ entry.price|intcomma }}</td>
-     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>{{ entry.change24hour|intcomma }}%</td>
      <td>${{ entry.volume|intcomma }}</td>
      <td>${{ entry.mktcap|intcomma }}</td>
      <td>{{ entry.time|naturaltime}}</td>
@@ -70,7 +70,7 @@
    <tr>
      {% for entry in price_6_hours %}
      <td>${{ entry.price|intcomma }}</td>
-     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>{{ entry.change24hour|intcomma }}%</td>
      <td>${{ entry.volume|intcomma }}</td>
      <td>${{ entry.mktcap|intcomma }}</td>
      <td>{{ entry.time|naturaltime}}</td>
@@ -79,7 +79,7 @@
    <tr>
      {% for entry in price_12_hours %}
      <td>${{ entry.price|intcomma }}</td>
-     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>{{ entry.change24hour|intcomma }}%</td>
      <td>${{ entry.volume|intcomma }}</td>
      <td>${{ entry.mktcap|intcomma }}</td>
      <td>{{ entry.time|naturaltime}}</td>
@@ -88,7 +88,7 @@
    <tr>
      {% for entry in price_24_hours %}
      <td>${{ entry.price|intcomma }}</td>
-     <td>${{ entry.change24hour|intcomma }}</td>
+     <td>{{ entry.change24hour|intcomma }}%</td>
      <td>${{ entry.volume|intcomma }}</td>
      <td>${{ entry.mktcap|intcomma }}</td>
      <td>{{ entry.time|naturaltime}}</td>
