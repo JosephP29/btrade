@@ -32,7 +32,6 @@ def buystock(request, coin_type):
     coin = current_price_table.objects.get(coin_type=coin_type)
     u = request.user.userprofile
     account_balance = u.currency
-    print(account_balance)
     if request.method == 'POST':
         buy_form = BuyStockForm(request.POST)
         if buy_form.is_valid():
@@ -128,10 +127,10 @@ def sellstock(request, coin_type):
 def stockdetail(request, coin_type):
     user = request.user
     current_price = history.objects.filter(coin_type=coin_type).order_by('-time')[:1]
-    price_15_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[14:15]
+    price_15_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[15:16]
     price_30_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[29:30]
     price_60_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[60:61]
-    price_6_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[360:361]
+    price_6_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[361:362]
     price_12_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[720:721]
     price_24_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[1439:1440]
     try:

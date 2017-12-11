@@ -25,7 +25,6 @@
         <th>Change/24 Hours</th>
         <th>Volume/24 Hours</th>
         <th>Market Cap</th>
-        <th>Time</th>
       </tr>
     </thead>
 
@@ -51,7 +50,6 @@
         {% endif %}
         <td>${{ entry.volume|intcomma }}</td>
         <td>${{ entry.mktcap|intcomma }}</td>
-        <td>{{ entry.time|naturaltime}}</td>
       </tr>
 
       {% endfor %}

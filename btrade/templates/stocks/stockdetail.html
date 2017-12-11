@@ -123,14 +123,14 @@
   </table> -->
 
 
-  <button type="buystock" onclick="location.href='/stocks/buystock/{{ coin_type }}/'">Buy Stock</button>
-  <button type="sellstock" onclick="location.href='/stocks/sellstock/{{ coin_type }}/'">Sell Stock</button>
+  <button type="buystock" onclick="location.href='/stocks/buystock/{{ coin_type }}/'">Buy Coin</button>
+  <button type="sellstock" onclick="location.href='/stocks/sellstock/{{ coin_type }}/'">Sell Coin</button>
 
   {% if savedstock == None %}
-    <button type="savestock" onclick="location.href='/stocks/savestock/{{ coin_type }}'">Watch Stock</button>
+    <button type="savestock" onclick="location.href='/stocks/savestock/{{ coin_type }}'">Watch Coin</button>
     {{ savedstock }}
   {% else %}
-    <button type="savestock" onclick="location.href='/stocks/unsavestock/{{ coin_type }}'">Stop Watching Stock</button>
+    <button type="savestock" onclick="location.href='/stocks/unsavestock/{{ coin_type }}'">Stop Watching Coin</button>
   {% endif%}
 </div>
 {% endblock %}

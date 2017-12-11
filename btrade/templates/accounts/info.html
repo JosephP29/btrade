@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block head %}
   <style>
@@ -43,7 +44,7 @@
   <h3> <b>First Name:</b> {{ user.first_name }} </h3>
   <h3> <b>Last Name:</b> {{ user.last_name }} </h3>
   <h3> <b>Email:</b> {{ user.email }} </h3>
-  <h3> <b>Account Balance:</b> ${{ user.userprofile.currency }} USD</h3>
+  <h3> <b>Account Balance:</b> ${{ user.userprofile.currency|intcomma }} USD</h3>
 </div>
 <div class="wrapper">
   <button class="button" onclick="location.href='/account/profile/edit'">Edit Info</button>

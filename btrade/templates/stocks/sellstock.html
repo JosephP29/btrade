@@ -10,7 +10,7 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <h4>Sale Total: <t id="result" />0</h4>
+    <h4>Sale Total: $<t id="result" />0</h4>
     </br>
     <script type="text/javascript">
       document.getElementById("id_units").onchange = function()
