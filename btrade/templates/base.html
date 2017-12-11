@@ -2,12 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="/static/favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-chart.js/1.1.1/angular-chart.min.js"></script>
+
     <style>
       .navbar-inverse {
         background-color: gray;
@@ -28,8 +30,7 @@
           {% if user.is_authenticated %}
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/account/">Home</a></li>
-              <li><a href="/stocks/">Coin List</a></li>
-              <li><a href="/stocks/trending">Trending</a></li>
+              <li><a href="/stocks/">Coins</a></li>
               <li><a href="/account/profile/">Account</a></li>
               <li><a href="/leaderboard/">Leaderboard</a></li>
               <li><a href="/account/logout/">Logout</a></li>
