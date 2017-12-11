@@ -24,3 +24,5 @@ def edit(request):
 def admin(request):
     return render(request, 'admin/admin_search.html')
 
+def faq(request):
+    return render(request, 'accounts/faq.html')
