@@ -24,7 +24,7 @@ SECRET_KEY = '49^)@k0-j(ksspo4z-884gxn&u&*-9t4@ohb=t%=6@w^riu@z7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['159.203.173.31', 'projectbtrade.com', 'www.projectbtrade.com']
+ALLOWED_HOSTS = ['159.203.173.31', 'projectbtrade.com', 'localhost']
 
 
 # Application definition

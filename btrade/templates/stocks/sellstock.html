@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block body %}
 
 <div class="container">
   <h1>Sell Stock Form</h1>
-  <h4><b>Price per {{ coin_type }}: ${{coin.price}}</h4>
-  <h4><b>Current {{ coin_type }} holdings:  {{units}}</h4>
+  <h4><b>Price per {{ coin_type }}: ${{coin.price|intcomma}}</h4>
+  <h4><b>Current {{ coin_type }} holdings:  {{units|intcomma}}</h4>
   <br>
   <form method="post">
     {% csrf_token %}
