@@ -19,8 +19,8 @@
              var cost = {{coin.price}};
              var result = document.getElementById('result').innerHTML;
              var myResult = units * cost;
-             var myResultFixed = myResult.toFixed(2);
-             document.getElementById('result').innerHTML = myResultFixed;
+             var myResultLocale = myResult.toLocaleString();
+             document.getElementById('result').innerHTML = myResultLocale;
            };
 
     </script>

@@ -135,7 +135,7 @@
         {% endfor %}
         {% for key, value in costs.items %}
           {% if key == coin.coin_type %}
-            <td>{{ value|intcomma }}</td>
+            <td>${{ value|intcomma }}</td>
           {% endif %}
         {% endfor %}
       </tr>

@@ -29,6 +29,8 @@ def trending(request):
 def buystock(request, coin_type):
     coin = current_price_table.objects.get(coin_type=coin_type)
     u = request.user.userprofile
+    account_balance = u.currency
+    print(account_balance)
     if request.method == 'POST':
         buy_form = BuyStockForm(request.POST)
         if buy_form.is_valid():
@@ -54,12 +56,12 @@ def buystock(request, coin_type):
                 return redirect('/account/profile')
             else:
                 buy_form = BuyStockForm()
-                args = {'form': buy_form, 'coin': coin}
+                args = {'form': buy_form, 'coin': coin, 'account_balance': account_balance,}
                 print("***** NOT ENOUGH MONEY *****")
                 return render(request, 'stocks/buystock.html', args)
     else:
         buy_form = BuyStockForm()
-        args = {'form': buy_form, 'coin_type': coin_type, 'coin': coin}
+        args = {'form': buy_form, 'coin': coin, 'account_balance': account_balance,}
         return render(request, 'stocks/buystock.html', args)
 
 def sellstock(request, coin_type):

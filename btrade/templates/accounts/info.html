@@ -36,14 +36,14 @@
 {% block body %}
 <div class="container">
   <center><h1>User Information</h1></center>
-  <p style="text-align:left;">Username: {{ user }}
+  <p style="text-align:left;">
     <span style="float:right;"><a href="/account/change-password/">Change Password</a></span>
   </p>
-  <p> Username: {{ user }} </p>
-  <p> First Name: {{ user.first_name }} </p>
-  <p> Last Name: {{ user.last_name }} </p>
-  <p> Email: {{ user.email }} </p>
-  <p> Currency: {{ user.userprofile.currency }} USD</p>
+  <h3> <b>Username:</b> {{ user }} </h3>
+  <h3> <b>First Name:</b> {{ user.first_name }} </h3>
+  <h3> <b>Last Name:</b> {{ user.last_name }} </h3>
+  <h3> <b>Email:</b> {{ user.email }} </h3>
+  <h3> <b>Account Balance:</b> ${{ user.userprofile.currency }} USD</h3>
 </div>
 <div class="wrapper">
   <button class="button" onclick="location.href='/account/profile/edit'">Edit Info</button>

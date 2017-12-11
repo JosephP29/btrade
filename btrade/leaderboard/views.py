@@ -1,3 +1,5 @@
+from operator import itemgetter
+from collections import OrderedDict
 from django.conf.urls import url
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -11,6 +13,7 @@ from decimal import Decimal
 def home(request):
     users = User.objects.all()
     price_table = current_price_table.objects.all()
+
     total_holdings = {}
     for user in users:
         total_holdings[user] = 0
@@ -23,8 +26,8 @@ def home(request):
             total_holdings[user] += total_coin_value
         account_balance = user.userprofile.currency
         total_holdings[user] += account_balance
-        total_holdings[user] = '%.2f' % total_holdings[user]
-        user.currency =  total_holdings[user]
 
-    users = User.objects.order_by('-userprofile__earned_currency')
-    return render(request, 'leaderboard/home.html', {'users': users, 'total_holdings': total_holdings})
+    sorted_users = OrderedDict(sorted(total_holdings.items(), key=itemgetter(1), reverse=True))
+    for user in sorted_users:
+        sorted_users[user] = '%.2f' % sorted_users[user]
+    return render(request, 'leaderboard/home.html', {'users': sorted_users, 'total_holdings': total_holdings})

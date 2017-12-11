@@ -30,15 +30,11 @@
       <th>Name</th>
       <th>Account Value</th>
     </tr>
-    {% for user in users %}
+    {% for key, value in users.items %}
     <tr>
       <td class="count"></td>
-      <td>{{ user.username }}</td>
-      {% for key, value in total_holdings.items %}
-        {% if key == user %}
-          <td>${{ value|intcomma   }}</td>
-        {% endif %}
-      {% endfor %}
+      <td>{{ key }}</td>
+      <td>${{ value|intcomma }}</td>
     </tr>
     {% endfor %}
   </table>
