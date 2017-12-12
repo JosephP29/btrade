@@ -1,130 +1,123 @@
 {% extends 'base.html' %}
 {% load humanize %}
-
 {% block head %}
-  <meta charset="utf-8">
-  <title>Coin List</title>
-  <style>
-      table {
-      font-family: arial, sans-serif;
-      height: 100%;
-      width: 100%;
-      }
-
-      td, th {
-        text-align: center;
-      }
-      .button2 {
-        background-color: blue;
-        border: none;
-        color: white;
-        bottom: 100px;
-        border-radius: 6px;
-        border: 2px solid gray;
-        font-size: 20px;
-      }
-      tr:nth-child(even) {
-        background-color: #dddddd;
-      }
-      #overlay {
-        position: fixed;
-        display: none;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0,0,0,0);
-        z-index: 2;
-        cursor: pointer;
-      }
-      #text{
-        font-size: 15px;
-        font-weight: bold;
-        text-align: center;
-        color: red;
-        display: none;
-      }
-      #text2{
-        font-size: 15px;
-        font-weight: bold;
-        text-align: center;
-        color: red;
-        display: none;
-      }
-      #text3{
-        font-size: 10px;
-        font-weight: bold;
-        text-align: center;
-        color: red;
-        display: none;
-      }
-  </style>
+<meta charset="utf-8">
+<title>Coin List</title>
+<style>
+td, th {
+  text-align: center;
+}
+.button2 {
+  background-color: blue;
+  border: none;
+  color: white;
+  bottom: 100px;
+  border-radius: 6px;
+  border: 2px solid gray;
+  font-size: 20px;
+}
+/*tr:nth-child(even) {
+  background-color: #dddddd;
+}*/
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0);
+  z-index: 2;
+  cursor: pointer;
+}
+#text{
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+  display: none;
+}
+#text2{
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+  display: none;
+}
+#text3{
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+  display: none;
+}
+</style>
 {% endblock %}
 
-
 {% block body %}
+<br>
 <div id="overlay" onclick="off()"> </div>
+
 <div class="container">
   <div align="right"><button onclick="on()" class="button2">?</button></div>
   <p><center><img src="/static/Logo.png" alt="BTrade Logo should be here" height="25%" width="25%"></center></p>
-  <table class="table table-hover">
-  <thead>
-   <tr>
-     <th style="font-size:17px"><div id="text3" onclick="off()"> Trending or Not</div></th>
-     <th style="font-size:17px">Coin<div id="text" onclick="off()"> Click coin name to go to detail page</div></th>
-     <th style="font-size:17px">Price</th>
-     <th style="font-size:17px">Change/24 Hours<div id="text2" onclick="off()"> Percent increase/decrease</div></th>
-     <th style="font-size:17px">Volume/24 Hours</th>
-     <th style="font-size:17px">Market Cap</th>
-     <!--<th>Last Update</th>-->
-   </tr>
-  </thead>
+<br>
+  <table class="table table-condensed table-hover table-striped">
+    <thead>
+      <tr>
+        <th style="font-size:17px"><div id="text3" onclick="off()"> Trending or Not</div></th>
+        <th style="font-size:17px">Coin<div id="text" onclick="off()"> Click coin name to go to detail page</div></th>
+        <th style="font-size:17px">Price</th>
+        <th style="font-size:17px">Change/24 Hours<div id="text2" onclick="off()"> Percent increase/decrease</div></th>
+        <th style="font-size:17px">Volume/24 Hours</th>
+        <th style="font-size:17px">Market Cap</th>
+        <!--<th>Last Update</th>-->
+      </tr>
+    </thead>
 
-  <tbody>
-  {% for coin in price_table %}
-  <tr>
-  {% if coin.coin_type == hot_table.0.coin_type %}
-     <td style = "text-align: center;"><img src="/static/litFam.png" alt="Hot" style="width:20px; height:auto;"></td>
-  {% elif coin.coin_type == hot_table.40.coin_type %}
-     <td style = "text-align: center;"><img src="/static/chocolate.png" alt="Not" style="width:19px; height:auto;"></td>
-  {% elif coin.change24hour > 0 %}
-     <td style = "text-align: center;"><img src="/static/up.png" alt="Rising" style="width:13px; height:auto;"></td>
-  {% else %}
-     <td style = "text-align: center;"><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>
-  {% endif %}
-     <td style = "text-align: center;"><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ coin.coin_type }}</a></td>
-     <td style = "text-align: center;">${{ coin.price|intcomma }}</td>
-     {% if coin.change24hour > 0 %}
-     <td style="color:#00b100; text-align: center;">{{ coin.change24hour|floatformat:4 }}%</td>
-     {% else %}
-     <td style="color:#FF0000; text-align: center;">{{ coin.change24hour|floatformat:4 }}%</td>
-     {% endif %}
-     <td style = "text-align: center;">${{ coin.volume|intcomma }}</td>
-     <td style = "text-align: center;">${{ coin.mktcap|intcomma }}</td>
-     <!--<td>{{ coin.time|naturaltime }}</td>-->
-   </tr>
-  {% endfor %}
-  </tbody>
+    <tbody>
+      {% for coin in price_table %}
+      <tr>
+        {% if coin.coin_type == hot_table.0.coin_type %}
+        <td style = "text-align: center;"><img src="/static/litFam.png" alt="Hot" style="width:20px; height:auto;"></td>
+        {% elif coin.coin_type == hot_table.40.coin_type %}
+        <td style = "text-align: center;"><img src="/static/chocolate.png" alt="Not" style="width:19px; height:auto;"></td>
+        {% elif coin.change24hour > 0 %}
+        <td style = "text-align: center;"><img src="/static/up.png" alt="Rising" style="width:13px; height:auto;"></td>
+        {% else %}
+        <td style = "text-align: center;"><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>
+        {% endif %}
+        <td style = "text-align: center;"><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ coin.coin_type }}</a></td>
+        <td style = "text-align: center;">${{ coin.price|intcomma }}</td>
+        {% if coin.change24hour > 0 %}
+        <td style="color:#00b100; text-align: center;">{{ coin.change24hour|floatformat:4 }}%</td>
+        {% else %}
+        <td style="color:#FF0000; text-align: center;">{{ coin.change24hour|floatformat:4 }}%</td>
+        {% endif %}
+        <td style = "text-align: center;">${{ coin.volume|intcomma }}</td>
+        <td style = "text-align: center;">${{ coin.mktcap|intcomma }}</td>
+        <!--<td>{{ coin.time|naturaltime }}</td>-->
+      </tr>
+      {% endfor %}
+    </tbody>
   </table>
 </div>
 <script>
 function on() {
-    document.getElementById("overlay").style.display = "block";
-    document.getElementById("text").style.display = "block";
-    document.getElementById("text2").style.display = "block";
-    document.getElementById("text3").style.display = "block";
-    document.getElementById("text4").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+  document.getElementById("text2").style.display = "block";
+  document.getElementById("text3").style.display = "block";
+  document.getElementById("text4").style.display = "block";
 }
 
 function off() {
-    document.getElementById("overlay").style.display = "none";
-    document.getElementById("text").style.display = "none";
-    document.getElementById("text2").style.display = "none";
-    document.getElementById("text3").style.display = "none";
-    document.getElementById("text4").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+  document.getElementById("text").style.display = "none";
+  document.getElementById("text2").style.display = "none";
+  document.getElementById("text3").style.display = "none";
+  document.getElementById("text4").style.display = "none";
 }
 </script>
-{% endblock%}
-<!DOCTYPE html>
+{% endblock %}

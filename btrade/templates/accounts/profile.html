@@ -117,13 +117,13 @@
 <div class="container">
   <div align="right"><button onclick="on()" class="button2">?</button></div>
   <h2>Welcome to your account, {{ user.first_name }}</h2>
-  <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b> 
-  <br>Estimated Value: <b><i>${{total_holdings|intcomma}}</i></b> 
+  <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b>
+  <br>Estimated Value: <b><i>${{total_holdings|intcomma}}</i></b>
   <div id="text4" onclick="off()">&uarr; Sum of holdings' worth and balance </div>
   <!-- <br>Score: <b><i>{{ user.userprofile.earned_currency|intcomma }}</b></i></h3> -->
-  <div align="right"><button class="button" onclick="location.href='/account/info'">Update User Info</button></div>
-  <h1>Current Holdings</h1> <div id="text" onclick="off()">&darr; Coins currently owned </div>
-  <table class="table table-responsive table-striped">
+  <div align="right"><button class="button" onclick="location.href='/account/info'">Settings</button></div>
+  <h2>Current Holdings</h2> <div id="text" onclick="off()">&darr; Coins currently owned </div>
+  <table class="table table-condensed table-striped table-hover">
       <tr>
         <th>Coin</th>
         <th>Units</th>
@@ -152,9 +152,9 @@
 </div>
 
 <div class="container">
-  <h1>Previous Purchases</h1> <div id="text2" onclick="off()">&darr; Previous purchases of coins</div>
+  <h2>Previous Purchases</h2> <div id="text2" onclick="off()">&darr; Previous purchases of coins</div>
   <!--<a href="/admin/admin_search"><h2>Admin Profile</h2></a>-->
-  <table class="table table-responsive table-striped">
+  <table class="table table-condensed table-striped table-hover">
     <tr>
       <th>Date</th>
       <th>Coin</th>
@@ -187,8 +187,8 @@
 </div>
 
 <div class="container">
-  <h1>Previous Sales</h1> <div id="text3" onclick="off()">&darr; Previous sales of coins</div>
-  <table class="table table-responsive table-striped">
+  <h2>Previous Sales</h2> <div id="text3" onclick="off()">&darr; Previous sales of coins</div>
+  <table class="table table-condensed table-striped table-hover">
     <tr>
       <th>Date</th>
       <th>Coin</th>
