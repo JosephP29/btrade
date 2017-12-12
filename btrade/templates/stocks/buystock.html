@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
+{% load humanize %}
+
 
 {% block body %}
 
 <div class="container">
   <h1>Purchase Stock Form</h1>
-  <h4>Price per {{ coin.coin_type }}: <b>${{ coin.price }}</b></h4>
-  <h4>Account Balance: <b>${{ account_balance }}</b></h4>
+  <h4>Price per {{ coin.coin_type }}: <b>${{ coin.price|intcomma }}</b></h4>
+  <h4>Account Balance: <b>${{ account_balance|intcomma }}</b></h4>
   <form method="post" name="myForm" id="myForm">
     {% csrf_token %}
     {{ form.as_p }}
