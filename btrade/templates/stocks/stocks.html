@@ -72,12 +72,12 @@
   <table class="table table-hover">
   <thead>
    <tr>
-     <th><div id="text3" onclick="off()">&darr; Trending or Not</div></th>
-     <th>Coin<div id="text" onclick="off()">&darr; Click coin name to go to detail page</div></th>
-     <th>Price</th>
-     <th>Change/24 Hours<div id="text2" onclick="off()">&darr; Percent increase/decrease</div></th>
-     <th>Volume/24 Hours</th>
-     <th>Market Cap</th>
+     <th style="font-size:17px"><div id="text3" onclick="off()"> Trending or Not</div></th>
+     <th style="font-size:17px">Coin<div id="text" onclick="off()"> Click coin name to go to detail page</div></th>
+     <th style="font-size:17px">Price</th>
+     <th style="font-size:17px">Change/24 Hours<div id="text2" onclick="off()"> Percent increase/decrease</div></th>
+     <th style="font-size:17px">Volume/24 Hours</th>
+     <th style="font-size:17px">Market Cap</th>
      <!--<th>Last Update</th>-->
    </tr>
   </thead>
@@ -86,23 +86,23 @@
   {% for coin in price_table %}
   <tr>
   {% if coin.coin_type == hot_table.0.coin_type %}
-     <td><img src="/static/litFam.png" alt="Hot" style="width:20px; height:auto;"></td>
+     <td style = "text-align: center;"><img src="/static/litFam.png" alt="Hot" style="width:20px; height:auto;"></td>
   {% elif coin.coin_type == hot_table.40.coin_type %}
-     <td><img src="/static/chocolate.png" alt="Not" style="width:19px; height:auto;"></td>
+     <td style = "text-align: center;"><img src="/static/chocolate.png" alt="Not" style="width:19px; height:auto;"></td>
   {% elif coin.change24hour > 0 %}
-     <td><img src="/static/up.png" alt="Rising" style="width:13px; height:auto;"></td>
+     <td style = "text-align: center;"><img src="/static/up.png" alt="Rising" style="width:13px; height:auto;"></td>
   {% else %}
-     <td><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>
+     <td style = "text-align: center;"><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>
   {% endif %}
-     <td><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ coin.coin_type }}</a></td>
-     <td>${{ coin.price|intcomma }}</td>
+     <td style = "text-align: center;"><a href="stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ coin.coin_type }}</a></td>
+     <td style = "text-align: center;">${{ coin.price|intcomma }}</td>
      {% if coin.change24hour > 0 %}
-     <td style="color:#00b100">{{ coin.change24hour|floatformat:4 }}%</td>
+     <td style="color:#00b100; text-align: center;">{{ coin.change24hour|floatformat:4 }}%</td>
      {% else %}
-     <td style="color:#FF0000">{{ coin.change24hour|floatformat:4 }}%</td>
+     <td style="color:#FF0000; text-align: center;">{{ coin.change24hour|floatformat:4 }}%</td>
      {% endif %}
-     <td>${{ coin.volume|intcomma }}</td>
-     <td>${{ coin.mktcap|intcomma }}</td>
+     <td style = "text-align: center;">${{ coin.volume|intcomma }}</td>
+     <td style = "text-align: center;">${{ coin.mktcap|intcomma }}</td>
      <!--<td>{{ coin.time|naturaltime }}</td>-->
    </tr>
   {% endfor %}

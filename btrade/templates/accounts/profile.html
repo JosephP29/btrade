@@ -133,17 +133,17 @@
       </tr>
     {% for coin in coin_list %}
       <tr>
-        <td><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ coin.coin_type }}</a></td>
-        <td>{{ coin.units|intcomma }}</td>
+        <td style = "text-align: center;"><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ coin.coin_type }}</a></td>
+        <td style = "text-align: center;">{{ coin.units|intcomma }}</td>
         {% for current_price in current_prices %}
           {% if current_price.coin_type == coin.coin_type %}
-            <td>${{ current_price.price|intcomma }}</td>
-            <td>{{ current_price.change24hour|intcomma }}</td>
+            <td style = "text-align: center;">${{ current_price.price|intcomma }}</td>
+            <td style = "text-align: center;">{{ current_price.change24hour|intcomma }}</td>
           {% endif %}
         {% endfor %}
         {% for key, value in costs.items %}
           {% if key == coin.coin_type %}
-            <td>${{ value|intcomma }}</td>
+            <td style = "text-align: center;">${{ value|intcomma }}</td>
           {% endif %}
         {% endfor %}
       </tr>
@@ -166,19 +166,19 @@
     </tr>
     {% for buy in buys %}
       <tr>
-        <td>{{ buy.date_bought|naturaltime }}</td>
-        <td><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ buy.coin_type }}</a></td>
-        <td>${{ buy.price_bought_at|intcomma }}</td>
-        <td>{{ buy.units|intcomma }}</td>
-        <td>${{ buy.buy_total|intcomma }}</td>
+        <td style = "text-align: center;">{{ buy.date_bought|naturaltime }}</td>
+        <td style = "text-align: center;"><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ buy.coin_type }}</a></td>
+        <td style = "text-align: center;">${{ buy.price_bought_at|intcomma }}</td>
+        <td style = "text-align: center;">{{ buy.units|intcomma }}</td>
+        <td style = "text-align: center;">${{ buy.buy_total|intcomma }}</td>
         {% for current_price in current_prices %}
           {% if current_price.coin_type == buy.coin_type %}
-            <td>${{ current_price.price|intcomma }}</td>
+            <td style = "text-align: center;">${{ current_price.price|intcomma }}</td>
           {% endif %}
         {% endfor %}
         {% for key, value in roi.items %}
           {% if buy.coin_type == key %}
-              <td>${{ value|intcomma }}</td>
+              <td style = "text-align: center;">${{ value|intcomma }}</td>
           {% endif %}
         {% endfor %}
       </tr>
@@ -198,11 +198,11 @@
     </tr>
     {% for sale in sales %}
       <tr>
-        <td>{{ sale.date_bought|naturaltime }}</td>
-        <td><a href="../../stocks/stockdetail/{{ sale.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ sale.coin_type }}</a></td>
-        <td>${{ sale.price_sold_at|intcomma }}</td>
-        <td>{{ sale.units|intcomma }}</td>
-        <td>${{ sale.sell_total|intcomma }}</td>
+        <td style = "text-align: center;">{{ sale.date_bought|naturaltime }}</td>
+        <td style = "text-align: center;"><a href="../../stocks/stockdetail/{{ sale.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ sale.coin_type }}</a></td>
+        <td style = "text-align: center;">${{ sale.price_sold_at|intcomma }}</td>
+        <td style = "text-align: center;">{{ sale.units|intcomma }}</td>
+        <td style = "text-align: center;">${{ sale.sell_total|intcomma }}</td>
       </tr>
     {% endfor %}
   </table>

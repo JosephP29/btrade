@@ -10,12 +10,12 @@
       content:counter(section);
     }
     tr {
-    border: 2px solid blue;
+    border: 2px solid black;
     border-radius: 8px;
     box-shadow: 10px 10px 5px grey;
     }
     tr:nth-child(even) {
-        background-color: #FF9D11;
+        background-color: #637B7B;
         color: white;
     }
     .button2 {
@@ -57,18 +57,18 @@
 <div class="container">
   <div align="right"><button onclick="on()" class="button2">?</button></div>
   <center><img src="/static/trophy.png" alt="A trophy should be here" height="50" width="50"><h1>Leaderboard</h1></center>
-  <div id="text" onclick="off()">&darr; Rankings of all BTrade users</div>
+  <div id="text" onclick="off()">&darr; Global rankings of Btrade users based on total account value (see FAQs)</div>
   <table class='table table-responsive table-striped'>
     <tr>
-      <th>Rank</th>
-      <th>Name</th>
-      <th>Account Value</th>
+      <th style="font-size:20px">Rank</th>
+      <th style="font-size:20px">Name</th>
+      <th style="font-size:20px">Account Value</th>
     </tr>
     {% for key, value in users.items %}
     <tr>
-      <td class="count"></td>
-      <td>{{ key }}</td>
-      <td>${{ value|intcomma }}</td>
+      <td class="count" style = "text-align: center;"></td>
+      <td style = "text-align: center;">{{ key }}</td>
+      <td style = "text-align: center;">${{ value|intcomma }}</td>
     </tr>
     {% endfor %}
   </table>

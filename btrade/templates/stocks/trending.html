@@ -158,11 +158,11 @@
     <thead>
       <tr>
         <th></th>
-        <th>Coin <div id="text2" onclick="off()">&darr; Click coin name to go to detail page</div></th>
-        <th>Price</th>
-        <th>Change/24 Hours<div id="text3" onclick="off()">&darr; Percent increase/decrease</div></th>
-        <th>Volume/24 Hours</th>
-        <th>Market Cap</th>
+        <th style="font-size:17px">Coin <div id="text2" onclick="off()"> Click coin name to go to detail page</div></th>
+        <th style="font-size:17px">Price</th>
+        <th style="font-size:17px">Change/24 Hours<div id="text3" onclick="off()"> Percent increase/decrease</div></th>
+        <th style="font-size:17px">Volume/24 Hours</th>
+        <th style="font-size:17px">Market Cap</th>
       </tr>
     </thead>
 
@@ -171,23 +171,23 @@
 
       <tr>
         {% if entry.coin_type == hot_table.0.coin_type %}
-        <td><img src="/static/litFam.png" alt="Hot" style="width:20px; height:auto;"></td>
+        <td style = "text-align: center;"><img src="/static/litFam.png" alt="Hot" style="width:20px; height:auto;"></td>
         {% elif entry.coin_type == hot_table.40.coin_type %}
-        <td><img src="/static/chocolate.png" alt="Not" style="width:19px; height:auto;"></td>
+        <td style = "text-align: center;"><img src="/static/chocolate.png" alt="Not" style="width:19px; height:auto;"></td>
         {% elif entry.change24hour > 0 %}
-        <td><img src="/static/up.png" alt="Rising" style="width:13px; height:auto;"></td>
+        <td style = "text-align: center;"><img src="/static/up.png" alt="Rising" style="width:13px; height:auto;"></td>
         {% else %}
-        <td><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>
+        <td style = "text-align: center;"><img src="/static/down.png" alt="Falling" style="width:13px; height:auto;"></td>
         {% endif %}
-        <td><a href="../../stocks/stockdetail/{{ entry.coin_type }}/" title="Purchase {{entry.coin_type}}">{{ entry.coin_type }}</a></td>
-        <td>${{ entry.price|intcomma }}</td>
+        <td style = "text-align: center;"><a href="../../stocks/stockdetail/{{ entry.coin_type }}/" title="Purchase {{entry.coin_type}}">{{ entry.coin_type }}</a></td>
+        <td style = "text-align: center;">${{ entry.price|intcomma }}</td>
         {% if entry.change24hour > 0 %}
-        <td style="color:#00b100">{{ entry.change24hour|floatformat:4 }}%</td>
+        <td style="color:#00b100; text-align: center;">{{ entry.change24hour|floatformat:4 }}%</td>
         {% else %}
-        <td style="color:#FF0000">{{ entry.change24hour|floatformat:4 }}%</td>
+        <td style="color:#FF0000; text-align: center;">{{ entry.change24hour|floatformat:4 }}%</td>
         {% endif %}
-        <td>${{ entry.volume|intcomma }}</td>
-        <td>${{ entry.mktcap|intcomma }}</td>
+        <td style = "text-align: center;">${{ entry.volume|intcomma }}</td>
+        <td style = "text-align: center;">${{ entry.mktcap|intcomma }}</td>
       </tr>
 
       {% endfor %}
