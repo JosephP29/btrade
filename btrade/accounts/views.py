@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from stocks.models import BuyReceipt, SellReceipt, SavedStock, current_price_table
+from stocks.models import Stock, BuyReceipt, SellReceipt, SavedStock, current_price_table
 
 # Create your views here.
 @login_required
@@ -20,20 +20,22 @@ def home(request):
     s2 = None#qs[1]
     s3 = None#qs[2]
 
+    btc = Stock.objects.get(coin_type='BTC')
+
     if (saved_stocks.count() == 1):
         saved1 = saved_stocks[0]
-        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'saved1': saved1}
+        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'saved1': saved1, 'btc': btc }
     elif (saved_stocks.count() == 2):
         saved1 = saved_stocks[0]
         saved2 = saved_stocks[1]
-        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'saved1': saved1, 'saved2': saved2}
+        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'saved1': saved1, 'saved2': saved2, 'btc': btc }
     elif (saved_stocks.count() == 3):
         saved1 = saved_stocks[0]
         saved2 = saved_stocks[1]
         saved3 = saved_stocks[2]
-        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'saved1': saved1, 'saved2': saved2, 'saved3': saved3}
+        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'saved1': saved1, 'saved2': saved2, 'saved3': saved3, 'btc': btc }
     else:
-        args = {'stock1': s1, 'stock2': s2, 'stock3': s3}
+        args = {'stock1': s1, 'stock2': s2, 'stock3': s3, 'btc': btc }
     return render(request, 'accounts/home.html', args)
 
 def register(request):
