@@ -14,6 +14,12 @@
 				margin: 0 auto;
 			}
 
+      .main-img {
+        min-width: 100%;
+        max-width: 100%;
+        margin: auto;
+      }
+
 			.button:hover {
     			background-color: blue;
     			color: white; /* And the font turns white */
@@ -35,7 +41,7 @@
 		</style>
 	</head>
 	<body>
-		<img src="/static/Logo.png" alt="BTrade Logo should be here">
+		<img class="main-img" src="/static/Logo.png" alt="BTrade Logo should be here">
 		<div class="test">
 			<div>
 				<button class="button" onclick="location.href='/account/register/'">Sign Up!</button>
