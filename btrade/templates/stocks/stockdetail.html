@@ -189,16 +189,15 @@
   <div align="right"><button onclick="on()" class="button2">?</button></div>
 {% for entry in current_price %}
   <h1>Coin: {{ coin_type }}</h1><div id="text" onclick="off()">&uarr; Coin details about</div>
-  <h2>Price: ${{ entry.price|intcomma }}</h2><div id="text2" onclick="off()">&uarr; Current price of {{coin_type}}</div>
-  <h2>Current Holdings: {{ units|intcomma }}</h2><div id="text2" onclick="off()">&uarr; Amount that you own</div>
-  <h2>Market Capitilization: ${{ entry.mktcap|intcomma }}</h2><div id="text4" onclick="off()">&uarr; Market Value of the Shares</div>
-  <h2>Change/24 Hours: {{ entry.change24hour|intcomma }}%</h2><div id="text3" onclick="off()">&uarr; Percent Increase/Decrease</div>
-  <h2>Volume/24 Hours: ${{ entry.volume|intcomma }}</h2><div id="text8" onclick="off()">&uarr; Number of coins traded in 24 hours measured in dollars</div>
-  <h2>High/24 Hours: ${{ entry.high24hour|intcomma }}</h2><div id="text5" onclick="off()">&uarr; Highest Value in last 24 hours</div>
-  <h2>Low/24 Hours: ${{ entry.low24hour|intcomma }}</h2><div id="text6" onclick="off()">&uarr; Lowest Value in last 24 hours</div>
-  <h2>Total Supply: {{ entry.supply|intcomma }} {{coin_type}}</h2><div id="text7" onclick="off()">&uarr; Amount of Coin in Circulation</div>
+  <h3>Price: ${{ entry.price|intcomma }}</h3><div id="text2" onclick="off()">&uarr; Current price of {{coin_type}}</div>
+  <h3>Current Holdings: {{ units|intcomma }}</h3><div id="text2" onclick="off()">&uarr; Amount that you own</div>
+  <h3>Market Capitilization: ${{ entry.mktcap|intcomma }}</h3><div id="text4" onclick="off()">&uarr; Market Value of the Shares</div>
+  <h3>Change/24 Hours: {{ entry.change24hour|intcomma }}%</h3><div id="text3" onclick="off()">&uarr; Percent Increase/Decrease</div>
+  <h3>Volume/24 Hours: ${{ entry.volume|intcomma }}</h3><div id="text8" onclick="off()">&uarr; Number of coins traded in 24 hours measured in dollars</div>
+  <h3>High/24 Hours: ${{ entry.high24hour|intcomma }}</h3><div id="text5" onclick="off()">&uarr; Highest Value in last 24 hours</div>
+  <h3>Low/24 Hours: ${{ entry.low24hour|intcomma }}</h3><div id="text6" onclick="off()">&uarr; Lowest Value in last 24 hours</div>
+  <h3>Total Supply: {{ entry.supply|intcomma }} {{coin_type}}</h3><div id="text7" onclick="off()">&uarr; Amount of Coin in Circulation</div>
 {% endfor %}
-<br>
   <button type="buystock" onclick="location.href='/stocks/buystock/{{ coin_type }}/'">Buy Coin</button>
   <button type="sellstock" onclick="location.href='/stocks/sellstock/{{ coin_type }}/'">Sell Coin</button>
 
