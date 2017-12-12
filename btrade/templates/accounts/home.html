@@ -35,17 +35,24 @@
 
 <!--close-top-Header-menu-->
 
-<div id="sidebar"><a href="/account/" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a><ul>
+<!-- <div id="sidebar"><a href="/account/" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a><ul>
     <li class="active"><a href="/account/"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
     <li> <a href="/stocks/"><i class="icon icon-signal"></i> <span>Coin List</span></a> </li>
     <li><a href="/stocks/trending"><i class="icon icon-th"></i> <span>Trending</span></a></li>
     <li><a href="/leaderboard/"><i class="icon icon-th-list"></i> <span>Leaderboard</span></a></li>
   </ul>
+</div> -->
+<div class="navbar" >
+  <div class="navbar-inner">
+    <a class="brand" href="/account/"><i class="icon icon-home"></i> Dashboard</a>
+    <ul class="nav">
+      <li><a href="/stocks/"><i class="icon icon-th"></i> <span>Coin List</span></a> </li>
+      <li><a href="/stocks/trending"><i class="icon icon-signal"></i> <span>Trending</span></a></li>
+      <li><a href="/leaderboard/"><i class="icon icon-th-list"></i> <span>Leaderboard</span></a></li>
+    </ul>
+  </div>
 </div>
 <div id="content">
-  <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
-  </div>
   <div class="container-fluid">
    
     <div class="row-fluid">
@@ -107,29 +114,38 @@
       <div class="span6">
         <div class="widget-box">
           <div class="widget-title"><span class="icon"><i class="icon-file"></i></span>
-            <h5>Watch List</h5>
+            <h5>Coin Watch List</h5>
           </div>
           <div class="widget-content nopadding">
             <ul class="recent-posts">
               <li>
-                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av1.jpg"> </div>
-                <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
-                  <p><a href="#">This is a much longer one that will go on for a few lines.It has multiple paragraphs and is full of waffle to pad out the comment.</a> </p>
+                <div class="article-post"> <span class="user-info" style="font-size:13px"> Saved Coin #1</span>
+                  {% if saved1 == null %}
+                    <p style="font-size:20px">No Coin Saved</p>
+                  {% else %}
+                    <p style="font-size:20px"><a href="/stocks/stockdetail/{{ saved1.coin_type }}">{{ saved1.coin_type }}</a> </p>
+                  {% endif %}
                 </div>
               </li>
               <li>
-                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av2.jpg"> </div>
-                <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
-                  <p><a href="#">This is a much longer one that will go on for a few lines.It has multiple paragraphs and is full of waffle to pad out the comment.</a> </p>
+                <div class="article-post"> <span class="user-info" style="font-size:13px"> Saved Coin #2</span>
+                  {% if saved2 == null %}
+                    <p style="font-size:20px">No Coin Saved</p>
+                  {% else %}
+                    <p style="font-size:20px"><a href="/stocks/stockdetail/{{ saved2.coin_type }}">{{ saved2.coin_type }}</a> </p>
+                  {% endif %}
                 </div>
               </li>
               <li>
-                <div class="user-thumb"> <img width="40" height="40" alt="User" src="img/demo/av4.jpg"> </div>
-                <div class="article-post"> <span class="user-info"> By: john Deo / Date: 2 Aug 2012 / Time:09:27 AM </span>
-                  <p><a href="#">This is a much longer one that will go on for a few lines.Itaffle to pad out the comment.</a> </p>
+                <div class="article-post"> <span class="user-info" style="font-size:13px"> Saved Coin #3</span>
+                  {% if saved3 == null %}
+                    <p style="font-size:20px">No Coin Saved</p>
+                  {% else %}
+                    <p style="font-size:20px"><a href="/stocks/stockdetail/{{ saved3.coin_type }}">{{ saved3.coin_type }}</a> </p>
+                  {% endif %}
                 </div>
               <li>
-                <button class="btn btn-warning btn-mini">View All</button>
+                <div class="buttons"><a href="/stocks/" class="btn btn-mini btn-success">View All Coins</a></div>
               </li>
             </ul>
           </div>
