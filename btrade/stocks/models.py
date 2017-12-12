@@ -23,6 +23,7 @@ class current_price_table(models.Model):
     change24hour = models.DecimalField(max_digits=20, decimal_places=2)
     high24hour = models.DecimalField(max_digits=20, decimal_places=2)
     low24hour = models.DecimalField(max_digits=20, decimal_places=2)
+    supply = models.DecimalField(max_digits=20, decimal_places=2)
 
 
 

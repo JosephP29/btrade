@@ -113,8 +113,9 @@
   <h2>Volume/24 Hours: ${{ entry.volume|intcomma }}</h2>
   <h2>High/24 Hours: ${{ entry.high24hour|intcomma }}</h2>
   <h2>Low/24 Hours: ${{ entry.low24hour|intcomma }}</h2>
+  <h2>Total Supply: {{ entry.supply|intcomma }} {{coin_type}}</h2>
 {% endfor %}
-
+<br>
   <button type="buystock" onclick="location.href='/stocks/buystock/{{ coin_type }}/'">Buy Coin</button>
   <button type="sellstock" onclick="location.href='/stocks/sellstock/{{ coin_type }}/'">Sell Coin</button>
 
