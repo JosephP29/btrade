@@ -43,7 +43,7 @@ def buystock(request, coin_type):
             buy_form.price_bought_at = coin.price
             buy_form.buy_total = coin.price * buy_form.units
 
-            if (u.currency >= buy_form.units * coin.price):
+            if (u.currency >= buy_form.units * coin.price and buy_form.units > 0):
                 try:
                     user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
                     user_s.units += buy_form.units
@@ -82,7 +82,7 @@ def sellstock(request, coin_type):
 
             try:
                 user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
-                if (user_s.units >= sell_form.units):
+                if (user_s.units >= sell_form.units and sell_form.units > 0):
                     user_s.units -= sell_form.units
                     user_s.netgain += (coin.price * sell_form.units)
                     u.currency += coin.price * sell_form.units
@@ -104,7 +104,7 @@ def sellstock(request, coin_type):
             except User_Stock.DoesNotExist:
                 print("*****NO USER STOCK MODEL*****")
                 sell_form = SellStockForm()
-                args = {'form': buy_form, 'coin': coin,  'units': 0}
+                args = {'form': sell_form, 'coin': coin,  'units': 0}
                 return render(request, 'stocks/sellstock.html', args)
         else:
             print("*****FORM NOT VALID*****")
@@ -173,7 +173,7 @@ def savestock(request, coin_type):
     save_stock = SavedStock.objects.create(owner=request.user, coin_type=stock.coin_type)
     save_stock.save()
     return redirect('/account/')
-    
+
 @login_required
 def unsavestock(request, coin_type):
     user = request.user
