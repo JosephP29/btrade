@@ -97,7 +97,7 @@
 
 <div id="overlay" onclick="off()"> </div>
 <div class="container">
-  
+
   <p><center><img src="/static/Logo.png" alt="BTrade Logo should be here" height="25%" width="25%"></center></p>
 
   <div ng-app="app" ng-controller="LineCtrl">
@@ -189,6 +189,7 @@
   <div align="right"><button onclick="on()" class="button2">?</button></div>
 {% for entry in current_price %}
   <h1>Coin: {{ coin_type }}</h1><div id="text" onclick="off()">&uarr; Coin details about</div>
+  <h2>Price: ${{ entry.price|intcomma }}</h2><div id="text2" onclick="off()">&uarr; Current price of {{coin_type}}</div>
   <h2>Current Holdings: {{ units|intcomma }}</h2><div id="text2" onclick="off()">&uarr; Amount that you own</div>
   <h2>Market Capitilization: ${{ entry.mktcap|intcomma }}</h2><div id="text4" onclick="off()">&uarr; Market Value of the Shares</div>
   <h2>Change/24 Hours: {{ entry.change24hour|intcomma }}%</h2><div id="text3" onclick="off()">&uarr; Percent Increase/Decrease</div>
@@ -202,12 +203,13 @@
   <button type="sellstock" onclick="location.href='/stocks/sellstock/{{ coin_type }}/'">Sell Coin</button>
 
   {% if savedstock == None %}
-    <button type="savestock" onclick="location.href='/stocks/savestock/{{ coin_type }}'">Watch Coin</button> 
+    <button type="savestock" onclick="location.href='/stocks/savestock/{{ coin_type }}'">Watch Coin</button>
     {{ savedstock }}
   {% else %}
     <button type="savestock" onclick="location.href='/stocks/unsavestock/{{ coin_type }}'">Stop Watching Coin</button>
   {% endif%}
 </div>
+</br>
 <script>
 function on() {
     document.getElementById("overlay").style.display = "block";
