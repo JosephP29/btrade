@@ -1,5 +1,5 @@
 body {
-	background:#d3d3d3;
+	background:#EFEFEF;
 }
 
 #header {
@@ -23,11 +23,11 @@ body {
 .rightzero{ right:0px; display:none;}
 @media (max-width: 480px) {
 	#sidebar > a {
-		background:#d3d3d3;
+		background:#EFEFEF;
 		
 	}
 	#sidebar > ul {
-		background-color: #d3d3d3;
+		background-color: #EFEFEF;
 	}
 #user-nav{ margin:0px auto; top:-31px; border-top:none; width:250px; left:-3%; text-align:center; float:none;}
 #user-nav > ul > li:last-child{ border-right:1px solid #363E48}
