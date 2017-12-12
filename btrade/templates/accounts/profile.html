@@ -97,6 +97,13 @@
         color: red;
         display: none;
       }
+      #text4{
+        font-size: 20px;
+        text-align: left;
+        font-weight: bold;
+        color: red;
+        display: none;
+      }
 
   </style>
   <title>Profile</title>
@@ -108,10 +115,11 @@
 <div id="overlay" onclick="off()"> </div>
 
 <div class="container">
-  <div style="float:right;"><button onclick="on()" class="button2">?</button></div>
+  <div align="right"><button onclick="on()" class="button2">?</button></div>
   <h2>Welcome to your account, {{ user.first_name }}</h2>
-  <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b>
-  <br>Estimated Value: <b><i>${{total_holdings|intcomma}}</i></b>
+  <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b> 
+  <br>Estimated Value: <b><i>${{total_holdings|intcomma}}</i></b> 
+  <div id="text4" onclick="off()">&uarr; Sum of holdings' worth and balance </div>
   <!-- <br>Score: <b><i>{{ user.userprofile.earned_currency|intcomma }}</b></i></h3> -->
   <div align="right"><button class="button" onclick="location.href='/account/info'">Update User Info</button></div>
   <h1>Current Holdings</h1> <div id="text" onclick="off()">&darr; Coins currently owned </div>
@@ -205,6 +213,7 @@ function on() {
     document.getElementById("text").style.display = "block";
     document.getElementById("text2").style.display = "block";
     document.getElementById("text3").style.display = "block";
+    document.getElementById("text4").style.display = "block";
 }
 
 function off() {
@@ -212,6 +221,7 @@ function off() {
     document.getElementById("text").style.display = "none";
     document.getElementById("text2").style.display = "none";
     document.getElementById("text3").style.display = "none";
+    document.getElementById("text4").style.display = "none";
 }
 </script>
 
