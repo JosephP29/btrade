@@ -13,21 +13,23 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from stocks.forms import BuyStockForm, SellStockForm
 from django import forms
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+@login_required
 def stocks(request):
     sorted_price_table = current_price_table.objects.all().order_by('-mktcap')
     hot_price_table = current_price_table.objects.all().order_by('-change24hour')
     args = { 'price_table': sorted_price_table, 'hot_table': hot_price_table, }
     return render(request, 'stocks/stocks.html', args)
 
+@login_required
 def trending(request):
     sorted_price_table = current_price_table.objects.all().order_by('-change24hour')
     hot_price_table = current_price_table.objects.all().order_by('-change24hour')
     args = { 'trending_table': sorted_price_table, 'hot_table': hot_price_table, }
     return render(request, 'stocks/trending.html', args)
 
-
+@login_required
 def buystock(request, coin_type):
     coin = current_price_table.objects.get(coin_type=coin_type)
     u = request.user.userprofile
@@ -65,6 +67,7 @@ def buystock(request, coin_type):
         args = {'form': buy_form, 'coin': coin, 'account_balance': account_balance,}
         return render(request, 'stocks/buystock.html', args)
 
+@login_required
 def sellstock(request, coin_type):
     coin = current_price_table.objects.get(coin_type=coin_type)
     u = request.user.userprofile
@@ -123,7 +126,7 @@ def sellstock(request, coin_type):
             args = {'form': sell_form, 'coin_type': coin_type, 'coin': coin, 'units': 0}
         return render(request, 'stocks/sellstock.html', args)
 
-
+@login_required
 def stockdetail(request, coin_type):
     user = request.user
     current_price = current_price_table.objects.filter(coin_type=coin_type)
@@ -163,14 +166,15 @@ def stockdetail(request, coin_type):
 
     return render(request, 'stocks/stockdetail.html', args)
 
-
+@login_required
 def savestock(request, coin_type):
     user = request.user
     stock = current_price_table.objects.get(coin_type=coin_type)
     save_stock = SavedStock.objects.create(owner=request.user, coin_type=stock.coin_type)
     save_stock.save()
     return redirect('/account/')
-
+    
+@login_required
 def unsavestock(request, coin_type):
     user = request.user
     coin = current_price_table.objects.get(coin_type=coin_type)
