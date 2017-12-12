@@ -126,7 +126,7 @@ def sellstock(request, coin_type):
 
 def stockdetail(request, coin_type):
     user = request.user
-    current_price = history.objects.filter(coin_type=coin_type).order_by('-time')[:1]
+    current_price = current_price_table.objects.filter(coin_type=coin_type)
     price_15_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[15:16]
     price_30_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[29:30]
     price_60_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[60:61]
