@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '49^)@k0-j(ksspo4z-884gxn&u&*-9t4@ohb=t%=6@w^riu@z7'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'btrade_db',
         'USER': 'remote_user',
-        'PASSWORD': 'py8rb&Hudk?m934yDA^4',
+        'PASSWORD': os.environ['POSTGRES_KEY'],
         'HOST': '159.203.173.31',
         'PORT': '5432',
     }
