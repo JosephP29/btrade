@@ -13,22 +13,27 @@ from django.contrib.auth.models import User
 from datetime import datetime
 from stocks.forms import BuyStockForm, SellStockForm
 from django import forms
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+@login_required
 def stocks(request):
     sorted_price_table = current_price_table.objects.all().order_by('-mktcap')
     hot_price_table = current_price_table.objects.all().order_by('-change24hour')
     args = { 'price_table': sorted_price_table, 'hot_table': hot_price_table, }
     return render(request, 'stocks/stocks.html', args)
 
+@login_required
 def trending(request):
     sorted_price_table = current_price_table.objects.all().order_by('-change24hour')
-    return render(request, 'stocks/trending.html', {'trending_table': sorted_price_table})
+    hot_price_table = current_price_table.objects.all().order_by('-change24hour')
+    args = { 'trending_table': sorted_price_table, 'hot_table': hot_price_table, }
+    return render(request, 'stocks/trending.html', args)
 
-
+@login_required
 def buystock(request, coin_type):
     coin = current_price_table.objects.get(coin_type=coin_type)
     u = request.user.userprofile
+    account_balance = u.currency
     if request.method == 'POST':
         buy_form = BuyStockForm(request.POST)
         if buy_form.is_valid():
@@ -38,7 +43,7 @@ def buystock(request, coin_type):
             buy_form.price_bought_at = coin.price
             buy_form.buy_total = coin.price * buy_form.units
 
-            if (u.currency >= buy_form.units * coin.price):
+            if (u.currency >= buy_form.units * coin.price and buy_form.units > 0):
                 try:
                     user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
                     user_s.units += buy_form.units
@@ -54,14 +59,15 @@ def buystock(request, coin_type):
                 return redirect('/account/profile')
             else:
                 buy_form = BuyStockForm()
-                args = {'form': buy_form, 'coin': coin}
+                args = {'form': buy_form, 'coin': coin, 'account_balance': account_balance,}
                 print("***** NOT ENOUGH MONEY *****")
                 return render(request, 'stocks/buystock.html', args)
     else:
         buy_form = BuyStockForm()
-        args = {'form': buy_form, 'coin_type': coin_type, 'coin': coin}
+        args = {'form': buy_form, 'coin': coin, 'account_balance': account_balance,}
         return render(request, 'stocks/buystock.html', args)
 
+@login_required
 def sellstock(request, coin_type):
     coin = current_price_table.objects.get(coin_type=coin_type)
     u = request.user.userprofile
@@ -76,7 +82,7 @@ def sellstock(request, coin_type):
 
             try:
                 user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
-                if (user_s.units >= sell_form.units):
+                if (user_s.units >= sell_form.units and sell_form.units > 0):
                     user_s.units -= sell_form.units
                     user_s.netgain += (coin.price * sell_form.units)
                     u.currency += coin.price * sell_form.units
@@ -92,40 +98,75 @@ def sellstock(request, coin_type):
                 else:
                     print("*****SELLING MORE THAN YOU OWN*****")
                     sell_form = SellStockForm()
-                    args = {'form': sell_form, 'coin': coin}
+                    args = {'form': sell_form, 'coin': coin, 'units': user_s.units}
                     return render(request, 'stocks/sellstock.html', args)
 
             except User_Stock.DoesNotExist:
                 print("*****NO USER STOCK MODEL*****")
                 sell_form = SellStockForm()
-                args = {'form': buy_form, 'coin': coin}
+                args = {'form': sell_form, 'coin': coin,  'units': 0}
                 return render(request, 'stocks/sellstock.html', args)
         else:
             print("*****FORM NOT VALID*****")
             sell_form = SellStockForm()
-            args = {'form': sell_form, 'coin': coin}
+            try:
+                user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
+                units = user_s.units
+            except User_Stock.DoesNotExist:
+                units = 0
+            args = {'form': sell_form, 'coin': coin, 'units': units}
             return render(request, 'stocks/sellstock.html', args)
     else:
-        sell_form = SellStockForm()
-        args = {'form': sell_form, 'coin_type': coin_type, 'coin': coin}
+        try:
+            sell_form = SellStockForm()
+            user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
+            args = {'form': sell_form, 'coin_type': coin_type, 'coin': coin, 'units': user_s.units}
+        except User_Stock.DoesNotExist:
+            sell_form = SellStockForm()
+            args = {'form': sell_form, 'coin_type': coin_type, 'coin': coin, 'units': 0}
         return render(request, 'stocks/sellstock.html', args)
 
+@login_required
 def stockdetail(request, coin_type):
-    #s1 = history.objects.get(coin_type=coin_type)
     user = request.user
-    sorted_history_table = history.objects.filter(coin_type=coin_type).order_by('-time')[:10]
+    current_price = current_price_table.objects.filter(coin_type=coin_type)
+    price_15_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[15:16]
+    price_30_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[29:30]
+    price_60_minutes = history.objects.filter(coin_type=coin_type).order_by('-time')[60:61]
+    price_6_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[361:362]
+    price_12_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[720:721]
+    price_24_hours = history.objects.filter(coin_type=coin_type).order_by('-time')[1439:1440]
+    try:
+        user_s = User_Stock.objects.get(owner=request.user, coin_type=coin_type)
+        units = user_s.units
+    except:
+        units = 0
     try:
         saved = SavedStock.objects.get(owner=user, coin_type=coin_type)
-        args = { 'history_table': sorted_history_table,
+        args = { 'current_price': current_price,
+                 'price_15_minutes': price_15_minutes,
+                 'price_30_minutes': price_30_minutes,
+                 'price_60_minutes': price_60_minutes,
+                 'price_6_hours': price_6_hours,
+                 'price_12_hours': price_12_hours,
+                 'price_24_hours': price_24_hours,
                  'coin_type': coin_type,
+                 'units': units,
                  'savedstock': saved, }
     except:
-        args = { 'history_table': sorted_history_table, 'coin_type': coin_type, }
+        args = { 'current_price': current_price,
+                 'price_15_minutes': price_15_minutes,
+                 'price_30_minutes': price_30_minutes,
+                 'price_60_minutes': price_60_minutes,
+                 'price_6_hours': price_6_hours,
+                 'price_12_hours': price_12_hours,
+                 'price_24_hours': price_24_hours,
+                 'coin_type': coin_type,
+                 'units': units, }
 
     return render(request, 'stocks/stockdetail.html', args)
 
-
-
+@login_required
 def savestock(request, coin_type):
     user = request.user
     stock = current_price_table.objects.get(coin_type=coin_type)
@@ -133,6 +174,7 @@ def savestock(request, coin_type):
     save_stock.save()
     return redirect('/account/')
 
+@login_required
 def unsavestock(request, coin_type):
     user = request.user
     coin = current_price_table.objects.get(coin_type=coin_type)

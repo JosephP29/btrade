@@ -1,56 +1,237 @@
 {% extends 'base.html' %}
 {% load humanize %}
 
-<head>
-  <title>Stock Details</title>
+{% block head %}
+  <meta charset="utf-8">
+  <title>Coin Details</title>
   <style>
     .btn_div {
         border-radius: 5px;
         background-color: #f2f2f2;
         padding: 20px;
     }
+    .button2 {
+      background-color: blue;
+      border: none;
+      color: white;
+      bottom: 100px;
+      border-radius: 6px;
+      border: 2px solid gray;
+      font-size: 20px;
+    }
+    #overlay {
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0);
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    #text{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      color: red;
+      display: none;
+    }
+    #text2{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      color: red;
+      display: none;
+    }
+    #text3{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      color: red;
+      display: none;
+    }
+    #text4{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      color: red;
+      display: none;
+    }
+    #text5{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      color: red;
+      display: none;
+    }
+    #text6{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      color: red;
+      display: none;
+    }
+    #text7{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      color: red;
+      display: none;
+    }
+    #text8{
+      font-size: 20px;
+      font-weight: bold;
+      text-align: left;
+      color: red;
+      display: none;
+    }
   </style>
-</head>
+{% endblock %}
+
 
 {% block body %}
-<p><center><img src="/static/Logo.png" alt="BTrade Logo should be here" height="25%" width="25%"></center></p>
 
+<div id="overlay" onclick="off()"> </div>
 <div class="container">
-  <h1>Stock Name: {{ coin_type }}</h1>
-  <table class="table table-hover">
-  <thead>
-   <tr>
-     <th>Price</th>
-     <th>24 Hour Volume</th>
-     <th>Market Cap</th>
-     <th>Time</th>
-   </tr>
-  </thead>
 
-  <tbody>
-  {% for entry in history_table %}
+  <p><center><img src="/static/Logo.png" alt="BTrade Logo should be here" height="25%" width="25%"></center></p>
 
-   <tr>
-     <td>${{ entry.price|intcomma }}</td>
-     <td>${{ entry.volume|intcomma }}</td>
-     <td>${{ entry.mktcap|intcomma }}</td>
-     <td>{{ entry.time|naturaltime}}</td>
-   </tr>
+  <div ng-app="app" ng-controller="LineCtrl">
+  <canvas id="price"
+          height="20"
+          width="80"
+          class="chart chart-line"
+          chart-data="price_data"
+          chart-labels="price_labels"
+          chart-legend="true"
+          chart-series="series"
+          chart-options="options"
+          chart-colors="colors">
+  </canvas>
+  </div>
 
-  {% endfor %}
-  </tbody>
-  </table>
+  <script>
+    angular.module("app", ["chart.js"]).controller("LineCtrl", function($scope, $http, $filter, API) {
+      'use strict';
+      $scope.price_data = [];
+      $scope.price_labels = [];
+      API.getData('https://www.coincap.io/history/1day/{{ coin_type }}').then(function(values) {
+          angular.forEach(values.price, function(value, key) {
+              $scope.price_data.push(value[1]);
+              $scope.price_labels.push($filter('date')(value[0], 'medium'));
+          });
+      });
 
-
-  <button type="buystock" onclick="location.href='/stocks/buystock/{{ coin_type }}/'">Buy Stock</button>
-  <button type="sellstock" onclick="location.href='/stocks/sellstock/{{ coin_type }}/'">Sell Stock</button>
+      $scope.series = [
+          'Price'
+      ];
+      $scope.colors = ['#6495ed'];
+      $scope.options = {
+          animation: false,
+          responsive: true,
+          tooltipEvents: [
+              'mousemove',
+              'touchstart',
+              'touchmove'
+          ],
+          elements: {
+              point: {
+                  radius: 0
+              },
+              line: {
+                  fill: true
+              }
+          },
+          scales: {
+              yAxes: [{
+                  display: true
+              }],
+              xAxes: [{
+                  display: false
+              }]
+          }
+      };
+  }).factory('API', function($http) {
+      'use strict';
+      var coins = [];
+      return {
+          getData: function(selection, $url, $log) {
+              var _url = selection;
+              if (typeof $url !== 'undefined') {
+                  _url += $url;
+              }
+              return $http({
+                  method: 'GET',
+                  url: _url
+              }).then(function(response) {
+                  coins = response.data;
+                  return coins;
+              }, function error(response) {
+                  $log.log(response);
+                  return false;
+              });
+          }
+      };
+  }).filter('numberWithCommas', function() {
+      'use strict';
+      return function(x) {
+          var parts = x.toString().split(".");
+          parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+          return parts.join(".");
+      };
+  });
+  </script>
+  <p align=right><h8>Graph generated by CoinCap</h8></p>
+  <div align="right"><button onclick="on()" class="button2">?</button></div>
+{% for entry in current_price %}
+  <h1>Coin: {{ coin_type }}</h1><div id="text" onclick="off()">&uarr; Coin details about</div>
+  <h3>Price: ${{ entry.price|intcomma }}</h3><div id="text2" onclick="off()">&uarr; Current price of {{coin_type}}</div>
+  <h3>Current Holdings: {{ units|intcomma }}</h3><div id="text2" onclick="off()">&uarr; Amount that you own</div>
+  <h3>Market Capitilization: ${{ entry.mktcap|intcomma }}</h3><div id="text4" onclick="off()">&uarr; Market Value of the Shares</div>
+  <h3>Change/24 Hours: {{ entry.change24hour|intcomma }}%</h3><div id="text3" onclick="off()">&uarr; Percent Increase/Decrease</div>
+  <h3>Volume/24 Hours: ${{ entry.volume|intcomma }}</h3><div id="text8" onclick="off()">&uarr; Number of coins traded in 24 hours measured in dollars</div>
+  <h3>High/24 Hours: ${{ entry.high24hour|intcomma }}</h3><div id="text5" onclick="off()">&uarr; Highest Value in last 24 hours</div>
+  <h3>Low/24 Hours: ${{ entry.low24hour|intcomma }}</h3><div id="text6" onclick="off()">&uarr; Lowest Value in last 24 hours</div>
+  <h3>Total Supply: {{ entry.supply|intcomma }} {{coin_type}}</h3><div id="text7" onclick="off()">&uarr; Amount of Coin in Circulation</div>
+{% endfor %}
+  <button type="buystock" onclick="location.href='/stocks/buystock/{{ coin_type }}/'">Buy Coin</button>
+  <button type="sellstock" onclick="location.href='/stocks/sellstock/{{ coin_type }}/'">Sell Coin</button>
 
   {% if savedstock == None %}
-    <button type="savestock" onclick="location.href='/stocks/savestock/{{ coin_type }}'">Watch Stock</button>
+    <button type="savestock" onclick="location.href='/stocks/savestock/{{ coin_type }}'">Watch Coin</button>
     {{ savedstock }}
   {% else %}
-    <button type="savestock" onclick="location.href='/stocks/unsavestock/{{ coin_type }}'">Stop Watching Stock</button>
+    <button type="savestock" onclick="location.href='/stocks/unsavestock/{{ coin_type }}'">Stop Watching Coin</button>
   {% endif%}
-  <h6>All data is made up, highly inaccurate and manually entered.</h6>
 </div>
+</br>
+<script>
+function on() {
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("text").style.display = "block";
+    document.getElementById("text2").style.display = "block";
+    document.getElementById("text3").style.display = "block";
+    document.getElementById("text4").style.display = "block";
+    document.getElementById("text5").style.display = "block";
+    document.getElementById("text6").style.display = "block";
+    document.getElementById("text7").style.display = "block";
+    document.getElementById("text8").style.display = "block";
+}
+
+function off() {
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("text").style.display = "none";
+    document.getElementById("text2").style.display = "none";
+    document.getElementById("text3").style.display = "none";
+    document.getElementById("text4").style.display = "none";
+    document.getElementById("text5").style.display = "none";
+    document.getElementById("text6").style.display = "none";
+    document.getElementById("text7").style.display = "none";
+    document.getElementById("text8").style.display = "none";
+}
+</script>
 {% endblock %}

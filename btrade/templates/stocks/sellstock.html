@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block body %}
 
 <div class="container">
   <h1>Sell Stock Form</h1>
-  <h4><b>Price per {{ coin_type }}: ${{coin.price}}</h4>
+  <h4><b>Price per {{ coin.coin_type }}: ${{coin.price|intcomma}}</h4>
+  <h4><b>Current {{ coin_type }} holdings:  {{units|intcomma}}</h4>
+  <br>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <h4>Sale Total: <t id="result" />0</h4>
+    <h4>Sale Total: $<t id="result" />0</h4>
     </br>
     <script type="text/javascript">
       document.getElementById("id_units").onchange = function()
@@ -17,12 +20,11 @@
              var cost = {{coin.price}};
              var result = document.getElementById('result').innerHTML;
              var myResult = units * cost;
-             var myResultFixed = myResult.toFixed(2);
-             document.getElementById('result').innerHTML = myResultFixed;
+             var myResultLocale = myResult.toLocaleString();
+             document.getElementById('result').innerHTML = myResultLocale;
            };
 
     </script>
-    <br>
     <!-- BUG:  -->
     <button type="submit" class="btn btn-warning btn-block">Submit</button>
   </form>

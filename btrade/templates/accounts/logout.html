@@ -1,7 +1,35 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Good Bye</title>
+    {% load static %}
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static '/HTML/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/HTML/css/bootstrap-responsive.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/HTML/css/fullcalendar.css' %}" />
+    <link rel="stylesheet" href="{% static '/HTML/css/maruti-style.css' %}" />
+    <link rel="stylesheet" href="{% static '/HTML/css/maruti-media.css' %}" class="skin-color" />
+  </head>
+  <body>
+    <!--Header-part-->
+    <div id="header">
+      <h1><a href="dashboard.html">Btrade</a></h1>
+    </div>
+    <!--close-Header-part-->
 
-{% block body %}
-<div class="container">
-  <h1>You have logged out!</h1>
-</div>
-{% endblock %}
+    <!--top-Header-messaages-->
+    <div class="btn-group rightzero"> <a class="top_message tip-left" title="Manage Files"><i class="icon-file"></i></a> <a class="top_message tip-bottom" title="Manage Users"><i class="icon-user"></i></a> <a class="top_message tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a> <a class="top_message tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a> </div>
+    <!--close-top-Header-messaages-->
+
+    <!--top-Header-menu-->
+    <div id="user-nav" class="navbar navbar-inverse">
+      <ul class="nav"><li class=""><a title="" href="/account/register/"><i class="icon icon-share-alt"></i> <span class="text">Sign-Up</span></a></li></ul>
+      <ul class="nav"><li class=""><a title="" href="/account/login/"><i class="icon icon-share-alt"></i> <span class="text">Login</span></a></li></ul>
+      </div>
+
+    </div>
+    </div>
+    <h1><center>You have logged out!</h1>
+  </body>
+</html>

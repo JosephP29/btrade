@@ -18,6 +18,9 @@ def main():
     parsed = json.loads(r.decode('utf-8'))
     ## Commment out the line below to disable JSON pretty-printing
     #print(json.dumps(parsed, indent=3, sort_keys=False))
+
+    #ADA,BCC,BCH,BTC,BTG,DASH,EMC2,EOS,ETC,ETH,LTC,MCO,MIOTA,NXT,OMG,PPT,QTUM,STEEM,STRAT,XEM,XLM,XMR,XRP,ZEC
+
     insert_table = 'stocks_history'
     update_table = 'stocks_current_price_table'
     if (len(sys.argv) == 2):
@@ -26,15 +29,19 @@ def main():
 
     for coin in sorted(parsed['RAW']):
         price = parsed['RAW'][coin]['USD']['PRICE']
-        volume = parsed['RAW'][coin]['USD']['VOLUME24HOURTO']
+        volume = parsed['RAW'][coin]['USD']['TOTALVOLUME24HTO']
         mktcap = parsed['RAW'][coin]['USD']['MKTCAP']
-        change24hour = parsed['RAW'][coin]['USD']['CHANGE24HOUR']
+        change24hour = parsed['RAW'][coin]['USD']['CHANGEPCT24HOUR']
         high24hour = parsed['RAW'][coin]['USD']['HIGH24HOUR']
         low24hour = parsed['RAW'][coin]['USD']['LOW24HOUR']
         supply = parsed['RAW'][coin]['USD']['SUPPLY']
         ## More fields are available from parsed, however these are the
         ## only values that should be necessary for us
-
+        volume = '%.2f' % volume
+        mktcap = '%.2f' % mktcap
+        change24hour = '%.5f' % change24hour
+        ## volume, mktcap, and change24hour do not need greater precision,
+        ## the %.#f alteration truncates to so many decimal places
         print(coin, "\tPRICE: ", price)
         print("\tVOLUME: ", volume)
         print("\tMKTCAP: ", mktcap)
@@ -44,12 +51,12 @@ def main():
         print("\tSUPPLY: ", supply)
 
         if (len(sys.argv) != 2):
-            insert_coin_price_hist(insert_table, coin, price, volume, mktcap)
-            update_current_prices(update_table, coin, price, volume, mktcap)
+            insert_coin_price_hist(insert_table, coin, price, volume, mktcap, change24hour)
+            update_current_prices(update_table, coin, price, volume, mktcap, change24hour)
         if (len(sys.argv) == 2):
             if sys.argv[1] == 'updatetables':
                 print("INSERTING INTO FRESH TABLE")
-                insert_coin_price_hist(update_table, coin, price, volume, mktcap)
+                insert_coin_price_hist(update_table, coin, price, volume, mktcap, change24hour)
 
 
         ## More fields are available from parsed, however these are the

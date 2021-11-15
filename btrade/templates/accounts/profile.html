@@ -97,6 +97,13 @@
         color: red;
         display: none;
       }
+      #text4{
+        font-size: 20px;
+        text-align: left;
+        font-weight: bold;
+        color: red;
+        display: none;
+      }
 
   </style>
   <title>Profile</title>
@@ -109,40 +116,34 @@
 
 <div class="container">
   <div align="right"><button onclick="on()" class="button2">?</button></div>
-  <div align="left"><h2>Welcome to your profile, {{ user.first_name }}</h2></div>
-  <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b> 
-  <br>Score: <b><i>{{ user.userprofile.earned_currency|intcomma }}</b></i></h3>
-
-  <div align="right">
-    <button class="button" onclick="location.href='/account/info'">Update User Info</button>
-  </div>
-
-  <h1>Your Portfolio</h1> <div id="text" onclick="off()">&darr; Currencies that you own</div>
-  <table class="table table-responsive table-striped">
+  <h2>Welcome to your account, {{ user.first_name }}</h2>
+  <h3>Account Balance: <b><i>${{ user.userprofile.currency|intcomma }}</i></b>
+  <br>Estimated Value: <b><i>${{total_holdings|intcomma}}</i></b>
+  <div id="text4" onclick="off()">&uarr; Sum of holdings' worth and balance </div>
+  <!-- <br>Score: <b><i>{{ user.userprofile.earned_currency|intcomma }}</b></i></h3> -->
+  <div align="right"><button class="button" onclick="location.href='/account/info'">Settings</button></div>
+  <h3>Current Holdings</h3> <div id="text" onclick="off()">&darr; Coins currently owned </div>
+  <table class="table table-condensed table-striped table-hover">
       <tr>
-        <th>Coin Name</th>
-        <th>Current Price/Unit</th>
+        <th>Coin</th>
         <th>Units</th>
+        <th>Current Price/Unit</th>
+        <th>Change/24 Hours</th>
         <th>Current Value</th>
-        <th>Return On Investment</th>
       </tr>
     {% for coin in coin_list %}
       <tr>
-        <td><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase stock here">{{ coin.coin_type }}</a></td>
+        <td style = "text-align: center;"><a href="../../stocks/stockdetail/{{ coin.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ coin.coin_type }}</a></td>
+        <td style = "text-align: center;">{{ coin.units|intcomma }}</td>
         {% for current_price in current_prices %}
           {% if current_price.coin_type == coin.coin_type %}
-            <td>${{ current_price.price|intcomma }}</td>
+            <td style = "text-align: center;">${{ current_price.price|intcomma }}</td>
+            <td style = "text-align: center;">{{ current_price.change24hour|intcomma }}</td>
           {% endif %}
         {% endfor %}
-        <td>{{ coin.units|intcomma }}</td>
         {% for key, value in costs.items %}
-          {% if coin.coin_type == key %}
-            <td>${{ value|intcomma }}</td>
-          {% endif %}
-        {% endfor %}
-        {% for key, value in roi.items %}
-          {% if coin.coin_type == key %}
-              <td>${{ value|intcomma }}</td>
+          {% if key == coin.coin_type %}
+            <td style = "text-align: center;">${{ value|intcomma }}</td>
           {% endif %}
         {% endfor %}
       </tr>
@@ -151,45 +152,57 @@
 </div>
 
 <div class="container">
-  <h1>Your Purchases</h1> <div id="text2" onclick="off()">&darr; Previous purchases of past currencies</div>
+  <h3>Previous Purchases</h3> <div id="text2" onclick="off()">&darr; Previous purchases of coins</div>
   <!--<a href="/admin/admin_search"><h2>Admin Profile</h2></a>-->
-  <table class="table table-responsive table-striped">
+  <table class="table table-condensed table-striped table-hover">
     <tr>
-      <th>Coin Name</th>
+      <th>Date</th>
+      <th>Coin</th>
       <th>Price/Unit</th>
-      <th>Date Bought</th>
       <th>Units</th>
-      <th>Total Cost</th>
+      <th>Purchase Total</th>
+      <th>Current Price/Unit</th>
+      <th>Return on Investment</th>
     </tr>
     {% for buy in buys %}
       <tr>
-        <td><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase stock here">{{ buy.coin_type }}</a></td>
-        <td>${{ buy.price_bought_at|intcomma }}</td>
-        <td>{{ buy.date_bought|naturaltime }}</td>
-        <td>{{ buy.units|intcomma }}</td>
-        <td>${{ buy.buy_total|intcomma }}</td>
+        <td style = "text-align: center;">{{ buy.date_bought|naturaltime }}</td>
+        <td style = "text-align: center;"><a href="../../stocks/stockdetail/{{ buy.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ buy.coin_type }}</a></td>
+        <td style = "text-align: center;">${{ buy.price_bought_at|intcomma }}</td>
+        <td style = "text-align: center;">{{ buy.units|intcomma }}</td>
+        <td style = "text-align: center;">${{ buy.buy_total|intcomma }}</td>
+        {% for current_price in current_prices %}
+          {% if current_price.coin_type == buy.coin_type %}
+            <td style = "text-align: center;">${{ current_price.price|intcomma }}</td>
+          {% endif %}
+        {% endfor %}
+        {% for key, value in roi.items %}
+          {% if buy.coin_type == key %}
+              <td style = "text-align: center;">${{ value|intcomma }}</td>
+          {% endif %}
+        {% endfor %}
       </tr>
     {% endfor %}
   </table>
 </div>
 
 <div class="container">
-  <h1>Your Sales</h1> <div id="text3" onclick="off()">&darr; Previous sales of currencies owned</div>
-  <table class="table table-responsive table-striped">
+  <h3>Previous Sales</h3> <div id="text3" onclick="off()">&darr; Previous sales of coins</div>
+  <table class="table table-condensed table-striped table-hover">
     <tr>
-      <th>Coin Name</th>
+      <th>Date</th>
+      <th>Coin</th>
       <th>Price/Unit</th>
-      <th>Date Bought</th>
       <th>Units</th>
-      <th>Total Cost</th>
+      <th>Sale Total</th>
     </tr>
     {% for sale in sales %}
       <tr>
-        <td><a href="../../stocks/stockdetail/{{ sale.coin_type }}/"  title="Purchase stock here">{{ sale.coin_type }}</a></td>
-        <td>${{ sale.price_sold_at|intcomma }}</td>
-        <td>{{ sale.date_bought|naturaltime }}</td>
-        <td>{{ sale.units|intcomma }}</td>
-        <td>${{ sale.sell_total|intcomma }}</td>
+        <td style = "text-align: center;">{{ sale.date_bought|naturaltime }}</td>
+        <td style = "text-align: center;"><a href="../../stocks/stockdetail/{{ sale.coin_type }}/"  title="Purchase {{ coin.coin_type }}">{{ sale.coin_type }}</a></td>
+        <td style = "text-align: center;">${{ sale.price_sold_at|intcomma }}</td>
+        <td style = "text-align: center;">{{ sale.units|intcomma }}</td>
+        <td style = "text-align: center;">${{ sale.sell_total|intcomma }}</td>
       </tr>
     {% endfor %}
   </table>
@@ -200,6 +213,7 @@ function on() {
     document.getElementById("text").style.display = "block";
     document.getElementById("text2").style.display = "block";
     document.getElementById("text3").style.display = "block";
+    document.getElementById("text4").style.display = "block";
 }
 
 function off() {
@@ -207,6 +221,7 @@ function off() {
     document.getElementById("text").style.display = "none";
     document.getElementById("text2").style.display = "none";
     document.getElementById("text3").style.display = "none";
+    document.getElementById("text4").style.display = "none";
 }
 </script>
 
